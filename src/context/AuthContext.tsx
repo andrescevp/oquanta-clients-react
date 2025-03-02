@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useLayoutEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom'; // En lugar de 'react-router'
 
 import { jwtDecode } from 'jwt-decode';
 
@@ -7,7 +7,7 @@ import { AuthApi, Configuration } from '../api-generated';
 import { storage } from '../lib/storage';
 import { AuthContextType, AuthState, LoginCredentials, User } from '../types/auth';
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const initialState: AuthState = {
     user: null,
@@ -16,9 +16,17 @@ const initialState: AuthState = {
     isLoading: true,
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface JWTTokenDecoded {
+    exp: number;
+    roles: string[];
+}
+
+// Componente AuthProvider que no utiliza directamente useNavigate
+export const AuthProvider: React.FC<{ 
+    children: React.ReactNode; 
+    navigate: (path: string) => void;
+}> = ({ children, navigate }) => {
     const [state, setState] = useState<AuthState>(initialState);
-    const navigate = useNavigate();
     const api = new AuthApi({
         basePath: process.env.REACT_APP_BACKEND_API_URL || '',
         isJsonMime: () => true,
@@ -31,7 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             storage.clearUser();
             navigate('/login');
         }
-    }, [isSessionExpired]);
+    }, [isSessionExpired, navigate]);
 
     useEffect(() => {
         const initializeAuth = () => {
@@ -63,8 +71,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 if (!token) {
                     throw new Error('Token not found');
                 }
-                const { exp } = jwtDecode(token);
-                const user: User = { email: credentials.email };
+                
+                const { exp, roles } = jwtDecode<JWTTokenDecoded>(token);
+                
+                if (!roles) {
+                    throw new Error('Roles not found');
+                }
+
+                const user: User = { email: credentials.email, roles: roles };
                 storage.setToken(token);
                 storage.setUser(user);
                 storage.setExpiration(exp || 0);
@@ -100,6 +114,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return <AuthContext.Provider value={{ ...state, login, logout }}>{children}</AuthContext.Provider>;
 };
 
+// Wrapper que usa useNavigate y lo pasa al AuthProvider
+export const AuthProviderWithRouter: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const navigate = useNavigate();
+    return <AuthProvider navigate={navigate}>{children}</AuthProvider>;
+};
+
+// Hook personalizado para consumir el contexto de autenticación
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (context === undefined) {
@@ -108,15 +129,25 @@ export const useAuth = () => {
 
     const configuration = context.token
         ? new Configuration({
-              basePath: process.env.REACT_APP_BACKEND_API_URL,
-              accessToken: context.token,
-              baseOptions: {
-                  headers: {
-                      Accept: 'application/json, application/problem+json, application/ld+json',
-                  },
-              },
-          })
+            basePath: process.env.REACT_APP_BACKEND_API_URL,
+            accessToken: context.token,
+            baseOptions: {
+                headers: {
+                    Accept: 'application/json, application/problem+json, application/ld+json',
+                },
+            },
+        })
         : undefined;
 
     return { ...context, configuration };
+};
+
+
+export const useUser = () => {
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+
+    return { ...context };
 };

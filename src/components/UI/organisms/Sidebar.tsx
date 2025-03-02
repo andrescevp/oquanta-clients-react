@@ -2,22 +2,8 @@ import React from 'react';
 
 import { Transition } from '@headlessui/react';
 
-import {
-    IconAnalytics,
-    IconDashboard,
-    IconFiles,
-    IconSettings,
-    IconUsers
-} from "../Icons";
+import { useSidebar } from '../../../context/SidebarContext';
 import { SidebarHeader, SidebarItem } from '../molecules/SidebarElements';
-
-const menuItems = [
-    {icon: IconDashboard, label: 'Dashboard', href: '#'},
-    {icon: IconUsers, label: 'Users', href: '#'},
-    {icon: IconAnalytics, label: 'Analytics', href: '#'},
-    {icon: IconFiles, label: 'Documents', href: '#'},
-    {icon: IconSettings, label: 'Settings', href: '#'},
-];
 
 interface SidebarProps {
     isCollapsed: boolean;
@@ -25,6 +11,8 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) => {
+    const { menuItems } = useSidebar();
+
     return (
         <Transition.Root show={true} as={React.Fragment}>
             <aside

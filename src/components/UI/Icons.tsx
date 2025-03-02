@@ -7,8 +7,7 @@ import {RiInputMethodLine} from 'react-icons/ri';
 import {TbLoader3, TbSection} from 'react-icons/tb';
 import {VscAdd, VscClose, VscSymbolNumeric} from 'react-icons/vsc';
 
-import {LayoutList,RefreshCcw} from 'lucide-react';
-import {BarChart3, ChevronLeft, ChevronRight, Files, LayoutDashboard, Save, Settings, Users} from 'lucide-react';
+import {BarChart3, ChevronLeft, ChevronRight, Files, LayoutDashboard, LayoutList,RefreshCcw, Save, Settings, Users} from 'lucide-react';
 
 export const IconTrash = FaTrash;
 

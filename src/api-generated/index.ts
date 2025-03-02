@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * My App
- * This is an awesome app!
+ * oQuanta Clients API
+ * Internal Private API for oQuanta Clients APP
  *
  * The version of the OpenAPI document: 1.0.0
  * 

@@ -5,6 +5,7 @@ import { LogOut, User } from 'lucide-react';
 
 import { useAuth } from '../../../context/AuthContext';
 
+
 export const UserMenu: React.FC = () => {
     const { user, logout } = useAuth();
 

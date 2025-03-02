@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../context/AuthContext';
 import { LoginCredentials } from '../types/auth';
 
 export const LoginPage = () => {
+    const { t } = useTranslation();
     const { login } = useAuth();
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState<LoginCredentials>({
@@ -23,7 +25,7 @@ export const LoginPage = () => {
             await login(credentials);
             navigate('/');
         } catch (err) {
-            setError('Invalid email or password');
+            setError(t('Email o contraseña incorrectos'));
         } finally {
             setIsLoading(false);
         }
@@ -41,7 +43,7 @@ export const LoginPage = () => {
             <div className='max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md'>
                 <div>
                     <h2 className='text-center text-3xl font-bold text-gray-900 dark:text-white'>
-                        Sign in to your account
+                        {t('Inicia sesión en tu cuenta')}
                     </h2>
                 </div>
 
@@ -53,7 +55,7 @@ export const LoginPage = () => {
                             <label
                                 htmlFor='email'
                                 className='block text-sm font-medium text-gray-700 dark:text-gray-300'>
-                                Email address
+                                {t('Correo electrónico')}
                             </label>
                             <input
                                 id='email'
@@ -71,7 +73,7 @@ export const LoginPage = () => {
                             <label
                                 htmlFor='password'
                                 className='block text-sm font-medium text-gray-700 dark:text-gray-300'>
-                                Password
+                                {t('Contraseña')}
                             </label>
                             <input
                                 id='password'
@@ -90,7 +92,7 @@ export const LoginPage = () => {
                         type='submit'
                         disabled={isLoading}
                         className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50'>
-                        {isLoading ? 'Signing in...' : 'Sign in'}
+                        {isLoading ? t('Iniciando sesión...') : t('Iniciar sesión')}
                     </button>
                 </form>
             </div>
