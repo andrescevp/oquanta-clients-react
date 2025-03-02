@@ -17,6 +17,7 @@ Hooks are located in `srs/hooks`
 Pages are in `src/pages`
 Utils are in `src/lib`
 App defintion alogn with global providers and the rour are in `src/App.tsx`.
-To create UI components use allways Tailwind, clsx and `@headlessui/react`.
+To create UI components use allways Tailwind, clsx, lucide react and `@headlessui/react`.
+To create tables we use `react-data-table-component`
 Components must have interfaces and related types in the same file as the Component. 
 ```
