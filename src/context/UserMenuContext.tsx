@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
-import { LogOut, Settings, Shield,User, UserCog } from 'lucide-react';
-
+import { IconLogOut, IconSettings, IconShield, IconUser, IconUserCog } from '../components/UI/Icons';
 import { useTheme } from '../hooks/useTheme';
 import { useAuth } from './AuthContext';
 
@@ -32,12 +31,12 @@ export const UserMenuProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // Elementos comunes para todos los usuarios
     const commonItems: UserMenuItem[] = [
       {
-        icon: User,
+        icon: IconUser,
         label: 'Mi perfil',
         href: '/profile',
       },
       {
-        icon: Settings,
+        icon: IconSettings,
         label: 'Configuración',
         href: '/settings',
       },
@@ -52,7 +51,7 @@ export const UserMenuProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         label: 'divider-1',
       },
       {
-        icon: LogOut,
+        icon: IconLogOut,
         label: 'Cerrar sesión',
         onClick: logout,
       },
@@ -61,13 +60,13 @@ export const UserMenuProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // Elementos específicos para administradores
     const adminItems: UserMenuItem[] = [
       {
-        icon: Shield,
+        icon: IconShield,
         label: 'Panel de administración',
         href: '/admin/dashboard',
         roles: ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],
       },
       {
-        icon: UserCog,
+        icon: IconUserCog,
         label: 'Gestionar usuarios',
         href: '/admin/users',
         roles: ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],

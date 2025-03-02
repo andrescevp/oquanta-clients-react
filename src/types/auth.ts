@@ -1,13 +1,18 @@
+
 export interface User {
     email: string;
     roles: string[];
 }
 
 export interface AuthState {
-    user: User | null;
-    token: string | null;
+    user?: User;
+    token?: string;
     isAuthenticated: boolean;
     isLoading: boolean;
+    error?: {
+        message: string;
+        code: string;
+    };
 }
 
 export interface LoginCredentials {

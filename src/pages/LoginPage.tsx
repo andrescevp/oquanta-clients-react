@@ -1,54 +1,66 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
+import logo from '../assets/images/oquanta.png';
+import ButtonLoder from '../components/UI/molecules/ButtonLoder';
 import { useAuth } from '../context/AuthContext';
+import { cn } from '../lib/utils';
 import { LoginCredentials } from '../types/auth';
+
+
+type FormValues = {
+    email: string;
+    password: string;
+};
 
 export const LoginPage = () => {
     const { t } = useTranslation();
-    const { login } = useAuth();
-    const navigate = useNavigate();
-    const [credentials, setCredentials] = useState<LoginCredentials>({
-        email: '',
-        password: '',
+    const { login, error, isLoading } = useAuth();
+    
+    const { 
+        register, 
+        handleSubmit, 
+        formState: { errors } 
+    } = useForm<FormValues>({
+        defaultValues: {
+            email: '',
+            password: '',
+        },
     });
-    const [error, setError] = useState<string>('');
-    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setError('');
-        setIsLoading(true);
-
+    const onSubmit = async (data: FormValues) => {
         try {
-            await login(credentials);
-            navigate('/');
+            // El método login en AuthContext ya maneja la navegación
+            // y los errores internamente
+            await login(data as LoginCredentials);
         } catch (err) {
-            setError(t('Email o contraseña incorrectos'));
-        } finally {
-            setIsLoading(false);
+            // El error ya se maneja en el contexto de autenticación
+            // No necesitamos hacer nada más aquí
         }
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCredentials(prev => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-        }));
     };
 
     return (
         <div className='min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4'>
             <div className='max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md'>
-                <div>
+                <LazyLoadImage
+                    alt={t('Logo oQuanta')}
+                    src={logo} // use normal <img> attributes as props
+                    className='h-10 mx-auto'
+                    />
+                {/* <div>
                     <h2 className='text-center text-3xl font-bold text-gray-900 dark:text-white'>
                         {t('Inicia sesión en tu cuenta')}
                     </h2>
-                </div>
+                </div> */}
 
-                <form className='mt-8 space-y-6' onSubmit={handleSubmit}>
-                    {error && <div className='text-red-500 text-sm text-center'>{error}</div>}
+                <form className='mt-8 space-y-6' onSubmit={handleSubmit(onSubmit)} noValidate>
+                    {error && (
+                        <div className='p-3 bg-red-50 border-l-4 border-red-500 text-red-700 dark:bg-red-900/20 dark:text-red-400'>
+                            {t('Email o contraseña incorrectos')}
+                        </div>
+                    )}
 
                     <div className='space-y-4'>
                         <div>
@@ -59,14 +71,27 @@ export const LoginPage = () => {
                             </label>
                             <input
                                 id='email'
-                                name='email'
                                 type='email'
                                 autoComplete='email'
-                                required
-                                value={credentials.email}
-                                onChange={handleChange}
-                                className='mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                                className={cn(
+                                    'mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-white',
+                                    'focus:outline-none focus:ring-indigo-500 focus:border-indigo-500',
+                                    errors.email && 'border-red-500 dark:border-red-500'
+                                )}
+                                disabled={isLoading}
+                                {...register('email', { 
+                                    required: t('El correo electrónico es obligatorio'),
+                                    pattern: {
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                        message: t('Ingrese un correo electrónico válido')
+                                    }
+                                })}
                             />
+                            {errors.email && (
+                                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                                    {errors.email.message}
+                                </p>
+                            )}
                         </div>
 
                         <div>
@@ -77,23 +102,43 @@ export const LoginPage = () => {
                             </label>
                             <input
                                 id='password'
-                                name='password'
                                 type='password'
                                 autoComplete='current-password'
-                                required
-                                value={credentials.password}
-                                onChange={handleChange}
-                                className='mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                                className={cn(
+                                    'mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm dark:bg-gray-700 dark:text-white',
+                                    'focus:outline-none focus:ring-indigo-500 focus:border-indigo-500',
+                                    errors.password && 'border-red-500 dark:border-red-500'
+                                )}
+                                disabled={isLoading}
+                                {...register('password', { 
+                                    required: t('La contraseña es obligatoria'),
+                                    minLength: {
+                                        value: 6,
+                                        message: t('La contraseña debe tener al menos 6 caracteres')
+                                    }
+                                })}
                             />
+                            {errors.password && (
+                                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                                    {errors.password.message}
+                                </p>
+                            )}
                         </div>
                     </div>
 
-                    <button
+                    <ButtonLoder
                         type='submit'
                         disabled={isLoading}
-                        className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50'>
-                        {isLoading ? t('Iniciando sesión...') : t('Iniciar sesión')}
-                    </button>
+                        loading={isLoading}
+                        className={cn(
+                            'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white',
+                            'bg-pumpkin-orange/80 hover:bg-pumpkin-orange focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pumpkin-orange',
+                            'disabled:opacity-50 transition-colors shadow dark:shadow-pure-white/50'
+                        )}
+                        iconLoaderClassName="animate-spin w-5 h-5 text-white mx-auto"
+                    >
+                        {t('Iniciar sesión')}
+                    </ButtonLoder>
                 </form>
             </div>
         </div>

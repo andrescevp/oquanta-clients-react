@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {ThemeToggle} from '../molecules/ThemeToggle';
 import {Breadcrumbs} from '../organisms/Breadcrumbs';
 import {Sidebar} from '../organisms/Sidebar';
 import {UserMenu} from '../organisms/UserMenu';
@@ -22,11 +21,9 @@ export const Dashboard: React.FC<DashboardLayoutProps> = ({children}) => {
                     className='h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6'>
                     <Breadcrumbs/>
                     <div className='flex items-center gap-4'>
-                        <ThemeToggle/>
                         <UserMenu/>
                     </div>
                 </header>
-
                 <main className='h-[calc(100vh_-_4rem)] overflow-hidden'>{children}</main>
             </div>
         </div>

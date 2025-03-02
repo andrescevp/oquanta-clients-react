@@ -4,30 +4,48 @@ const path = require('path');
 module.exports = {
   webpack: {
     configure: (webpackConfig) => {
+      // // Añadimos una regla específica para manejar imágenes con parámetros de consulta
+      // const imageRule = webpackConfig.module.rules.find(rule => rule.test && rule.test.test('.svg'));
+      
+      // // Modificamos las reglas existentes para excluir los archivos con parámetros de consulta
+      // if (imageRule) {
+      //   imageRule.exclude = /\.(gif|png|jpe?g|svg|tiff|webp)$/i;
+      // }
+
       // Añadir soporte para WebP
       webpackConfig.module.rules.push({
-        test: /\.(jpe?g|png)$/i,
-        use: [
-          {
-            loader: 'webp-loader',
-            options: {
-              quality: 80
-            }
-          }
-        ]
+        test: /\.(gif|png|jpe?g|svg|avif|webp)$/i,
+        type: "asset",
       });
 
       // Añadir plugin de optimización de imágenes
       webpackConfig.optimization.minimizer.push(
         new ImageMinimizerPlugin({
           minimizer: {
-            implementation: ImageMinimizerPlugin.imageminMinify,
+            implementation: ImageMinimizerPlugin.sharpMinify,
             options: {
-              plugins: [
-                ['mozjpeg', { quality: 80 }],
-                ['pngquant', { quality: [0.6, 0.8] }],
-                ['imagemin-webp', { quality: 80 }]
-              ]
+              encodeOptions: {
+                jpeg: {
+                  // https://sharp.pixelplumbing.com/api-output#jpeg
+                  quality: 100,
+                },
+                webp: {
+                  // https://sharp.pixelplumbing.com/api-output#webp
+                  lossless: true,
+                },
+                avif: {
+                  // https://sharp.pixelplumbing.com/api-output#avif
+                  lossless: true,
+                },
+  
+                // png by default sets the quality to 100%, which is same as lossless
+                // https://sharp.pixelplumbing.com/api-output#png
+                png: {},
+  
+                // gif does not support lossless compression at all
+                // https://sharp.pixelplumbing.com/api-output#gif
+                gif: {},
+              },
             }
           },
           generator: [

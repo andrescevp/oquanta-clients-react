@@ -10,8 +10,6 @@ import { AuthContextType, AuthState, LoginCredentials, User } from '../types/aut
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const initialState: AuthState = {
-    user: null,
-    token: null,
     isAuthenticated: false,
     isLoading: true,
 };
@@ -48,7 +46,7 @@ export const AuthProvider: React.FC<{
 
             setState({
                 user,
-                token,
+                token: token || undefined,
                 isAuthenticated: Boolean(token && user),
                 isLoading: false,
             });
@@ -64,9 +62,13 @@ export const AuthProvider: React.FC<{
         })
             .then(response => {
                 if (response.status !== 200) {
-                    throw new Error('Login failed');
+                    setState({
+                        isAuthenticated: false,
+                        isLoading: false,
+                        error: { message: 'Invalid credentials', code: String(response.status) },
+                    });
+                    return;
                 }
-
                 const { token } = response.data;
                 if (!token) {
                     throw new Error('Token not found');
@@ -93,7 +95,11 @@ export const AuthProvider: React.FC<{
             })
             .catch(error => {
                 console.error('Login error:', error);
-                throw error;
+                setState({
+                    isAuthenticated: false,
+                    isLoading: false,
+                    error: { message: 'Error logging in', code: '500' },
+                });
             });
     };
 

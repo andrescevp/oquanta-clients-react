@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Menu } from '@headlessui/react';
-import clsx from 'clsx';
-import { Moon, Sun,User } from 'lucide-react';
 
 import { useAuth } from '../../../context/AuthContext';
 import { useUserMenu } from '../../../context/UserMenuContext';
 import { useTheme } from '../../../hooks/useTheme';
+import { cn } from '../../../lib/utils';
+import { IconDarkTheme, IconLightTheme, IconUser } from '../Icons';
 
 export const UserMenu: React.FC = () => {
     const { user } = useAuth();
@@ -18,7 +18,7 @@ export const UserMenu: React.FC = () => {
         <Menu as='div' className='relative'>
             <Menu.Button className='flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors'>
                 <div className='w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center'>
-                    <User className='w-4 h-4 text-indigo-600 dark:text-indigo-300' />
+                    <IconUser className='w-4 h-4 text-indigo-600 dark:text-indigo-300' />
                 </div>
                 <span className='text-sm font-medium text-gray-700 dark:text-gray-200'>{user?.email}</span>
             </Menu.Button>
@@ -37,9 +37,9 @@ export const UserMenu: React.FC = () => {
                                     <div className="flex items-center justify-between w-full">
                                         <div className="flex items-center gap-2">
                                             {isDark ? (
-                                                <Moon className="w-4 h-4" />
+                                                <IconLightTheme className="w-4 h-4" />
                                             ) : (
-                                                <Sun className="w-4 h-4" />
+                                                <IconDarkTheme className="w-4 h-4" />
                                             )}
                                             <span>{item.label}</span>
                                         </div>
@@ -56,7 +56,7 @@ export const UserMenu: React.FC = () => {
                                     </>
                                 );
 
-                                const className = clsx(
+                                const className = cn(
                                     'w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200',
                                     active ? 'bg-gray-100 dark:bg-gray-700' : ''
                                 );

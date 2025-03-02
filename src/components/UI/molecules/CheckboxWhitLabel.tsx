@@ -14,7 +14,7 @@ const CheckboxWithLabel = React.forwardRef<HTMLInputElement, CheckboxWithLabelPr
         return (
             <div className='flex items-center space-x-2'>
                 <Checkbox id={id} ref={ref} {...checkboxProps} />
-                <Label htmlFor={id}>{label}</Label>
+                <Label htmlFor={id} className='dark:text-dark-300'>{label}</Label>
             </div>
         );
     },

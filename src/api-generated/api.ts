@@ -349,7 +349,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         getAuthToken: async (credentials?: Credentials, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/auth`;
+            const localVarPath = `/api/login_check`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

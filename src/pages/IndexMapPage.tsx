@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import { Link } from 'react-router';
 
-import clsx from 'clsx';
 import L from 'leaflet';
 
 import { LocationPermission } from '../components/LocationPermission';
 import { useUserLocation } from '../hooks/useUserLocation';
+import { cn } from '../lib/utils';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -142,7 +142,7 @@ export const IndexMapPage: React.FC = () => {
       
       {/* Barra de búsqueda con animación (capa superior) */}
       <div 
-        className={clsx(
+        className={cn(
           "z-40 absolute px-4 sm:px-0 w-full sm:max-w-lg left-1/2 transform -translate-x-1/2 transition-all duration-500 ease-in-out",
           searchActive ? "top-4" : "top-1/2 -translate-y-1/2"
         )}
@@ -166,7 +166,7 @@ export const IndexMapPage: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('Buscar ubicaciones...')}
-              className={clsx(
+              className={cn(
                 "w-full px-4 py-3 rounded-lg shadow-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white",
                 searchActive ? "pl-10" : ""
               )}

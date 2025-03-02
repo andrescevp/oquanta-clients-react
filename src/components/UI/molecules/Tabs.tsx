@@ -1,55 +1,82 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import * as React from "react";
 
-import { Tab } from '@headlessui/react';
-import clsx from 'clsx';
+import { Tab } from "@headlessui/react";
 
-interface TabItem {
-    name: string;
-    component: React.ReactNode;
+import { cn } from "../../../lib/utils";
+
+export interface TabsProps extends React.ComponentPropsWithoutRef<typeof Tab.Group> {
+  className?: string;
 }
 
-interface SurveyTabsProps {
-    tabs: TabItem[];
+export const Tabs = React.forwardRef<
+  React.ElementRef<typeof Tab.Group>,
+  TabsProps
+>(({ className, ...props }, ref) => (
+  <Tab.Group
+    ref={ref}
+    {...props}
+    className={cn("w-full", className)}
+  />
+));
+Tabs.displayName = "Tabs";
+
+export interface TabsListProps extends React.ComponentPropsWithoutRef<typeof Tab.List> {
+  className?: string;
 }
 
-export const Tabs: React.FC<SurveyTabsProps> = ({ tabs }) => {
-    const { t } = useTranslation();
+export const TabsList = React.forwardRef<
+  React.ElementRef<typeof Tab.List>,
+  TabsListProps
+>(({ className, ...props }, ref) => (
+  <Tab.List
+    ref={ref}
+    className={cn(
+      "flex h-10 items-center rounded-md bg-gray-100 p-1 dark:bg-dark-800",
+      className
+    )}
+    {...props}
+  />
+));
+TabsList.displayName = "TabsList";
 
-    return (
-        <div className="w-full">
-            <Tab.Group>
-                <Tab.List className="flex border-b border-gray-200">
-                    {tabs.map((tab) => (
-                        <Tab
-                            key={tab.name}
-                            className={({ selected }) =>
-                                clsx(
-                                    'px-4 py-2 text-sm font-medium focus:outline-none',
-                                    'border-b-2 -mb-[2px]',
-                                    selected
-                                        ? 'border-blue-500 text-blue-600'
-                                        : 'border-transparent text-gray-900 hover:text-gray-700 hover:border-gray-300'
-                                )
-                            }
-                        >
-                            {t(tab.name)}
-                        </Tab>
-                    ))}
-                </Tab.List>
-                <Tab.Panels className="mt-4">
-                    {tabs.map((tab) => (
-                        <Tab.Panel
-                            key={tab.name}
-                            className={clsx(
-                                'focus:outline-none'
-                            )}
-                        >
-                            {tab.component}
-                        </Tab.Panel>
-                    ))}
-                </Tab.Panels>
-            </Tab.Group>
-        </div>
-    );
-};
+export interface TabsTriggerProps extends React.ComponentPropsWithoutRef<typeof Tab> {
+  className?: string;
+  selected?: boolean;
+}
+
+export const TabsTrigger = React.forwardRef<
+  React.ElementRef<typeof Tab>,
+  TabsTriggerProps
+>(({ className, selected, ...props }, ref) => (
+  <Tab
+    ref={ref}
+    className={cn(
+      "inline-flex w-full items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+      selected
+        ? "bg-white text-blue-600 shadow-sm dark:bg-dark-700 dark:text-blue-400"
+        : "text-gray-600 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-dark-700 dark:hover:text-gray-300",
+      className
+    )}
+    {...props}
+  />
+));
+TabsTrigger.displayName = "TabsTrigger";
+
+export interface TabsContentProps extends React.ComponentPropsWithoutRef<typeof Tab.Panel> {
+  className?: string;
+}
+
+export const TabsContent = React.forwardRef<
+  React.ElementRef<typeof Tab.Panel>,
+  TabsContentProps
+>(({ className, ...props }, ref) => (
+  <Tab.Panel
+    ref={ref}
+    className={cn(
+      "py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+      className
+    )}
+    {...props}
+  />
+));
+TabsContent.displayName = "TabsContent";

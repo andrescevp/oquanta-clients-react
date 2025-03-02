@@ -1,4 +1,3 @@
-import React from 'react';
 import {FaEdit, FaRedo, FaTrash} from 'react-icons/fa';
 import {GrDrag} from 'react-icons/gr';
 import {ImPageBreak} from 'react-icons/im';
@@ -7,7 +6,7 @@ import {RiInputMethodLine} from 'react-icons/ri';
 import {TbLoader3, TbSection} from 'react-icons/tb';
 import {VscAdd, VscClose, VscSymbolNumeric} from 'react-icons/vsc';
 
-import {BarChart3, ChevronLeft, ChevronRight, Files, LayoutDashboard, LayoutList,RefreshCcw, Save, Settings, Users} from 'lucide-react';
+import {BarChart3, ChevronLeft, ChevronRight, Files, Home, LayoutDashboard, LayoutList, LoaderCircle, LogOut, Menu, Moon, Plus, RefreshCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users} from 'lucide-react';
 
 export const IconTrash = FaTrash;
 
@@ -54,43 +53,20 @@ export const IconLoader = TbLoader3;
 export const IconRefresh = RefreshCcw;
 export const IconLayoutList = LayoutList;
 
-export const IconGripVertical = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    {...props}
-  >
-    <circle cx="9" cy="12" r="1" />
-    <circle cx="9" cy="5" r="1" />
-    <circle cx="9" cy="19" r="1" />
-    <circle cx="15" cy="12" r="1" />
-    <circle cx="15" cy="5" r="1" />
-    <circle cx="15" cy="19" r="1" />
-  </svg>
-);
+export const IconMenu = Menu;
 
-export const IconPlus = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    {...props}
-  >
-    <path d="M12 5v14M5 12h14" />
-  </svg>
-);
+export const IconLightTheme = Sun;
+export const IconDarkTheme = Moon;
+export const IconHome = Home;
+export const IconUser = User;
+export const IconLogOut = LogOut;
+export const IconShield = Shield;
+export const IconUserCog = UserCog;
+
+export const IconSearch = Search;
+export const IconPlus = Plus;
+export const IconLoaderCircle = LoaderCircle;
+
+
 
 export default {};

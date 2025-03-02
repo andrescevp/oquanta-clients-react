@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { clsx } from 'clsx';
-
+import { cn } from '../../../lib/utils';
 import Input from '../atoms/Input';
 import Label from '../atoms/Label';
 
@@ -19,11 +18,11 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
         const haveError = error !== undefined && error !== false;
         return (
             <div
-                className={clsx(
+                className={cn(
                     inline ? 'flex flex-row space-x-1 items-start' : 'flex flex-col space-y-0.5',
                     className,
                 )}>
-                <Label htmlFor={id} className={clsx('font-bold', haveError && 'text-red-500')}>
+                <Label htmlFor={id} className={cn('font-bold dark:text-dark-300', haveError && 'text-red-500')}>
                     <span>
                         {label}
                     </span>

@@ -1,9 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import clsx from 'clsx';
-
 import { MenuItem } from '../../../context/SidebarContext';
+import { cn } from '../../../lib/utils';
 
 interface SidebarItemProps extends MenuItem {
     isCollapsed: boolean;
@@ -14,7 +13,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ icon: Icon, label, hre
         <NavLink
             to={href}
             className={({ isActive }) =>
-                clsx(
+                cn(
                     'flex items-center p-2 rounded-lg transition-colors',
                     isActive 
                         ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200' 
@@ -36,7 +35,7 @@ export const SidebarHeader: React.FC<{
     onToggle: () => void;
 }> = ({ isCollapsed, onToggle }) => {
     return (
-        <div className={clsx(
+        <div className={cn(
             'flex items-center py-4 border-b border-gray-200 dark:border-gray-700 h-16',
             isCollapsed ? 'justify-center px-2' : 'px-4 justify-between'
         )}>
@@ -48,7 +47,7 @@ export const SidebarHeader: React.FC<{
             
             <button
                 onClick={onToggle}
-                className={clsx(
+                className={cn(
                     'p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700',
                     isCollapsed ? 'mx-auto' : ''
                 )}
