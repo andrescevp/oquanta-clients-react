@@ -18,6 +18,17 @@ module.exports = {
         animatedSpeed: '1000',
         animationDelaySpeed: '100'
       },
+      animation: {
+        fadeIn: 'fadeIn 0.2s ease-in-out',
+        // ...any existing animations...
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', width: '0' },
+          '100%': { opacity: '1', width: '100%' },
+        },
+        // ...any existing keyframes...
+      },
       fontWeight: {
         hairline: '100',
         'extra-light': '100',

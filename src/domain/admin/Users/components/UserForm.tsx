@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { Save, X } from 'lucide-react';
-
 import { User, UserCreate, UsersApi,UserUpdate } from '../../../../api-generated/api';
-import ButtonLoder from '../../../../components/UI/molecules/ButtonLoder';
+import { IconSave } from '../../../../components/UI/Icons';
+import ButtonLoader from '../../../../components/UI/molecules/ButtonLoder';
+import { ConfirmationTooltip } from '../../../../components/UI/molecules/ConfirmationTooltip';
 import InputWithLabel from '../../../../components/UI/molecules/InputWithLabel';
 import { useApi } from '../../../../hooks/useApi';
 import { cn } from '../../../../lib/utils';
@@ -106,6 +106,26 @@ const UserForm: React.FC<UserFormProps> = ({
     }
   };
 
+  const deleteUser = async () => {
+    if (!userData || !userData.uuid) {
+        return;
+        }
+        setLoading(true);
+        setError(null);
+        
+        try {
+        await usersApi.call('deleteApiUsersDelete', userData.uuid);
+        if (onSuccess) {
+            onSuccess();
+        }
+        } catch (err) {
+        console.error('Error al eliminar usuario:', err);
+        setError(t('No se pudo eliminar el usuario'));
+        } finally {
+        setLoading(false);
+        }
+    }
+
   return (
     <div className="p-6 max-w-2xl">      
       {error && (
@@ -181,34 +201,43 @@ const UserForm: React.FC<UserFormProps> = ({
         </div>
         
         {/* Botones de acción */}
-        <div className="flex justify-end gap-2 pt-4">
-          <button
+        <div className="flex justify-between items-center">
+            <div>
+          {userData?.uuid && (            
+    <ConfirmationTooltip
+        confirmationMessage={t('¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.')}
+        onConfirm={deleteUser}
+        confirmText={t('Eliminar')}
+        confirmButtonClassName="bg-red-500 hover:bg-red-600"
+        disabled={loading}
+    >
+        <ButtonLoader
             type="button"
-            onClick={onCancel}
-            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-            disabled={loading}
-          >
-            <X size={16} className="mr-2" />
-            {t('Cancelar')}
-          </button>
-          <ButtonLoder
-            type="submit"
             className={cn(
-              "inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white",
-              loading 
-                ? "bg-blue-300 cursor-not-allowed" 
-                : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            "btn bg-red-600 text-white hover:bg-red-700",
             )}
             disabled={loading}
             loading={loading}
-            icon={<Save size={16} />}
-            iconLoaderClassName="animate-spin w-5 h-5 text-white"
+            icon={<IconSave className='w-5 h-5'/>}
+        >
+            {t('Eliminar') }
+        </ButtonLoader>
+    </ConfirmationTooltip>)}
+            </div>
+            
+        <div className="flex justify-end space-x-2 flex-grow">
+          <ButtonLoader
+            type="submit"
+            disabled={loading}
+            loading={loading}
+            icon={<IconSave className='w-5 h-5'/>}
           >
-            {uuid 
+            {userData?.uuid 
               ? t('Actualizar') 
               : t('Crear')
             }
-          </ButtonLoder>
+          </ButtonLoader>
+        </div>
         </div>
       </form>
     </div>

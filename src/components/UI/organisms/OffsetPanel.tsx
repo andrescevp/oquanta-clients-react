@@ -14,6 +14,7 @@ interface OffsetPanelProps {
   buttonIcon?: React.ElementType;
   buttonClassName?: string;
   buttonPosition?: 'fixed' | 'inline';
+  buttonIconClassName?: string;
 }
 
 export const OffsetPanel: React.FC<OffsetPanelProps> = ({
@@ -25,6 +26,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
   buttonIcon: ButtonIcon = IconMenu,
   buttonClassName,
   buttonPosition = 'inline',
+  buttonIconClassName = 'w-5 h-5',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [width, setWidth] = useState<number | undefined>(undefined);
@@ -81,18 +83,11 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
     };
   }, [isDragging, position]);
 
-  const buttonClasses = cn(
-    'flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors',
-    'dark:bg-blue-700 dark:hover:bg-blue-800',
-    buttonPosition === 'fixed' && 'fixed bottom-4 right-4 z-10 shadow-lg dark:shadow-gray-900',
-    buttonClassName
-  );
-
   return (
     <>
       {/* Botón para abrir el panel */}
-      <button type="button" onClick={openPanel} className={buttonClasses}>
-        {ButtonIcon && <ButtonIcon />}
+      <button type="button" onClick={openPanel} className={buttonClassName || 'btn'}>
+        {ButtonIcon && <ButtonIcon className={buttonIconClassName} />}
         {buttonText}
       </button>
 

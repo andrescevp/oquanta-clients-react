@@ -15,7 +15,8 @@ interface ButtonLoderProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
     iconLoaderClassName?: string;
 }
 
-const ButtonLoder = React.forwardRef<HTMLButtonElement, ButtonLoderProps>(
+const ButtonLoader = React.forwardRef<HTMLButtonElement, ButtonLoderProps>(
+    // eslint-disable-next-line complexity
     ({ className, type, title, id, tooltipPlace, showTooltip, icon, loading, children, iconLoaderClassName, ...props }, ref) => {
         const randId = useId();
         const btnId = id || `btn-${randId}`;
@@ -24,7 +25,7 @@ const ButtonLoder = React.forwardRef<HTMLButtonElement, ButtonLoderProps>(
                 <button
                     id={btnId}
                     ref={ref}
-                    className={className}
+                    className={cn('btn', className)}
                     type={type || 'button'}
                     data-tooltip-id={`${btnId}-tooltip`}
                     data-tooltip-place={tooltipPlace || 'top'}
@@ -49,6 +50,6 @@ const ButtonLoder = React.forwardRef<HTMLButtonElement, ButtonLoderProps>(
     },
 );
 
-ButtonLoder.displayName = 'ButtonLoder';
+ButtonLoader.displayName = 'ButtonLoder';
 
-export default ButtonLoder;
+export default ButtonLoader;

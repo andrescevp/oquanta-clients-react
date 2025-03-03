@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import logo from '../assets/images/oquanta.png';
-import ButtonLoder from '../components/UI/molecules/ButtonLoder';
+import ButtonLoader from '../components/UI/molecules/ButtonLoder';
 import { useAuth } from '../context/AuthContext';
 import { cn } from '../lib/utils';
 import { LoginCredentials } from '../types/auth';
@@ -126,7 +126,7 @@ export const LoginPage = () => {
                         </div>
                     </div>
 
-                    <ButtonLoder
+                    <ButtonLoader
                         type='submit'
                         disabled={isLoading}
                         loading={isLoading}
@@ -138,7 +138,7 @@ export const LoginPage = () => {
                         iconLoaderClassName="animate-spin w-5 h-5 text-white mx-auto"
                     >
                         {t('Iniciar sesión')}
-                    </ButtonLoder>
+                    </ButtonLoader>
                 </form>
             </div>
         </div>

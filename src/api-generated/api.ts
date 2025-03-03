@@ -108,6 +108,672 @@ export interface ModelValidationErrorPathModel {
 /**
  * 
  * @export
+ * @interface Organization
+ */
+export interface Organization {
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'uuid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'legalId'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'mainContactPhone'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'secondaryContactPhone'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'contactEmail'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'address'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'country'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'city'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Organization
+     */
+    'postalCode'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationBasic
+ */
+export interface OrganizationBasic {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationBasic
+     */
+    'uuid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationBasic
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationBasic
+     */
+    'legalId'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationCreate
+ */
+export interface OrganizationCreate {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationCreate
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationCreate
+     */
+    'legalId'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationCreate
+     */
+    'mainContactPhone'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationCreate
+     */
+    'secondaryContactPhone'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationCreate
+     */
+    'contactEmail'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationCreate
+     */
+    'address'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationCreate
+     */
+    'country'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationCreate
+     */
+    'city'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationCreate
+     */
+    'postalCode'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationList
+ */
+export interface OrganizationList {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationList
+     */
+    'page': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationList
+     */
+    'lastPage': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationList
+     */
+    'nextPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationList
+     */
+    'previousPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationList
+     */
+    'count'?: number | null;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof OrganizationList
+     */
+    'results'?: Array<any> | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationPlace
+ */
+export interface OrganizationPlace {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'uuid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'slug'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'longitude'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'latitude'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'address'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'postalCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'city'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'country'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'region'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlace
+     */
+    'organizationUuid'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceBasic
+ */
+export interface OrganizationPlaceBasic {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceBasic
+     */
+    'uuid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceBasic
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceBasic
+     */
+    'slug'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceCreate
+ */
+export interface OrganizationPlaceCreate {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'slug'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'longitude'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'latitude'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'address'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'postalCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'city'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'country'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'region'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceCreate
+     */
+    'organizationUuid': string;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceList
+ */
+export interface OrganizationPlaceList {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceList
+     */
+    'page': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceList
+     */
+    'lastPage': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceList
+     */
+    'nextPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceList
+     */
+    'previousPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceList
+     */
+    'count'?: number | null;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof OrganizationPlaceList
+     */
+    'results'?: Array<any> | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceResource
+ */
+export interface OrganizationPlaceResource {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'uuid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'slug': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'longitude': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'latitude': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'postalCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'city': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'country': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'region': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceResource
+     */
+    'organizationUuid'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceUpdate
+ */
+export interface OrganizationPlaceUpdate {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceUpdate
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceUpdate
+     */
+    'slug'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceUpdate
+     */
+    'longitude'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceUpdate
+     */
+    'latitude'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceUpdate
+     */
+    'address'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceUpdate
+     */
+    'postalCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceUpdate
+     */
+    'city'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceUpdate
+     */
+    'country'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceUpdate
+     */
+    'region'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationResource2
+ */
+export interface OrganizationResource2 {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'uuid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'legalId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'mainContactPhone': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'secondaryContactPhone'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'contactEmail': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'country': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'city': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationResource2
+     */
+    'postalCode': string;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationUpdate
+ */
+export interface OrganizationUpdate {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUpdate
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUpdate
+     */
+    'legalId'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUpdate
+     */
+    'mainContactPhone'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUpdate
+     */
+    'secondaryContactPhone'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUpdate
+     */
+    'contactEmail'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUpdate
+     */
+    'address'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUpdate
+     */
+    'country'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUpdate
+     */
+    'city'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUpdate
+     */
+    'postalCode'?: string | null;
+}
+/**
+ * 
+ * @export
  * @interface Token
  */
 export interface Token {
@@ -223,12 +889,6 @@ export interface UserCreate {
  * @interface UserList
  */
 export interface UserList {
-    /**
-     * 
-     * @type {Array<any>}
-     * @memberof UserList
-     */
-    'users'?: Array<any>;
     /**
      * 
      * @type {number}
@@ -445,6 +1105,886 @@ export class AuthApi extends BaseAPI {
     }
 }
 
+
+
+/**
+ * OrganizationPlacesApi - axios parameter creator
+ * @export
+ */
+export const OrganizationPlacesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationPlacesDelete: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('deleteApiOrganizationPlacesDelete', 'uuid', uuid)
+            const localVarPath = `/api/organization-place/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlacesGet: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('getApiOrganizationPlacesGet', 'uuid', uuid)
+            const localVarPath = `/api/organization-place/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by (e.g. name)
+         * @param {GetApiOrganizationPlacesListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {string} [organization] Organization UUID to filter by
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlacesList: async (page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlacesListOrderEnum, organization?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/organization-place`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+            if (organization !== undefined) {
+                localVarQueryParameter['organization'] = organization;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {OrganizationPlaceCreate} organizationPlaceCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationPlacesCreate: async (organizationPlaceCreate: OrganizationPlaceCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationPlaceCreate' is not null or undefined
+            assertParamExists('postApiOrganizationPlacesCreate', 'organizationPlaceCreate', organizationPlaceCreate)
+            const localVarPath = `/api/organization-place`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(organizationPlaceCreate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {OrganizationPlaceUpdate} organizationPlaceUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationPlacesUpdate: async (uuid: string, organizationPlaceUpdate: OrganizationPlaceUpdate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('putApiOrganizationPlacesUpdate', 'uuid', uuid)
+            // verify required parameter 'organizationPlaceUpdate' is not null or undefined
+            assertParamExists('putApiOrganizationPlacesUpdate', 'organizationPlaceUpdate', organizationPlaceUpdate)
+            const localVarPath = `/api/organization-place/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(organizationPlaceUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * OrganizationPlacesApi - functional programming interface
+ * @export
+ */
+export const OrganizationPlacesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = OrganizationPlacesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteApiOrganizationPlacesDelete(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteApiOrganizationPlacesDelete(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlacesApi.deleteApiOrganizationPlacesDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationPlacesGet(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlace>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationPlacesGet(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlacesApi.getApiOrganizationPlacesGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by (e.g. name)
+         * @param {GetApiOrganizationPlacesListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {string} [organization] Organization UUID to filter by
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationPlacesList(page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlacesListOrderEnum, organization?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlaceList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationPlacesList(page, limit, search, sort, order, organization, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlacesApi.getApiOrganizationPlacesList']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {OrganizationPlaceCreate} organizationPlaceCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiOrganizationPlacesCreate(organizationPlaceCreate: OrganizationPlaceCreate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlace>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiOrganizationPlacesCreate(organizationPlaceCreate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlacesApi.postApiOrganizationPlacesCreate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {OrganizationPlaceUpdate} organizationPlaceUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putApiOrganizationPlacesUpdate(uuid: string, organizationPlaceUpdate: OrganizationPlaceUpdate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlace>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putApiOrganizationPlacesUpdate(uuid, organizationPlaceUpdate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlacesApi.putApiOrganizationPlacesUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * OrganizationPlacesApi - factory interface
+ * @export
+ */
+export const OrganizationPlacesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = OrganizationPlacesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationPlacesDelete(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteApiOrganizationPlacesDelete(uuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlacesGet(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlace> {
+            return localVarFp.getApiOrganizationPlacesGet(uuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by (e.g. name)
+         * @param {GetApiOrganizationPlacesListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {string} [organization] Organization UUID to filter by
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlacesList(page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlacesListOrderEnum, organization?: string, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlaceList> {
+            return localVarFp.getApiOrganizationPlacesList(page, limit, search, sort, order, organization, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {OrganizationPlaceCreate} organizationPlaceCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationPlacesCreate(organizationPlaceCreate: OrganizationPlaceCreate, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlace> {
+            return localVarFp.postApiOrganizationPlacesCreate(organizationPlaceCreate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {OrganizationPlaceUpdate} organizationPlaceUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationPlacesUpdate(uuid: string, organizationPlaceUpdate: OrganizationPlaceUpdate, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlace> {
+            return localVarFp.putApiOrganizationPlacesUpdate(uuid, organizationPlaceUpdate, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * OrganizationPlacesApi - object-oriented interface
+ * @export
+ * @class OrganizationPlacesApi
+ * @extends {BaseAPI}
+ */
+export class OrganizationPlacesApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlacesApi
+     */
+    public deleteApiOrganizationPlacesDelete(uuid: string, options?: RawAxiosRequestConfig) {
+        return OrganizationPlacesApiFp(this.configuration).deleteApiOrganizationPlacesDelete(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlacesApi
+     */
+    public getApiOrganizationPlacesGet(uuid: string, options?: RawAxiosRequestConfig) {
+        return OrganizationPlacesApiFp(this.configuration).getApiOrganizationPlacesGet(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [page] Page number
+     * @param {number} [limit] Number of items per page
+     * @param {string} [search] Search term
+     * @param {string} [sort] Field to sort by (e.g. name)
+     * @param {GetApiOrganizationPlacesListOrderEnum} [order] Sort direction (ASC or DESC)
+     * @param {string} [organization] Organization UUID to filter by
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlacesApi
+     */
+    public getApiOrganizationPlacesList(page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlacesListOrderEnum, organization?: string, options?: RawAxiosRequestConfig) {
+        return OrganizationPlacesApiFp(this.configuration).getApiOrganizationPlacesList(page, limit, search, sort, order, organization, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {OrganizationPlaceCreate} organizationPlaceCreate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlacesApi
+     */
+    public postApiOrganizationPlacesCreate(organizationPlaceCreate: OrganizationPlaceCreate, options?: RawAxiosRequestConfig) {
+        return OrganizationPlacesApiFp(this.configuration).postApiOrganizationPlacesCreate(organizationPlaceCreate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {OrganizationPlaceUpdate} organizationPlaceUpdate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlacesApi
+     */
+    public putApiOrganizationPlacesUpdate(uuid: string, organizationPlaceUpdate: OrganizationPlaceUpdate, options?: RawAxiosRequestConfig) {
+        return OrganizationPlacesApiFp(this.configuration).putApiOrganizationPlacesUpdate(uuid, organizationPlaceUpdate, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const GetApiOrganizationPlacesListOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetApiOrganizationPlacesListOrderEnum = typeof GetApiOrganizationPlacesListOrderEnum[keyof typeof GetApiOrganizationPlacesListOrderEnum];
+
+
+/**
+ * OrganizationsApi - axios parameter creator
+ * @export
+ */
+export const OrganizationsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationsDelete: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('deleteApiOrganizationsDelete', 'uuid', uuid)
+            const localVarPath = `/api/organization/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationsGet: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('getApiOrganizationsGet', 'uuid', uuid)
+            const localVarPath = `/api/organization/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by (e.g. name)
+         * @param {GetApiOrganizationsListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationsList: async (page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationsListOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/organization`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {OrganizationCreate} organizationCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationsCreate: async (organizationCreate: OrganizationCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationCreate' is not null or undefined
+            assertParamExists('postApiOrganizationsCreate', 'organizationCreate', organizationCreate)
+            const localVarPath = `/api/organization`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(organizationCreate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {OrganizationUpdate} organizationUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationsUpdate: async (uuid: string, organizationUpdate: OrganizationUpdate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('putApiOrganizationsUpdate', 'uuid', uuid)
+            // verify required parameter 'organizationUpdate' is not null or undefined
+            assertParamExists('putApiOrganizationsUpdate', 'organizationUpdate', organizationUpdate)
+            const localVarPath = `/api/organization/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(organizationUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * OrganizationsApi - functional programming interface
+ * @export
+ */
+export const OrganizationsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = OrganizationsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteApiOrganizationsDelete(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteApiOrganizationsDelete(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationsApi.deleteApiOrganizationsDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationsGet(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Organization>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationsGet(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationsApi.getApiOrganizationsGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by (e.g. name)
+         * @param {GetApiOrganizationsListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationsList(page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationsListOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationsList(page, limit, search, sort, order, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationsApi.getApiOrganizationsList']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {OrganizationCreate} organizationCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiOrganizationsCreate(organizationCreate: OrganizationCreate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Organization>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiOrganizationsCreate(organizationCreate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationsApi.postApiOrganizationsCreate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {OrganizationUpdate} organizationUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putApiOrganizationsUpdate(uuid: string, organizationUpdate: OrganizationUpdate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Organization>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putApiOrganizationsUpdate(uuid, organizationUpdate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationsApi.putApiOrganizationsUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * OrganizationsApi - factory interface
+ * @export
+ */
+export const OrganizationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = OrganizationsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationsDelete(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteApiOrganizationsDelete(uuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationsGet(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<Organization> {
+            return localVarFp.getApiOrganizationsGet(uuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by (e.g. name)
+         * @param {GetApiOrganizationsListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationsList(page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationsListOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationList> {
+            return localVarFp.getApiOrganizationsList(page, limit, search, sort, order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {OrganizationCreate} organizationCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationsCreate(organizationCreate: OrganizationCreate, options?: RawAxiosRequestConfig): AxiosPromise<Organization> {
+            return localVarFp.postApiOrganizationsCreate(organizationCreate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {OrganizationUpdate} organizationUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationsUpdate(uuid: string, organizationUpdate: OrganizationUpdate, options?: RawAxiosRequestConfig): AxiosPromise<Organization> {
+            return localVarFp.putApiOrganizationsUpdate(uuid, organizationUpdate, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * OrganizationsApi - object-oriented interface
+ * @export
+ * @class OrganizationsApi
+ * @extends {BaseAPI}
+ */
+export class OrganizationsApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public deleteApiOrganizationsDelete(uuid: string, options?: RawAxiosRequestConfig) {
+        return OrganizationsApiFp(this.configuration).deleteApiOrganizationsDelete(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public getApiOrganizationsGet(uuid: string, options?: RawAxiosRequestConfig) {
+        return OrganizationsApiFp(this.configuration).getApiOrganizationsGet(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [page] Page number
+     * @param {number} [limit] Number of items per page
+     * @param {string} [search] Search term
+     * @param {string} [sort] Field to sort by (e.g. name)
+     * @param {GetApiOrganizationsListOrderEnum} [order] Sort direction (ASC or DESC)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public getApiOrganizationsList(page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationsListOrderEnum, options?: RawAxiosRequestConfig) {
+        return OrganizationsApiFp(this.configuration).getApiOrganizationsList(page, limit, search, sort, order, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {OrganizationCreate} organizationCreate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public postApiOrganizationsCreate(organizationCreate: OrganizationCreate, options?: RawAxiosRequestConfig) {
+        return OrganizationsApiFp(this.configuration).postApiOrganizationsCreate(organizationCreate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {OrganizationUpdate} organizationUpdate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public putApiOrganizationsUpdate(uuid: string, organizationUpdate: OrganizationUpdate, options?: RawAxiosRequestConfig) {
+        return OrganizationsApiFp(this.configuration).putApiOrganizationsUpdate(uuid, organizationUpdate, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const GetApiOrganizationsListOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetApiOrganizationsListOrderEnum = typeof GetApiOrganizationsListOrderEnum[keyof typeof GetApiOrganizationsListOrderEnum];
 
 
 /**
