@@ -25,5 +25,6 @@ All icons must be interfaced in `src/components/UI/Icons.tsx`
 To create tables we use `react-data-table-component`.
 To manage Forms we use `react-hook-form`, Submit Button must be build with `src/components/UI/molecules/ButtonLoder.tsx` so it shows a spinner while sending requests.
 Strings displayed to the user are translated with `useTranslation` and always use literals strings - never keys.
+Selects are created using `react-select`
 Components must have interfaces and related types in the same file as the Component. 
 All components documentation and comments must be in English.

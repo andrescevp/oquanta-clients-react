@@ -6,7 +6,7 @@ import {RiInputMethodLine} from 'react-icons/ri';
 import {TbLoader3, TbSection} from 'react-icons/tb';
 import {VscAdd, VscClose, VscSymbolNumeric} from 'react-icons/vsc';
 
-import {BarChart3, Check, ChevronLeft, ChevronRight, Files, Home, LayoutDashboard, LayoutList, LoaderCircle, LogOut, Menu, Moon, Plus, RefreshCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
+import {BarChart3, Check, ChevronLeft, ChevronRight, Files, Home, LayoutDashboard, LayoutList, LoaderCircle, LogOut, MapPin, Menu, Moon, Plus, RefreshCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
 
 export const IconTrash = FaTrash;
 
@@ -68,6 +68,7 @@ export const IconPlus = Plus;
 export const IconLoaderCircle = LoaderCircle;
 export const IconX = XIcon;
 export const IconCheck = Check;
+export const IconMapPin = MapPin;
 
 
 

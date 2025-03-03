@@ -11,6 +11,7 @@ import { SidebarProvider } from './context/SidebarContext';
 import { UserMenuProvider } from './context/UserMenuContext'; // Añadir esta importación
 import AdminLayout from './layouts/AdminLayout';
 import ClientLayout from './layouts/ClientLayout';
+import OrganizationPlacesPage from './pages/admin/OrganizationPlacesPage';
 import OrganizationsPage from './pages/admin/OrganizationsPage';
 import UsersPage from './pages/admin/UsersPage';
 import OrganizationPage from './pages/client/OrganizationPage';
@@ -42,6 +43,7 @@ const App = () => {
                         <Route index element={<Navigate to="/admin/dashboard" />} />
                         <Route path="users" element={<UsersPage />} />
                         <Route path="organizations" element={<OrganizationsPage />} />
+                        <Route path="local-business" element={<OrganizationPlacesPage />} />
                         {/* Más rutas admin */}
                       </Route>
 
