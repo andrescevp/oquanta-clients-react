@@ -1,9 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Transition } from '@headlessui/react';
 
 import { useSidebar } from '../../../context/SidebarContext';
-import { SidebarHeader, SidebarItem } from '../molecules/SidebarElements';
+import { cn } from '../../../lib/utils';
+import { IconChevronLeft } from '../Icons';
+import { SidebarItem } from '../molecules/SidebarElements';
 
 interface SidebarProps {
     isCollapsed: boolean;
@@ -11,35 +14,109 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) => {
+    const { t } = useTranslation();
     const { menuItems } = useSidebar();
 
     return (
-        <Transition.Root show={true} as={React.Fragment}>
-            <aside
-                className={`${
-                    isCollapsed ? 'w-16' : 'w-64'
-                } h-screen fixed left-0 top-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out`}
-            >
-                <div className='flex flex-col h-full'>
-                    <SidebarHeader 
-                        isCollapsed={isCollapsed} 
-                        onToggle={toggleSidebar} 
-                    />
+        <aside
+            className={cn(
+                "h-screen fixed left-0 top-0 z-40",
+                "bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg",
+                "border-r border-gray-200/70 dark:border-gray-700/70",
+                "transition-all duration-300 ease-in-out",
+                isCollapsed ? "w-16" : "w-64"
+            )}
+        >
+            <div className="flex flex-col h-full">
+                {/* Header with logo */}
+                <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200/70 dark:border-gray-700/70">
+                    <Transition
+                        show={!isCollapsed}
+                        enter="transition-opacity duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="transition-opacity duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="font-semibold bg-gradient-to-r from-pumpkin-orange to-indigo-600 bg-clip-text text-transparent">
+                            oQuanta
+                        </div>
+                    </Transition>
                     
-                    <nav className='flex-1 overflow-y-auto py-4'>
-                        <ul className='space-y-2 px-3'>
-                            {menuItems.map(item => (
-                                <li key={item.label}>
-                                    <SidebarItem 
-                                        {...item} 
-                                        isCollapsed={isCollapsed} 
-                                    />
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
+                    <button 
+                        onClick={toggleSidebar}
+                        className={cn(
+                            "p-1.5 rounded-lg", 
+                            "hover:bg-gray-100 dark:hover:bg-gray-700/50",
+                            "transition-colors duration-200",
+                            "border border-gray-200/50 dark:border-gray-700/50",
+                            !isCollapsed && "ml-auto"
+                        )}
+                        aria-label={isCollapsed ? t('Expandir menú') : t('Colapsar menú')}
+                    >
+                        <IconChevronLeft 
+                            className={cn(
+                                "w-4 h-4 text-gray-500 dark:text-gray-400",
+                                "transition-transform duration-300",
+                                isCollapsed && "transform rotate-180"
+                            )} 
+                        />
+                    </button>
                 </div>
-            </aside>
-        </Transition.Root>
+                
+                {/* Navigation */}
+                <nav className="flex-1 overflow-y-auto py-4 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+                    <ul className="space-y-1.5 px-3">
+                        {menuItems.map((item, index) => (
+                            <li key={item.label || index} className="group">
+                                <SidebarItem 
+                                    {...item} 
+                                    isCollapsed={isCollapsed} 
+                                />
+                                
+                                {/* Submenu items if any */}
+                                {item.children && !isCollapsed && (
+                                    <Transition
+                                        show={item.isOpen}
+                                        enter="transition-max-height duration-300 ease-out"
+                                        enterFrom="max-h-0 overflow-hidden opacity-0"
+                                        enterTo="max-h-96 overflow-hidden opacity-100"
+                                        leave="transition-max-height duration-200 ease-in"
+                                        leaveFrom="max-h-96 overflow-hidden opacity-100"
+                                        leaveTo="max-h-0 overflow-hidden opacity-0"
+                                    >
+                                        <ul className="ml-6 mt-1 space-y-1 border-l-2 border-gray-200 dark:border-gray-700 pl-2">
+                                            {item.children.map(subItem => (
+                                                <li key={subItem.label}>
+                                                    <SidebarItem 
+                                                        {...subItem} 
+                                                        isCollapsed={false}
+                                                        isSubItem={true} 
+                                                    />
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </Transition>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+                
+                {/* Footer section with additional info */}
+                <div className={cn(
+                    "p-4 border-t border-gray-200/70 dark:border-gray-700/70",
+                    "text-xs text-gray-500 dark:text-gray-400",
+                    isCollapsed ? "text-center" : ""
+                )}>
+                    {isCollapsed ? (
+                        <div className="text-2xl" title={t('oQuanta v2.3')}>•</div>
+                    ) : (
+                        <div>{t('oQuanta v2.3')}</div>
+                    )}
+                </div>
+            </div>
+        </aside>
     );
 };

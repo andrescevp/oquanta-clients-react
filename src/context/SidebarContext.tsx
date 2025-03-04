@@ -17,6 +17,7 @@ export interface MenuItem {
   href: string;
   roles?: string[]; // Roles que pueden ver este elemento
   children?: MenuItem[]; // Para menús anidados si es necesario
+  isOpen?: boolean; // Para menús anidados si es necesario
 }
 
 interface SidebarContextValue {

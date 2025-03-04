@@ -6,6 +6,7 @@ import { cn } from '../../../lib/utils';
 
 interface SidebarItemProps extends MenuItem {
     isCollapsed: boolean;
+    isSubItem?: boolean;
 }
 
 export const SidebarItem: React.FC<SidebarItemProps> = ({ icon: Icon, label, href, isCollapsed }) => {
