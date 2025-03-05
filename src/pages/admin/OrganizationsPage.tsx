@@ -53,17 +53,9 @@ const OrganizationsPage: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       loadOrganizations();
-    }, 200);
+    }, search !== null ? 500 : 200);
     return () => clearTimeout(timer);
-  }, [currentPage, rowsPerPage, sortField, sortOrder]);
-
-  // Manejar búsqueda con debounce
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      loadOrganizations();
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [search]);
+  }, [currentPage, rowsPerPage, sortField, sortOrder, search]);
 
   // Manejar cambio de ordenamiento
   const handleSort = (column: TableColumn<OrganizationBasic>, sortDirection: string) => {
@@ -97,6 +89,7 @@ const OrganizationsPage: React.FC = () => {
           title={t('Editar organización')}
           buttonIcon={IconEdit}
           buttonIconClassName="w-5 h-5"
+          panelId={`organization_${row.uuid}`}
         >
           <OrganizationForm organizationData={row} onSuccess={loadOrganizations} />
         </OffsetPanel>
@@ -151,6 +144,7 @@ const OrganizationsPage: React.FC = () => {
             title={t('Crear organización')}
             buttonIcon={IconAdd}
             buttonIconClassName="w-5 h-5"
+            panelId='new_organization'
           >
             <OrganizationForm onSuccess={loadOrganizations} />
           </OffsetPanel>

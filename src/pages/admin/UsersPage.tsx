@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { useTranslation } from 'react-i18next';
 
@@ -49,23 +49,15 @@ const UsersPage: React.FC = () => {
     }
   };
 
-  // Cargar usuarios al iniciar y cuando cambien los parámetros
-  useEffect(() => {
-    console.log('Cargando usuarios...');
+  // Combinar los dos efectos en uno solo
+  useEffect(() => {    
+    console.log('Cambio en parámetros de búsqueda o paginación...');
     const timer = setTimeout(() => {
       loadUsers();
-    }, 200);
+    }, search !== null ? 500 : 200); // Usa un tiempo más largo para búsquedas
+    
     return () => clearTimeout(timer);
-  }, [currentPage, rowsPerPage, sortField, sortOrder]);
-
-  // Manejar búsqueda con debounce
-  useEffect(() => {
-    console.log('Buscando usuarios...');
-    const timer = setTimeout(() => {
-      loadUsers();
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [search]);
+  }, [currentPage, rowsPerPage, sortField, sortOrder, search]);
 
   // Manejar cambio de ordenamiento
   const handleSort = (column: TableColumn<UserBasic>, sortDirection: string) => {
@@ -98,6 +90,7 @@ const UsersPage: React.FC = () => {
             title={t('Editar usuario')}
             buttonIcon={IconEdit}
             buttonIconClassName="w-5 h-5"
+            panelId={`user_${row.uuid}`}
           >
             <UserForm userData={row} onSuccess={loadUsers} />
           </OffsetPanel>
@@ -147,6 +140,7 @@ const UsersPage: React.FC = () => {
             title={t('Crear usuario')}
             buttonIcon={IconAdd}
             buttonIconClassName="w-5 h-5"
+            panelId='new_user'
             >
               <UserForm onSuccess={loadUsers} />
           </OffsetPanel>

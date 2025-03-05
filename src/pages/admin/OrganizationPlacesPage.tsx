@@ -17,6 +17,31 @@ interface OrganizationOption {
   label: string;
 }
 
+
+  // Memoized component for organization name cell
+const OrganizationNameCell = React.memo(({ organizationUuid, organizationsCache, getOrganizationName }: {
+    organizationUuid: string | undefined;
+    organizationsCache: Map<string, Organization>;
+    getOrganizationName: (uuid: string) => Promise<string>;
+  }) => {
+    const { t } = useTranslation();
+    const [orgName, setOrgName] = useState<string>('');
+        
+    useEffect(() => {
+      if (organizationUuid) {
+        if (organizationsCache.has(organizationUuid)) {
+          setOrgName(organizationsCache.get(organizationUuid)?.name || '');
+        } else {
+          getOrganizationName(organizationUuid).then(setOrgName);
+        }
+      }
+    }, [organizationUuid, organizationsCache, getOrganizationName]);
+        
+    return <>{orgName || t('Cargando...')}</>;
+  });
+
+OrganizationNameCell.displayName = 'OrganizationNameCell';
+
 /**
  * Component for managing organization places (establishments)
  */
@@ -136,19 +161,12 @@ const OrganizationPlacesPage: React.FC = () => {
 
   // Cargar establecimientos al iniciar y cuando cambien los parámetros
   useEffect(() => {
+    console.log('Cambio en parámetros de búsqueda o paginación...');
     const timer = setTimeout(() => {
       loadPlaces();
-    }, 200);
+    }, search !== null ? 500 : 200);
     return () => clearTimeout(timer);
-  }, [currentPage, rowsPerPage, sortField, sortOrder, selectedOrganization]);
-
-  // Manejar búsqueda con debounce
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      loadPlaces();
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [search]);
+  }, [currentPage, rowsPerPage, sortField, sortOrder, selectedOrganization, search]);
 
   // Manejar cambio de ordenamiento
   const handleSort = (column: TableColumn<OrganizationPlaceBasic>, sortDirection: string) => {
@@ -171,6 +189,7 @@ const OrganizationPlacesPage: React.FC = () => {
   };
 
   // Columnas para la tabla de establecimientos
+
   const columns: TableColumn<OrganizationPlaceBasic>[] = [
     ...[(hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')) ? {  
       name: t('Acciones'),
@@ -182,6 +201,7 @@ const OrganizationPlacesPage: React.FC = () => {
           title={t('Editar establecimiento')}
           buttonIcon={IconEdit}
           buttonIconClassName="w-5 h-5"
+          panelId={`place_${row.uuid}`}
         >
           <OrganizationPlaceForm organizationPlaceData={row} onSuccess={loadPlaces} />
         </OffsetPanel>
@@ -212,21 +232,13 @@ const OrganizationPlacesPage: React.FC = () => {
     },
     {
       name: t('Organización'),
-      cell: (row: OrganizationPlace) => {
-        const [orgName, setOrgName] = useState<string>('');
-        
-        useEffect(() => {
-          if (row.organizationUuid) {
-            if (organizationsCache.has(row.organizationUuid)) {
-              setOrgName(organizationsCache.get(row.organizationUuid)?.name || '');
-            } else {
-              getOrganizationName(row.organizationUuid).then(setOrgName);
-            }
-          }
-        }, [row.organizationUuid]);
-        
-        return orgName || t('Cargando...');
-      },
+      cell: (row: OrganizationPlace) => (
+        <OrganizationNameCell
+          organizationUuid={row.organizationUuid || ''}
+          organizationsCache={organizationsCache}
+          getOrganizationName={getOrganizationName}
+        />
+      ),
     },
   ];
 
@@ -252,6 +264,7 @@ const OrganizationPlacesPage: React.FC = () => {
             title={t('Crear establecimiento')}
             buttonIcon={IconAdd}
             buttonIconClassName="w-5 h-5"
+            panelId='new_place'
           >
             <OrganizationPlaceForm onSuccess={loadPlaces} />
           </OffsetPanel>

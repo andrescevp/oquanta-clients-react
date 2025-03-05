@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useRef,useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import AsyncSelect from 'react-select/async';
@@ -62,6 +62,9 @@ const OrganizationPlaceForm: React.FC<OrganizationPlaceFormProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [defaultOrganization, setDefaultOrganization] = useState<OrganizationOption | null>(null);
+  const [isMapReady, setIsMapReady] = useState(false);
+  const mapInstanceRef = useRef<L.Map | null>(null);
+  const mapContainerId = useRef(`map-container-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`);
   
   const { 
     register, 
@@ -104,7 +107,7 @@ const OrganizationPlaceForm: React.FC<OrganizationPlaceFormProps> = ({
   const { 
     mapPosition, 
     setMapPosition,
-    handleMapInit,
+    handleMapInit: originalHandleMapInit,
     handlePositionChange
   } = useMapForm({
     setValue,
@@ -112,7 +115,50 @@ const OrganizationPlaceForm: React.FC<OrganizationPlaceFormProps> = ({
     initialLatitude: organizationPlaceData?.latitude || undefined,
     initialLongitude: organizationPlaceData?.longitude || undefined,
   });
-  
+
+  // Wrapper para el mapInit que guarda la referencia y maneja el tamaño
+  const handleMapInit = (map: L.Map) => {
+    // Guardar la referencia al mapa
+    mapInstanceRef.current = map;
+    
+    // Llamar al handler original
+    originalHandleMapInit(map);
+    
+    // Reajustar tamaño después de un tiempo para asegurar que el panel esté visible
+    setTimeout(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    }, 300);
+  };
+
+  // Efecto para preparar el mapa
+  useEffect(() => {
+    // Retrasar la inicialización del mapa para asegurar que el contenedor esté listo
+    const timer = setTimeout(() => {
+      setIsMapReady(true);
+    }, 200);
+    
+    // Limpieza cuando el componente se desmonta
+    return () => {
+      clearTimeout(timer);
+      // Limpiar la referencia del mapa de forma segura
+      if (mapInstanceRef.current) {
+        try {
+          // Verificamos si el mapa sigue en el DOM antes de intentar eliminarlo
+          const container = document.getElementById(mapContainerId.current);
+          // Usar una comprobación alternativa o aserción de tipo
+          if (container && (container as any)._leaflet_id) {
+            mapInstanceRef.current.remove();
+          }
+        } catch (mapError) { // Renombrar 'error' a 'mapError' para evitar shadow
+          console.warn('Error al eliminar el mapa:', mapError);
+        }
+        mapInstanceRef.current = null;
+      }
+    };
+  }, []);
+
   // Actualizar posición del mapa cuando cambien las coordenadas en el formulario
   useEffect(() => {
     if (latitude && longitude && !isNaN(parseFloat(latitude)) && !isNaN(parseFloat(longitude))) {
@@ -270,13 +316,19 @@ const OrganizationPlaceForm: React.FC<OrganizationPlaceFormProps> = ({
             {t('Haz clic en el mapa para establecer la ubicación o usa el buscador.')}
           </p>
           
-          {/* Mapa refactorizado usando el componente FormMap */}
-          <div className='min-h-80'>
-            <FormMap
-              position={mapPosition}
-              onMapInit={handleMapInit}
-              onPositionChange={handlePositionChange}
-            />
+          {/* Contenedor del mapa con ID único */}
+          <div 
+            id={mapContainerId.current}
+            className="relative" 
+            style={{ height: '400px', minHeight: '320px' }}
+          >
+            {isMapReady && (
+              <FormMap
+                position={mapPosition}
+                onMapInit={handleMapInit}
+                onPositionChange={handlePositionChange}
+              />
+            )}
           </div>
           
           <div className="mt-2 text-sm text-gray-600 flex items-center">

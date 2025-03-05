@@ -1,4 +1,4 @@
-import {FaEdit, FaRedo, FaTrash} from 'react-icons/fa';
+import { FaRedo, FaTrash} from 'react-icons/fa';
 import {GrDrag} from 'react-icons/gr';
 import {ImPageBreak} from 'react-icons/im';
 import {IoRadioButtonOn, IoText} from 'react-icons/io5';
@@ -6,7 +6,7 @@ import {RiInputMethodLine} from 'react-icons/ri';
 import {TbLoader3, TbSection} from 'react-icons/tb';
 import {VscAdd, VscClose, VscSymbolNumeric} from 'react-icons/vsc';
 
-import {AlertCircle, BarChart3, Check, ChevronDown,ChevronLeft, ChevronRight, Eye, EyeOff, Files, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MapPin, Menu, Moon, Plus, RefreshCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
+import {AlertCircle, BarChart3, Check, ChevronDown,ChevronLeft, ChevronRight, Eye, EyeOff, FilePenLine, Files, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MapPin, Menu, Moon, Plus, RefreshCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
 
 export const AlertCircleIcon = AlertCircle;
 export const EyeIcon = Eye;
@@ -22,7 +22,7 @@ export const IconClose = VscClose;
 
 export const IconAdd = VscAdd;
 
-export const IconEdit = FaEdit;
+export const IconEdit = FilePenLine;
 
 export const IconLoop = FaRedo;
 
