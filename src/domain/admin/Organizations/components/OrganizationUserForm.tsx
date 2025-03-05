@@ -12,10 +12,10 @@ import {
   OrganizationUserUpdate, 
   UserBasic,
   UsersApi} from '../../../../api-generated/api';
-import darkSelectClassNames from '../../../../components/UI/datatables_theme';
 import { IconSave, IconX } from '../../../../components/UI/Icons';
 import ButtonLoader from '../../../../components/UI/molecules/ButtonLoder';
 import { ConfirmationTooltip } from '../../../../components/UI/molecules/ConfirmationTooltip';
+import darkSelectClassNames from '../../../../components/UI/ReactSelectTheme';
 import { useApi } from '../../../../hooks/useApi';
 import { cn } from '../../../../lib/utils';
 
