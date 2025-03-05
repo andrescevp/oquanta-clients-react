@@ -128,7 +128,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
         onClick={openPanel} 
         className={cn(
           buttonClassName || 'btn',
-          isOpen && 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
+          isOpen && 'bg-blue-50 text-blue-600 dark:bg-black dark:text-white'
         )}
       >
         {ButtonIcon && <ButtonIcon className={buttonIconClassName} />}
@@ -147,7 +147,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-80 transition-opacity" />
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-black dark:bg-opacity-80 transition-opacity" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-hidden">
@@ -176,8 +176,8 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
                     {/* Borde arrastrable */}
                     <div
                       className={cn(
-                        "absolute inset-y-0 cursor-ew-resize w-1 bg-gray-300 hover:bg-blue-500 transition-colors",
-                        "dark:bg-gray-600 dark:hover:bg-blue-600",
+                        "absolute inset-y-0 cursor-ew-resize w-1 bg-gray-300 hover:bg-iris-purple transition-colors",
+                        "dark:bg-gray-600 dark:hover:bg-iris-purple",
                         position === 'right' ? 'left-0' : 'right-0',
                         isDragging && 'bg-blue-600 dark:bg-blue-700'
                       )}
@@ -187,7 +187,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
                       ref={panelRef}
                       className={cn(
                         "flex flex-col h-full flex-1 overflow-hidden bg-white shadow-xl",
-                        "dark:bg-gray-800 dark:text-gray-100",
+                        "dark:bg-black-90 dark:text-gray-100",
                         className
                       )}
                     >
@@ -206,7 +206,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
                           </svg>
                         </button>
                       </div>
-                      <div className="relative flex-1 overflow-auto dark:bg-gray-800 dark:text-gray-200">
+                      <div className="relative flex-1 overflow-auto dark:bg-black-90 dark:text-gray-200">
                         {children}
                       </div>
                     </div>

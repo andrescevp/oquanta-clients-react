@@ -37,7 +37,7 @@ export const Dashboard: React.FC<DashboardLayoutProps> = ({ children }) => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50/90 to-gray-100/90 dark:from-gray-900/95 dark:to-gray-800/95 overflow-hidden backdrop-blur-[2px]">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50/90 to-gray-100/90 dark:from-black/75 dark:to-black/95 overflow-hidden backdrop-blur-[2px]">
             {/* Desktop Sidebar */}
             <Transition
                 show={!isMobile}
@@ -81,7 +81,7 @@ export const Dashboard: React.FC<DashboardLayoutProps> = ({ children }) => {
                     }
                 )}
             >
-                <header className="sticky top-0 z-30 h-16 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border-b border-gray-200/70 dark:border-gray-700/70 flex items-center justify-between px-4 lg:px-6 shadow-sm">
+                <header className="sticky top-0 z-30 h-16 bg-white/90 dark:bg-black/95  backdrop-blur-md border-b border-gray-200/70 dark:border-gray-700/70 flex items-center justify-between px-4 lg:px-6 shadow-sm">
                     <div className="flex items-center gap-2">
                         {isMobile && (
                             <button 

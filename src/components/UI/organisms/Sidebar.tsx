@@ -21,7 +21,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
         <aside
             className={cn(
                 "h-screen fixed left-0 top-0 z-40",
-                "bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg",
+                "bg-white/90 dark:bg-black/90 backdrop-blur-lg",
                 "border-r border-gray-200/70 dark:border-gray-700/70",
                 "transition-all duration-300 ease-in-out",
                 isCollapsed ? "w-16" : "w-64"

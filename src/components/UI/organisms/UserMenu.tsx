@@ -63,7 +63,7 @@ export const UserMenu: React.FC = () => {
         const className = cn(
             "w-full flex items-center gap-2 px-4 py-2.5 text-sm", 
             "text-gray-700 dark:text-gray-200 transition-colors duration-150",
-            active ? "bg-gray-100/80 dark:bg-gray-700/50" : ""
+            active ? "bg-gray-100/80 dark:bg-black/50" : ""
         );
 
         return item.href ? (
@@ -87,7 +87,7 @@ export const UserMenu: React.FC = () => {
                     <Menu.Button 
                         className={cn(
                             "group flex items-center gap-2 p-2 rounded-xl",
-                            "bg-white dark:bg-gray-800 shadow-sm",
+                            "bg-white dark:bg-black shadow-sm",
                             "hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
                             "border border-gray-200/50 dark:border-gray-700/50",
                             "transition-all duration-200 ease-out",
@@ -126,7 +126,7 @@ export const UserMenu: React.FC = () => {
                     >
                         <Menu.Items className={cn(
                             "absolute right-0 mt-3 w-56 origin-top-right",
-                            "bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg",
+                            "bg-white/90 dark:bg-black/90 backdrop-blur-lg",
                             "rounded-xl shadow-xl py-1.5",
                             "border border-gray-200/70 dark:border-gray-700/70",
                             "focus:outline-none z-50 overflow-hidden",

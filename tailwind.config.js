@@ -63,6 +63,9 @@ module.exports = {
         foreground: 'hsl(var(--foreground))',
         black: {
           DEFAULT: '#1d1d1b',
+          90: '#2a2a28',
+          80: '#373735',
+          70: '#444442',
           60: '#5b5a57',
           30: '#b8b6b2'
         },
@@ -70,6 +73,9 @@ module.exports = {
         'pure-white': '#ffffff',
         'iris-purple': {
           DEFAULT: '#5a33ee',
+          90: '#6A4DF0',
+          80: '#7A67F2',
+          70: '#8A81F4',
           60: '#876AEF',
           30: '#CBBDF1'
         },

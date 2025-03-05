@@ -774,6 +774,203 @@ export interface OrganizationUpdate {
 /**
  * 
  * @export
+ * @interface OrganizationUser
+ */
+export interface OrganizationUser {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationUser
+     */
+    'id'?: number | null;
+    /**
+     * 
+     * @type {OrganizationUserUser}
+     * @memberof OrganizationUser
+     */
+    'user'?: OrganizationUserUser | null;
+    /**
+     * 
+     * @type {OrganizationUserOrganization}
+     * @memberof OrganizationUser
+     */
+    'organization'?: OrganizationUserOrganization | null;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof OrganizationUser
+     */
+    'roles'?: Array<any> | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationUserBasic
+ */
+export interface OrganizationUserBasic {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationUserBasic
+     */
+    'id'?: number | null;
+    /**
+     * 
+     * @type {OrganizationUserBasicUser}
+     * @memberof OrganizationUserBasic
+     */
+    'user'?: OrganizationUserBasicUser | null;
+    /**
+     * 
+     * @type {OrganizationUserBasicOrganization}
+     * @memberof OrganizationUserBasic
+     */
+    'organization'?: OrganizationUserBasicOrganization | null;
+}
+/**
+ * @type OrganizationUserBasicOrganization
+ * @export
+ */
+export type OrganizationUserBasicOrganization = object;
+
+/**
+ * @type OrganizationUserBasicUser
+ * @export
+ */
+export type OrganizationUserBasicUser = object;
+
+/**
+ * 
+ * @export
+ * @interface OrganizationUserCreate
+ */
+export interface OrganizationUserCreate {
+    /**
+     * 
+     * @type {OrganizationUserCreateUser}
+     * @memberof OrganizationUserCreate
+     */
+    'user': OrganizationUserCreateUser;
+    /**
+     * 
+     * @type {OrganizationUserCreateOrganization}
+     * @memberof OrganizationUserCreate
+     */
+    'organization': OrganizationUserCreateOrganization;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof OrganizationUserCreate
+     */
+    'roles'?: Array<any> | null;
+}
+/**
+ * @type OrganizationUserCreateOrganization
+ * @export
+ */
+export type OrganizationUserCreateOrganization = object;
+
+/**
+ * @type OrganizationUserCreateUser
+ * @export
+ */
+export type OrganizationUserCreateUser = object;
+
+/**
+ * 
+ * @export
+ * @interface OrganizationUserList
+ */
+export interface OrganizationUserList {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationUserList
+     */
+    'page': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationUserList
+     */
+    'lastPage': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationUserList
+     */
+    'nextPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationUserList
+     */
+    'previousPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationUserList
+     */
+    'count'?: number | null;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof OrganizationUserList
+     */
+    'results'?: Array<any> | null;
+}
+/**
+ * @type OrganizationUserOrganization
+ * @export
+ */
+export type OrganizationUserOrganization = object;
+
+/**
+ * 
+ * @export
+ * @interface OrganizationUserUpdate
+ */
+export interface OrganizationUserUpdate {
+    /**
+     * 
+     * @type {OrganizationUserUpdateUser}
+     * @memberof OrganizationUserUpdate
+     */
+    'user'?: OrganizationUserUpdateUser | null;
+    /**
+     * 
+     * @type {OrganizationUserUpdateOrganization}
+     * @memberof OrganizationUserUpdate
+     */
+    'organization'?: OrganizationUserUpdateOrganization | null;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof OrganizationUserUpdate
+     */
+    'roles'?: Array<any> | null;
+}
+/**
+ * @type OrganizationUserUpdateOrganization
+ * @export
+ */
+export type OrganizationUserUpdateOrganization = object;
+
+/**
+ * @type OrganizationUserUpdateUser
+ * @export
+ */
+export type OrganizationUserUpdateUser = object;
+
+/**
+ * @type OrganizationUserUser
+ * @export
+ */
+export type OrganizationUserUser = object;
+
+/**
+ * 
+ * @export
  * @interface Token
  */
 export interface Token {
@@ -1549,6 +1746,820 @@ export const GetApiOrganizationPlacesListOrderEnum = {
     Desc: 'DESC'
 } as const;
 export type GetApiOrganizationPlacesListOrderEnum = typeof GetApiOrganizationPlacesListOrderEnum[keyof typeof GetApiOrganizationPlacesListOrderEnum];
+
+
+/**
+ * OrganizationUsersApi - axios parameter creator
+ * @export
+ */
+export const OrganizationUsersApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationUsersDelete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteApiOrganizationUsersDelete', 'id', id)
+            const localVarPath = `/api/organization-user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} role 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationUsersRemoveRole: async (id: string, role: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteApiOrganizationUsersRemoveRole', 'id', id)
+            // verify required parameter 'role' is not null or undefined
+            assertParamExists('deleteApiOrganizationUsersRemoveRole', 'role', role)
+            const localVarPath = `/api/organization-user/{id}/roles/{role}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"role"}}`, encodeURIComponent(String(role)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationUsersByOrganizationOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationUsersByOrganization: async (uuid: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByOrganizationOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('getApiOrganizationUsersByOrganization', 'uuid', uuid)
+            const localVarPath = `/api/organization-user/organization/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationUsersByUserOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationUsersByUser: async (id: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByUserOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getApiOrganizationUsersByUser', 'id', id)
+            const localVarPath = `/api/organization-user/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationUsersGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getApiOrganizationUsersGet', 'id', id)
+            const localVarPath = `/api/organization-user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [organization] Organization UUID
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationUsersListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationUsersList: async (page?: number, limit?: number, search?: string, organization?: string, sort?: string, order?: GetApiOrganizationUsersListOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/organization-user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            if (organization !== undefined) {
+                localVarQueryParameter['organization'] = organization;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {OrganizationUserCreate} organizationUserCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationUsersCreate: async (organizationUserCreate: OrganizationUserCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationUserCreate' is not null or undefined
+            assertParamExists('postApiOrganizationUsersCreate', 'organizationUserCreate', organizationUserCreate)
+            const localVarPath = `/api/organization-user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(organizationUserCreate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} role 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationUsersAddRole: async (id: string, role: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('putApiOrganizationUsersAddRole', 'id', id)
+            // verify required parameter 'role' is not null or undefined
+            assertParamExists('putApiOrganizationUsersAddRole', 'role', role)
+            const localVarPath = `/api/organization-user/{id}/roles/{role}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"role"}}`, encodeURIComponent(String(role)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {OrganizationUserUpdate} organizationUserUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationUsersUpdate: async (id: string, organizationUserUpdate: OrganizationUserUpdate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('putApiOrganizationUsersUpdate', 'id', id)
+            // verify required parameter 'organizationUserUpdate' is not null or undefined
+            assertParamExists('putApiOrganizationUsersUpdate', 'organizationUserUpdate', organizationUserUpdate)
+            const localVarPath = `/api/organization-user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(organizationUserUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * OrganizationUsersApi - functional programming interface
+ * @export
+ */
+export const OrganizationUsersApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = OrganizationUsersApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteApiOrganizationUsersDelete(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteApiOrganizationUsersDelete(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.deleteApiOrganizationUsersDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} role 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteApiOrganizationUsersRemoveRole(id: string, role: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteApiOrganizationUsersRemoveRole(id, role, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.deleteApiOrganizationUsersRemoveRole']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationUsersByOrganizationOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationUsersByOrganization(uuid: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByOrganizationOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUserList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationUsersByOrganization(uuid, page, limit, sort, order, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.getApiOrganizationUsersByOrganization']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationUsersByUserOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationUsersByUser(id: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByUserOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUserList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationUsersByUser(id, page, limit, sort, order, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.getApiOrganizationUsersByUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationUsersGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationUsersGet(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.getApiOrganizationUsersGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [organization] Organization UUID
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationUsersListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationUsersList(page?: number, limit?: number, search?: string, organization?: string, sort?: string, order?: GetApiOrganizationUsersListOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUserList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationUsersList(page, limit, search, organization, sort, order, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.getApiOrganizationUsersList']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {OrganizationUserCreate} organizationUserCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiOrganizationUsersCreate(organizationUserCreate: OrganizationUserCreate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiOrganizationUsersCreate(organizationUserCreate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.postApiOrganizationUsersCreate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} role 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putApiOrganizationUsersAddRole(id: string, role: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putApiOrganizationUsersAddRole(id, role, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.putApiOrganizationUsersAddRole']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {OrganizationUserUpdate} organizationUserUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putApiOrganizationUsersUpdate(id: string, organizationUserUpdate: OrganizationUserUpdate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putApiOrganizationUsersUpdate(id, organizationUserUpdate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.putApiOrganizationUsersUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * OrganizationUsersApi - factory interface
+ * @export
+ */
+export const OrganizationUsersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = OrganizationUsersApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationUsersDelete(id: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteApiOrganizationUsersDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} role 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationUsersRemoveRole(id: string, role: string, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUser> {
+            return localVarFp.deleteApiOrganizationUsersRemoveRole(id, role, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationUsersByOrganizationOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationUsersByOrganization(uuid: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByOrganizationOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUserList> {
+            return localVarFp.getApiOrganizationUsersByOrganization(uuid, page, limit, sort, order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationUsersByUserOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationUsersByUser(id: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByUserOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUserList> {
+            return localVarFp.getApiOrganizationUsersByUser(id, page, limit, sort, order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationUsersGet(id: string, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUser> {
+            return localVarFp.getApiOrganizationUsersGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [organization] Organization UUID
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationUsersListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationUsersList(page?: number, limit?: number, search?: string, organization?: string, sort?: string, order?: GetApiOrganizationUsersListOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUserList> {
+            return localVarFp.getApiOrganizationUsersList(page, limit, search, organization, sort, order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {OrganizationUserCreate} organizationUserCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationUsersCreate(organizationUserCreate: OrganizationUserCreate, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUser> {
+            return localVarFp.postApiOrganizationUsersCreate(organizationUserCreate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} role 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationUsersAddRole(id: string, role: string, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUser> {
+            return localVarFp.putApiOrganizationUsersAddRole(id, role, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {OrganizationUserUpdate} organizationUserUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationUsersUpdate(id: string, organizationUserUpdate: OrganizationUserUpdate, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUser> {
+            return localVarFp.putApiOrganizationUsersUpdate(id, organizationUserUpdate, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * OrganizationUsersApi - object-oriented interface
+ * @export
+ * @class OrganizationUsersApi
+ * @extends {BaseAPI}
+ */
+export class OrganizationUsersApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationUsersApi
+     */
+    public deleteApiOrganizationUsersDelete(id: string, options?: RawAxiosRequestConfig) {
+        return OrganizationUsersApiFp(this.configuration).deleteApiOrganizationUsersDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {string} role 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationUsersApi
+     */
+    public deleteApiOrganizationUsersRemoveRole(id: string, role: string, options?: RawAxiosRequestConfig) {
+        return OrganizationUsersApiFp(this.configuration).deleteApiOrganizationUsersRemoveRole(id, role, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {number} [page] Page number
+     * @param {number} [limit] Number of items per page
+     * @param {string} [sort] Field to sort by
+     * @param {GetApiOrganizationUsersByOrganizationOrderEnum} [order] Sort direction (ASC or DESC)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationUsersApi
+     */
+    public getApiOrganizationUsersByOrganization(uuid: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByOrganizationOrderEnum, options?: RawAxiosRequestConfig) {
+        return OrganizationUsersApiFp(this.configuration).getApiOrganizationUsersByOrganization(uuid, page, limit, sort, order, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {number} [page] Page number
+     * @param {number} [limit] Number of items per page
+     * @param {string} [sort] Field to sort by
+     * @param {GetApiOrganizationUsersByUserOrderEnum} [order] Sort direction (ASC or DESC)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationUsersApi
+     */
+    public getApiOrganizationUsersByUser(id: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByUserOrderEnum, options?: RawAxiosRequestConfig) {
+        return OrganizationUsersApiFp(this.configuration).getApiOrganizationUsersByUser(id, page, limit, sort, order, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationUsersApi
+     */
+    public getApiOrganizationUsersGet(id: string, options?: RawAxiosRequestConfig) {
+        return OrganizationUsersApiFp(this.configuration).getApiOrganizationUsersGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [page] Page number
+     * @param {number} [limit] Number of items per page
+     * @param {string} [search] Search term
+     * @param {string} [organization] Organization UUID
+     * @param {string} [sort] Field to sort by
+     * @param {GetApiOrganizationUsersListOrderEnum} [order] Sort direction (ASC or DESC)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationUsersApi
+     */
+    public getApiOrganizationUsersList(page?: number, limit?: number, search?: string, organization?: string, sort?: string, order?: GetApiOrganizationUsersListOrderEnum, options?: RawAxiosRequestConfig) {
+        return OrganizationUsersApiFp(this.configuration).getApiOrganizationUsersList(page, limit, search, organization, sort, order, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {OrganizationUserCreate} organizationUserCreate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationUsersApi
+     */
+    public postApiOrganizationUsersCreate(organizationUserCreate: OrganizationUserCreate, options?: RawAxiosRequestConfig) {
+        return OrganizationUsersApiFp(this.configuration).postApiOrganizationUsersCreate(organizationUserCreate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {string} role 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationUsersApi
+     */
+    public putApiOrganizationUsersAddRole(id: string, role: string, options?: RawAxiosRequestConfig) {
+        return OrganizationUsersApiFp(this.configuration).putApiOrganizationUsersAddRole(id, role, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {OrganizationUserUpdate} organizationUserUpdate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationUsersApi
+     */
+    public putApiOrganizationUsersUpdate(id: string, organizationUserUpdate: OrganizationUserUpdate, options?: RawAxiosRequestConfig) {
+        return OrganizationUsersApiFp(this.configuration).putApiOrganizationUsersUpdate(id, organizationUserUpdate, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const GetApiOrganizationUsersByOrganizationOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetApiOrganizationUsersByOrganizationOrderEnum = typeof GetApiOrganizationUsersByOrganizationOrderEnum[keyof typeof GetApiOrganizationUsersByOrganizationOrderEnum];
+/**
+ * @export
+ */
+export const GetApiOrganizationUsersByUserOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetApiOrganizationUsersByUserOrderEnum = typeof GetApiOrganizationUsersByUserOrderEnum[keyof typeof GetApiOrganizationUsersByUserOrderEnum];
+/**
+ * @export
+ */
+export const GetApiOrganizationUsersListOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetApiOrganizationUsersListOrderEnum = typeof GetApiOrganizationUsersListOrderEnum[keyof typeof GetApiOrganizationUsersListOrderEnum];
 
 
 /**
