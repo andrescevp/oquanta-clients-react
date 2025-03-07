@@ -80,23 +80,6 @@ const UsersPage: React.FC = () => {
   };
   // Columnas para la tabla de usuarios
     const columns: TableColumn<UserBasic>[] = [
-      ...[(hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')) ? {  
-        name: t('Actions'),
-        cell: (row: User) => (
-          <OffsetPanel
-            buttonPosition="inline" 
-            buttonClassName="p-2 text-gray-500 hover:text-blue-600 transition-colors !bg-transparent border rounded shadow"
-            buttonText={""}
-            title={t('Editar usuario')}
-            buttonIcon={IconEdit}
-            buttonIconClassName="w-5 h-5"
-            panelId={`user_${row.uuid}`}
-          >
-            <UserForm userData={row} onSuccess={loadUsers} />
-          </OffsetPanel>
-        ),
-        selector: (row: User) => row.uuid || '',  
-        } : {}],
     {
       name: t('Nombre'),
       selector: (row: User) => `${row.name || ''} ${row.lastName || ''}`,
@@ -116,6 +99,23 @@ const UsersPage: React.FC = () => {
         return row.roles.join(', ');
       },
     },
+    ...[(hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')) ? {  
+      name: t('Actions'),
+      cell: (row: User) => (
+        <OffsetPanel
+          buttonPosition="inline" 
+          buttonClassName="p-2 text-gray-500 hover:text-blue-600 transition-colors !bg-transparent border rounded shadow"
+          buttonText={""}
+          title={t('Editar usuario')}
+          buttonIcon={IconEdit}
+          buttonIconClassName="w-5 h-5"
+          panelId={`user_${row.uuid}`}
+        >
+          <UserForm userData={row} onSuccess={loadUsers} />
+        </OffsetPanel>
+      ),
+      selector: (row: User) => row.uuid || '',  
+      } : {}],
   ];
 
   return (
@@ -124,14 +124,16 @@ const UsersPage: React.FC = () => {
         <h1 className="text-2xl font-bold">Gestión de Usuarios</h1>
       </div>
 
-      <div className="mb-4 flex justify-start items-center space-x-1">
-        <button 
-          className="btn"
-          onClick={loadUsers}
-          title="Actualizar"
-        >
-          <IconRefresh size={20} />
-        </button>
+      <div className="mb-4 flex justify-end items-center space-x-1">
+        <div className="relative w-full max-w-md">
+        <SearchButton
+            expandDirection="left"
+            value={search}
+            onChange={setSearch}
+            placeholder={t('Buscar usuarios...')}
+            onSubmit={loadUsers}
+          />
+        </div>
         <Restricted roles={['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']}>
           <OffsetPanel 
             buttonPosition="inline" 
@@ -145,14 +147,13 @@ const UsersPage: React.FC = () => {
               <UserForm onSuccess={loadUsers} />
           </OffsetPanel>
         </Restricted>
-        <div className="relative w-full max-w-md">
-        <SearchButton
-            value={search}
-            onChange={setSearch}
-            placeholder={t('Buscar usuarios...')}
-            onSubmit={loadUsers}
-          />
-        </div>
+        <button 
+          className="btn"
+          onClick={loadUsers}
+          title="Actualizar"
+        >
+          <IconRefresh size={20} />
+        </button>
       </div>
 
       <div className="bg-white rounded-lg shadow-md">

@@ -79,23 +79,6 @@ const OrganizationsPage: React.FC = () => {
 
   // Columnas para la tabla de organizaciones
   const columns: TableColumn<OrganizationBasic>[] = [
-    ...[(hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')) ? {  
-      name: t('Acciones'),
-      cell: (row: Organization) => (
-        <OffsetPanel
-          buttonPosition="inline" 
-          buttonClassName="p-2 text-gray-500 hover:text-blue-600 transition-colors !bg-transparent border rounded shadow"
-          buttonText={""}
-          title={t('Editar organización')}
-          buttonIcon={IconEdit}
-          buttonIconClassName="w-5 h-5"
-          panelId={`organization_${row.uuid}`}
-        >
-          <OrganizationForm organizationData={row} onSuccess={loadOrganizations} />
-        </OffsetPanel>
-      ),
-      selector: (row: Organization) => row.uuid || '',  
-    } : {}],
     {
       name: t('Nombre'),
       selector: (row: Organization) => row.name || '',
@@ -120,6 +103,23 @@ const OrganizationsPage: React.FC = () => {
       name: t('País'),
       selector: (row: Organization) => row.country || '',
     },
+    ...[(hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')) ? {  
+      name: t('Acciones'),
+      cell: (row: Organization) => (
+        <OffsetPanel
+          buttonPosition="inline" 
+          buttonClassName="p-2 text-gray-500 hover:text-blue-600 transition-colors !bg-transparent border rounded shadow"
+          buttonText={""}
+          title={t('Editar organización')}
+          buttonIcon={IconEdit}
+          buttonIconClassName="w-5 h-5"
+          panelId={`organization_${row.uuid}`}
+        >
+          <OrganizationForm organizationData={row} onSuccess={loadOrganizations} />
+        </OffsetPanel>
+      ),
+      selector: (row: Organization) => row.uuid || '',  
+    } : {}],
   ];
 
   return (
@@ -128,14 +128,16 @@ const OrganizationsPage: React.FC = () => {
         <h1 className="text-2xl font-bold">{t('Gestión de Organizaciones')}</h1>
       </div>
 
-      <div className="mb-4 flex justify-start items-center space-x-1">
-        <button 
-          className="btn"
-          onClick={loadOrganizations}
-          title={t('Actualizar')}
-        >
-          <IconRefresh size={20} />
-        </button>
+      <div className="mb-4 flex justify-end items-center space-x-1">
+        <div className="relative w-full max-w-md">
+          <SearchButton
+            value={search}
+            onChange={setSearch}
+            placeholder={t('Buscar organizaciones...')}
+            onSubmit={loadOrganizations}
+            expandDirection="left"
+          />
+        </div>
         <Restricted roles={['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']}>
           <OffsetPanel 
             buttonPosition="inline" 
@@ -149,14 +151,13 @@ const OrganizationsPage: React.FC = () => {
             <OrganizationForm onSuccess={loadOrganizations} />
           </OffsetPanel>
         </Restricted>
-        <div className="relative w-full max-w-md">
-          <SearchButton
-            value={search}
-            onChange={setSearch}
-            placeholder={t('Buscar organizaciones...')}
-            onSubmit={loadOrganizations}
-          />
-        </div>
+        <button 
+          className="btn"
+          onClick={loadOrganizations}
+          title={t('Actualizar')}
+        >
+          <IconRefresh size={20} />
+        </button>
       </div>
 
       <div className="bg-white rounded-lg shadow-md">

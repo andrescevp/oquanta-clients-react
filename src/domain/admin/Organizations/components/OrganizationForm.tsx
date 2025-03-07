@@ -264,17 +264,27 @@ const OrganizationForm: React.FC<OrganizationFormProps> = ({
     },
     {
       name: t('Acciones'),
-      cell: row => (
-        <div className="flex space-x-2">
-          <button
-            onClick={() => handleEditUser(row)}
-            className="p-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+      cell: row => {
+        return (
+          <div className="flex space-x-2">
+          <OffsetPanel
+            title={t('Editar usuario')}
+            buttonIcon={IconEdit}
+            panelId={`edit-organization-user-${row.id}`}
+            persistState={false}
+            defaultOpen={false}
           >
-            <IconEdit className="w-5 h-5" />
-            <span className="sr-only">{t('Editar')}</span>
-          </button>
-        </div>
-      ),
+            <OrganizationUserForm
+              id={Number(row.id)}
+              organizationUserData={row}
+              onSuccess={handleUserFormSuccess}
+              onCancel={() => setShowUserForm(false)}
+              defaultOrganizationId={organizationData?.uuid || undefined}
+            />
+          </OffsetPanel>
+          </div>
+        );
+      },
       button: true,
       width: '100px',
     },

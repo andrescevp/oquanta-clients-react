@@ -28,6 +28,11 @@ interface SearchButtonProps {
    * Function to call on search submit
    */
   onSubmit?: () => void;
+  /**
+   * Direction for the search input to expand
+   * @default "right"
+   */
+  expandDirection?: 'left' | 'right';
 }
 
 type FormValues = {
@@ -37,16 +42,17 @@ type FormValues = {
 /**
  * SearchButton component that shows a search icon and expands to show an input field when clicked
  */
+// eslint-disable-next-line complexity
 export const SearchButton: React.FC<SearchButtonProps> = ({
   value,
   onChange,
   placeholder,
   className,
-  onSubmit
+  onSubmit,
+  expandDirection = 'right'
 }) => {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = React.useState(!!value);
-  // Cambiar la definición del useRef para que sea mutable
   const inputRef = useRef<HTMLInputElement | null>(null);
   
   const {
@@ -122,37 +128,59 @@ export const SearchButton: React.FC<SearchButtonProps> = ({
     }
   });
 
+  // Configuraciones de animación según dirección
+  const animationClasses = {
+    right: {
+      enterFrom: "opacity-0 scale-95 -translate-x-4",
+      enterTo: "opacity-100 scale-100 translate-x-0",
+      leaveFrom: "opacity-100 scale-100 translate-x-0",
+      leaveTo: "opacity-0 scale-95 -translate-x-4"
+    },
+    left: {
+      enterFrom: "opacity-0 scale-95 translate-x-4",
+      enterTo: "opacity-100 scale-100 translate-x-0", 
+      leaveFrom: "opacity-100 scale-100 translate-x-0",
+      leaveTo: "opacity-0 scale-95 translate-x-4"
+    }
+  };
+
+  const animation = animationClasses[expandDirection];
+
   return (
     <div className={cn(
-      "relative flex items-center h-11 justify-start group",
+      "relative flex items-center h-11",
+      expandDirection === 'left' ? 'flex-row-reverse' : 'flex-row',
       className
-    )}>      
-      <button 
-        type="button"
-        data-search-button
-        className={cn(
-          "flex items-center justify-center  btn",
-          "hover:shadow-md active:scale-95",
-          isExpanded && "mr-2"
-        )}
-        onClick={handleButtonClick}
-        title={isExpanded ? t('Limpiar búsqueda') : t('Buscar')}
-      >
-        {isExpanded && value ? (
-          <IconX className='w-5 h-5' />
-        ) : (
-          <IconSearch className='w-5 h-5' />
-        )}
-      </button>
+    )}>
+      <div className="flex-shrink-0">
+        <button 
+          type="button"
+          data-search-button
+          className={cn(
+            "flex items-center justify-center btn",
+            "hover:shadow-md active:scale-95",
+            isExpanded && expandDirection === 'right' && "mr-2",
+            isExpanded && expandDirection === 'left' && "ml-2"
+          )}
+          onClick={handleButtonClick}
+          title={isExpanded && value ? t('Limpiar búsqueda') : t('Buscar')}
+        >
+          {isExpanded && value ? (
+            <IconX className='w-5 h-5' />
+          ) : (
+            <IconSearch className='w-5 h-5' />
+          )}
+        </button>
+      </div>
 
       <Transition
         show={isExpanded}
         enter="transition-all duration-300 ease-out"
-        enterFrom="opacity-0 scale-95 -translate-x-4"
-        enterTo="opacity-100 scale-100 translate-x-0"
+        enterFrom={animation.enterFrom}
+        enterTo={animation.enterTo}
         leave="transition-all duration-200 ease-in"
-        leaveFrom="opacity-100 scale-100 translate-x-0"
-        leaveTo="opacity-0 scale-95 -translate-x-4"
+        leaveFrom={animation.leaveFrom}
+        leaveTo={animation.leaveTo}
       >
         <div className="w-full">
           <form 
@@ -167,7 +195,6 @@ export const SearchButton: React.FC<SearchButtonProps> = ({
               {...inputProps}
               ref={(e) => {
                 ref(e);
-                // Ahora TypeScript permitirá esta asignación
                 if (e) inputRef.current = e;
               }}
               type="text"
@@ -189,7 +216,21 @@ export const SearchButton: React.FC<SearchButtonProps> = ({
                 }
               }}
             />
-            {/* Resto del componente sin cambios */}
+
+            {watchedQuery && (
+              <button
+                type="button"
+                onClick={() => {
+                  reset({ searchQuery: '' });
+                  onChange(null);
+                  if (onSubmit) onSubmit();
+                  if (inputRef.current) inputRef.current.focus();
+                }}
+                className="absolute inset-y-0 right-0 flex items-center pr-3"
+              >
+                <IconX className="w-4 h-4 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300" />
+              </button>
+            )}
           </form>
         </div>
       </Transition>

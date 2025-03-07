@@ -3,6 +3,8 @@ import { Controller,useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 
+import { toast } from 'sonner';
+
 import { 
   OrganizationBasic,
   OrganizationsApi,
@@ -88,7 +90,7 @@ const OrganizationUserForm: React.FC<OrganizationUserFormProps> = ({
     defaultValues: {
       user: null,
       organization: null,
-      roles: []
+      roles: organizationUserData?.roles || []
     }
   });
   
@@ -217,14 +219,16 @@ const OrganizationUserForm: React.FC<OrganizationUserFormProps> = ({
           roles: roleValues
         };
         await organizationUsersApi.call('putApiOrganizationUsersUpdate', String(id), updateData);
+        toast(t('Usuario de organización actualizado correctamente'));
       } else {
         // Crear nueva relación usuario-organización
         const createData: OrganizationUserCreate = {
-          user: { uuid: data.user.value } as any,
-          organization: { uuid: data.organization.value } as any,
+          userUuid: data.user.value,
+          organizationUuid: data.organization.value,
           roles: roleValues
         };
         await organizationUsersApi.call('postApiOrganizationUsersCreate', createData);
+        toast(t('Usuario de organización creado correctamente'));
       }
       
       if (onSuccess) {

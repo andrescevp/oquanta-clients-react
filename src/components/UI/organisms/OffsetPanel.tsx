@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
@@ -31,6 +31,8 @@ interface OffsetPanelProps {
    * @default false
    */
   defaultOpen?: boolean;
+
+  lazy?: boolean;
 }
 
 // eslint-disable-next-line complexity
@@ -39,7 +41,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
   position = 'right',
   title,
   className,
-  buttonText = 'Abrir panel',
+  buttonText,
   buttonIcon: ButtonIcon = IconMenu,
   buttonClassName,
   buttonPosition = 'inline',
@@ -47,6 +49,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
   panelId = 'panel',
   persistState = true,
   defaultOpen = false,
+  lazy = true,
 }) => {
   // Usar useQueryParams para gestionar el estado en la URL
   const { value: panelStateParam, setValue: setPanelState } = useQueryParams<string>(
@@ -207,7 +210,11 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
                         </button>
                       </div>
                       <div className="relative flex-1 overflow-auto dark:bg-black-90 dark:text-gray-200">
-                        {children}
+                      {
+                        lazy 
+                          ? <Suspense fallback={null}>{children}</Suspense>
+                          : children
+                      }
                       </div>
                     </div>
                   </Dialog.Panel>

@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 
 import { Toaster } from 'sonner';
 
+import DebugBar from './components/UI/organisms/DebugBar';
 import { AuthProviderWithRouter } from './context/AuthContext';
 import { BreadcrumbProvider } from './context/BreadcrumbsContext';
+import { DebugBarProvider } from './context/DebugBarContext';
 import { LocationProvider } from './context/LocationContext';
 import { OffsetPanelProvider } from './context/OffsetPanelContext'; // Añadir esta importación
 import { PermissionProvider } from './context/PermissionContext';
@@ -23,6 +25,7 @@ import './App.scss';
 const App = () => {
   return (
     <StrictMode>
+    <DebugBarProvider>
       <Router>
         <AuthProviderWithRouter>
           <PermissionProvider>
@@ -63,6 +66,7 @@ const App = () => {
 
                         <Route path="/" element={<Navigate to="/client" />} />
                       </Routes>
+                      <DebugBar />
                     </LocationProvider>
                   </OffsetPanelProvider>
                 </BreadcrumbProvider>
@@ -71,6 +75,7 @@ const App = () => {
           </PermissionProvider>
         </AuthProviderWithRouter>
       </Router>
+      </DebugBarProvider>
     </StrictMode>
   );
 };

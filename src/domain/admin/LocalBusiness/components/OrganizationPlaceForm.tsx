@@ -164,12 +164,15 @@ const OrganizationPlaceForm: React.FC<OrganizationPlaceFormProps> = ({
     if (latitude && longitude && !isNaN(parseFloat(latitude)) && !isNaN(parseFloat(longitude))) {
       setMapPosition([parseFloat(latitude), parseFloat(longitude)]);
     }
-  }, [latitude, longitude, setMapPosition]);
+  }, [latitude, longitude]);
 
   // Cargar organización por defecto si hay un UUID
   useEffect(() => {
+    if (!organizationPlaceData) {
+      return;
+    }
     const fetchDefaultOrganization = async () => {
-      const orgUuid = organizationPlaceData?.organizationUuid || defaultOrganizationId;
+      const orgUuid = organizationPlaceData.organizationUuid || defaultOrganizationId;
       if (orgUuid) {
         try {
           const response = await organizationsApi.call('getApiOrganizationsGet', orgUuid);
@@ -186,7 +189,7 @@ const OrganizationPlaceForm: React.FC<OrganizationPlaceFormProps> = ({
     };
     
     fetchDefaultOrganization();
-  }, [organizationPlaceData?.organizationUuid, defaultOrganizationId, organizationsApi]);
+  }, [organizationPlaceData, defaultOrganizationId]);
 
   // Función para cargar opciones de organizaciones asíncronamente
   const loadOrganizationOptions = async (inputValue: string): Promise<OrganizationOption[]> => {

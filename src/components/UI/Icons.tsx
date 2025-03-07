@@ -6,13 +6,18 @@ import {RiInputMethodLine} from 'react-icons/ri';
 import {TbLoader3, TbSection} from 'react-icons/tb';
 import {VscAdd, VscClose, VscSymbolNumeric} from 'react-icons/vsc';
 
-import {AlertCircle, BarChart3, Check, ChevronDown,ChevronLeft, ChevronRight, Eye, EyeOff, FilePenLine, Files, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MapPin, Menu, Moon, Plus, RefreshCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
+import {AlertCircle, ArrowRight, ArrowUp, BarChart3, Check, ChevronDown,ChevronLeft, ChevronRight, ChevronUp,Clock,ExternalLink,Eye, EyeOff, FilePenLine, Files, GripHorizontal, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MapPin, Menu, Moon, Plus, RefreshCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
 
 export const AlertCircleIcon = AlertCircle;
+export const ArrowUpIcon = ArrowUp;
+export const ArrowRightIcon = ArrowRight;
 export const EyeIcon = Eye;
 export const EyeOffIcon = EyeOff;
 export const LockIcon = Lock;
 export const MailIcon = Mail;
+export const IconClock = Clock;
+export const IconExternalLink = ExternalLink;
+export const IconGripHorizontal = GripHorizontal;
 
 export const IconTrash = FaTrash;
 
@@ -76,6 +81,7 @@ export const IconX = XIcon;
 export const IconCheck = Check;
 export const IconMapPin = MapPin;
 export const IconChevronDown = ChevronDown;
+export const IconChevronUp = ChevronUp;
 
 
 

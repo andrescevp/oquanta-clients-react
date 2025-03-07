@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect,useState } from 'react';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { useTranslation } from 'react-i18next';
 import AsyncSelect from 'react-select/async';
@@ -8,6 +8,7 @@ import { Restricted } from '../../components/UI/atoms/Restricted';
 import { IconAdd, IconEdit, IconRefresh } from '../../components/UI/Icons';
 import { SearchButton } from '../../components/UI/molecules/SearchButton';
 import { OffsetPanel } from '../../components/UI/organisms/OffsetPanel';
+import darkSelectClassNames from '../../components/UI/ReactSelectTheme';
 import { usePermission } from '../../context/PermissionContext';
 import OrganizationPlaceForm from '../../domain/admin/LocalBusiness/components/OrganizationPlaceForm';
 import { useApi } from '../../hooks/useApi';
@@ -35,7 +36,7 @@ const OrganizationNameCell = React.memo(({ organizationUuid, organizationsCache,
           getOrganizationName(organizationUuid).then(setOrgName);
         }
       }
-    }, [organizationUuid, organizationsCache, getOrganizationName]);
+    }, [organizationUuid]);
         
     return <>{orgName || t('Cargando...')}</>;
   });
@@ -85,7 +86,7 @@ const OrganizationPlacesPage: React.FC = () => {
   };
 
   // Función para cargar opciones de organizaciones asíncronamente
-  const loadOrganizationOptions = async (inputValue: string): Promise<OrganizationOption[]> => {
+  const loadOrganizationOptions = useCallback(async (inputValue: string): Promise<OrganizationOption[]> => {
     try {
       const response = await organizationsApi.call(
         'getApiOrganizationsList', 
@@ -121,7 +122,7 @@ const OrganizationPlacesPage: React.FC = () => {
       console.error('Error al cargar opciones de organizaciones:', err);
       return [];
     }
-  };
+  }, []);
 
   // Cargar lista de establecimientos
   const loadPlaces = async () => {
@@ -160,8 +161,7 @@ const OrganizationPlacesPage: React.FC = () => {
   };
 
   // Cargar establecimientos al iniciar y cuando cambien los parámetros
-  useEffect(() => {
-    console.log('Cambio en parámetros de búsqueda o paginación...');
+  useEffect(() => {    
     const timer = setTimeout(() => {
       loadPlaces();
     }, search !== null ? 500 : 200);
@@ -191,23 +191,6 @@ const OrganizationPlacesPage: React.FC = () => {
   // Columnas para la tabla de establecimientos
 
   const columns: TableColumn<OrganizationPlaceBasic>[] = [
-    ...[(hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')) ? {  
-      name: t('Acciones'),
-      cell: (row: OrganizationPlace) => (
-        <OffsetPanel
-          buttonPosition="inline" 
-          buttonClassName="p-2 text-gray-500 hover:text-blue-600 transition-colors !bg-transparent border rounded shadow"
-          buttonText={""}
-          title={t('Editar establecimiento')}
-          buttonIcon={IconEdit}
-          buttonIconClassName="w-5 h-5"
-          panelId={`place_${row.uuid}`}
-        >
-          <OrganizationPlaceForm organizationPlaceData={row} onSuccess={loadPlaces} />
-        </OffsetPanel>
-      ),
-      selector: (row: OrganizationPlace) => row.uuid || '',  
-    } : {}],
     {
       name: t('Nombre'),
       selector: (row: OrganizationPlace) => row.name || '',
@@ -240,6 +223,23 @@ const OrganizationPlacesPage: React.FC = () => {
         />
       ),
     },
+    ...[(hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')) ? {  
+      name: t('Acciones'),
+      cell: (row: OrganizationPlace) => (
+        <OffsetPanel
+          buttonPosition="inline" 
+          buttonClassName="p-2 text-gray-500 hover:text-blue-600 transition-colors !bg-transparent border rounded shadow"
+          buttonText={""}
+          title={t('Editar establecimiento')}
+          buttonIcon={IconEdit}
+          buttonIconClassName="w-5 h-5"
+          panelId={`place_${row.uuid}`}
+        >
+          <OrganizationPlaceForm organizationPlaceData={row} onSuccess={loadPlaces} />
+        </OffsetPanel>
+      ),
+      selector: (row: OrganizationPlace) => row.uuid || '',  
+    } : {}],
   ];
 
   return (
@@ -248,14 +248,32 @@ const OrganizationPlacesPage: React.FC = () => {
         <h1 className="text-2xl font-bold">{t('Gestión de Establecimientos')}</h1>
       </div>
 
-      <div className="mb-4 flex flex-wrap justify-start items-center gap-2">
-        <button 
-          className="btn"
-          onClick={loadPlaces}
-          title={t('Actualizar')}
-        >
-          <IconRefresh size={20} />
-        </button>
+      <div className="mb-4 flex flex-wrap justify-end items-center gap-2">
+        
+        <div className="relative flex-grow max-w-md">
+          <SearchButton
+            value={search}
+            onChange={setSearch}
+            placeholder={t('Buscar establecimientos...')}
+            onSubmit={loadPlaces}
+            expandDirection="left"
+          />
+        </div>        
+        <div className="w-64">
+          <AsyncSelect
+            classNames={darkSelectClassNames}
+            cacheOptions
+            defaultOptions // Usar array vacío en lugar de true
+            loadOptions={loadOrganizationOptions}
+            value={selectedOrganization}
+            onChange={(option) => setSelectedOrganization(option as OrganizationOption)}
+            placeholder={t('Filtrar por organización')}
+            noOptionsMessage={() => t('No hay resultados')}
+            loadingMessage={() => t('Cargando...')}
+            isClearable={true}
+            isLoading={organizationsApi.isLoading}
+          />
+        </div>
         <Restricted roles={['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']}>
           <OffsetPanel 
             buttonPosition="inline" 
@@ -265,35 +283,18 @@ const OrganizationPlacesPage: React.FC = () => {
             buttonIcon={IconAdd}
             buttonIconClassName="w-5 h-5"
             panelId='new_place'
+            lazy={false}
           >
             <OrganizationPlaceForm onSuccess={loadPlaces} />
           </OffsetPanel>
         </Restricted>
-        
-        <div className="w-64">
-          <AsyncSelect
-            cacheOptions
-            defaultOptions
-            loadOptions={loadOrganizationOptions}
-            value={selectedOrganization}
-            onChange={(option) => setSelectedOrganization(option)}
-            placeholder={t('Filtrar por organización')}
-            noOptionsMessage={() => t('No hay resultados')}
-            loadingMessage={() => t('Cargando...')}
-            className="react-select-container"
-            classNamePrefix="react-select"
-            isClearable={true}
-          />
-        </div>
-        
-        <div className="relative flex-grow max-w-md">
-          <SearchButton
-            value={search}
-            onChange={setSearch}
-            placeholder={t('Buscar establecimientos...')}
-            onSubmit={loadPlaces}
-          />
-        </div>
+        <button 
+          className="btn"
+          onClick={loadPlaces}
+          title={t('Actualizar')}
+        >
+          <IconRefresh size={20} />
+        </button>
       </div>
 
       <div className="bg-white rounded-lg shadow-md">

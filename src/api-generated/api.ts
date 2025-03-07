@@ -43,6 +43,102 @@ export interface Credentials {
     'password'?: string;
 }
 /**
+ * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource
+ * @export
+ */
+export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource = EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResourceOneOf | object;
+
+/**
+ * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1
+ * @export
+ */
+export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1 = EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1OneOf | object;
+
+/**
+ * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1OneOf
+ * @export
+ */
+export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1OneOf = object;
+
+/**
+ * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2
+ * @export
+ */
+export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2 = EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2OneOf | object;
+
+/**
+ * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2OneOf
+ * @export
+ */
+export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2OneOf = object;
+
+/**
+ * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3
+ * @export
+ */
+export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3 = EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3OneOf | object;
+
+/**
+ * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3OneOf
+ * @export
+ */
+export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3OneOf = object;
+
+/**
+ * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResourceOneOf
+ * @export
+ */
+export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResourceOneOf = object;
+
+/**
+ * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource
+ * @export
+ */
+export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource = EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResourceOneOf | object;
+
+/**
+ * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1
+ * @export
+ */
+export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1 = EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1OneOf | object;
+
+/**
+ * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1OneOf
+ * @export
+ */
+export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1OneOf = object;
+
+/**
+ * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2
+ * @export
+ */
+export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2 = EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2OneOf | object;
+
+/**
+ * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2OneOf
+ * @export
+ */
+export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2OneOf = object;
+
+/**
+ * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3
+ * @export
+ */
+export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3 = EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3OneOf | object;
+
+/**
+ * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3OneOf
+ * @export
+ */
+export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3OneOf = object;
+
+/**
+ * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResourceOneOf
+ * @export
+ */
+export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResourceOneOf = object;
+
+/**
  * 
  * @export
  * @interface GenericError
@@ -785,16 +881,16 @@ export interface OrganizationUser {
     'id'?: number | null;
     /**
      * 
-     * @type {OrganizationUserUser}
+     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2}
      * @memberof OrganizationUser
      */
-    'user'?: OrganizationUserUser | null;
+    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2 | null;
     /**
      * 
-     * @type {OrganizationUserOrganization}
+     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2}
      * @memberof OrganizationUser
      */
-    'organization'?: OrganizationUserOrganization | null;
+    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2 | null;
     /**
      * 
      * @type {Array<any>}
@@ -816,29 +912,17 @@ export interface OrganizationUserBasic {
     'id'?: number | null;
     /**
      * 
-     * @type {OrganizationUserBasicUser}
+     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource}
      * @memberof OrganizationUserBasic
      */
-    'user'?: OrganizationUserBasicUser | null;
+    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource | null;
     /**
      * 
-     * @type {OrganizationUserBasicOrganization}
+     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource}
      * @memberof OrganizationUserBasic
      */
-    'organization'?: OrganizationUserBasicOrganization | null;
+    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource | null;
 }
-/**
- * @type OrganizationUserBasicOrganization
- * @export
- */
-export type OrganizationUserBasicOrganization = object;
-
-/**
- * @type OrganizationUserBasicUser
- * @export
- */
-export type OrganizationUserBasicUser = object;
-
 /**
  * 
  * @export
@@ -847,16 +931,16 @@ export type OrganizationUserBasicUser = object;
 export interface OrganizationUserCreate {
     /**
      * 
-     * @type {OrganizationUserCreateUser}
+     * @type {string}
      * @memberof OrganizationUserCreate
      */
-    'user': OrganizationUserCreateUser;
+    'userUuid': string;
     /**
      * 
-     * @type {OrganizationUserCreateOrganization}
+     * @type {string}
      * @memberof OrganizationUserCreate
      */
-    'organization': OrganizationUserCreateOrganization;
+    'organizationUuid': string;
     /**
      * 
      * @type {Array<any>}
@@ -864,18 +948,6 @@ export interface OrganizationUserCreate {
      */
     'roles'?: Array<any> | null;
 }
-/**
- * @type OrganizationUserCreateOrganization
- * @export
- */
-export type OrganizationUserCreateOrganization = object;
-
-/**
- * @type OrganizationUserCreateUser
- * @export
- */
-export type OrganizationUserCreateUser = object;
-
 /**
  * 
  * @export
@@ -920,11 +992,30 @@ export interface OrganizationUserList {
     'results'?: Array<any> | null;
 }
 /**
- * @type OrganizationUserOrganization
+ * 
  * @export
+ * @interface OrganizationUserResource
  */
-export type OrganizationUserOrganization = object;
-
+export interface OrganizationUserResource {
+    /**
+     * 
+     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3}
+     * @memberof OrganizationUserResource
+     */
+    'user': EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3;
+    /**
+     * 
+     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3}
+     * @memberof OrganizationUserResource
+     */
+    'organization': EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof OrganizationUserResource
+     */
+    'roles'?: Array<any> | null;
+}
 /**
  * 
  * @export
@@ -933,16 +1024,16 @@ export type OrganizationUserOrganization = object;
 export interface OrganizationUserUpdate {
     /**
      * 
-     * @type {OrganizationUserUpdateUser}
+     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1}
      * @memberof OrganizationUserUpdate
      */
-    'user'?: OrganizationUserUpdateUser | null;
+    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1 | null;
     /**
      * 
-     * @type {OrganizationUserUpdateOrganization}
+     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1}
      * @memberof OrganizationUserUpdate
      */
-    'organization'?: OrganizationUserUpdateOrganization | null;
+    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1 | null;
     /**
      * 
      * @type {Array<any>}
@@ -950,24 +1041,6 @@ export interface OrganizationUserUpdate {
      */
     'roles'?: Array<any> | null;
 }
-/**
- * @type OrganizationUserUpdateOrganization
- * @export
- */
-export type OrganizationUserUpdateOrganization = object;
-
-/**
- * @type OrganizationUserUpdateUser
- * @export
- */
-export type OrganizationUserUpdateUser = object;
-
-/**
- * @type OrganizationUserUser
- * @export
- */
-export type OrganizationUserUser = object;
-
 /**
  * 
  * @export
@@ -1793,47 +1866,6 @@ export const OrganizationUsersApiAxiosParamCreator = function (configuration?: C
         },
         /**
          * 
-         * @param {string} id 
-         * @param {string} role 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteApiOrganizationUsersRemoveRole: async (id: string, role: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deleteApiOrganizationUsersRemoveRole', 'id', id)
-            // verify required parameter 'role' is not null or undefined
-            assertParamExists('deleteApiOrganizationUsersRemoveRole', 'role', role)
-            const localVarPath = `/api/organization-user/{id}/roles/{role}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"role"}}`, encodeURIComponent(String(role)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {string} uuid 
          * @param {number} [page] Page number
          * @param {number} [limit] Number of items per page
@@ -2088,47 +2120,6 @@ export const OrganizationUsersApiAxiosParamCreator = function (configuration?: C
         /**
          * 
          * @param {string} id 
-         * @param {string} role 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        putApiOrganizationUsersAddRole: async (id: string, role: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('putApiOrganizationUsersAddRole', 'id', id)
-            // verify required parameter 'role' is not null or undefined
-            assertParamExists('putApiOrganizationUsersAddRole', 'role', role)
-            const localVarPath = `/api/organization-user/{id}/roles/{role}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"role"}}`, encodeURIComponent(String(role)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
          * @param {OrganizationUserUpdate} organizationUserUpdate 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2189,19 +2180,6 @@ export const OrganizationUsersApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteApiOrganizationUsersDelete(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.deleteApiOrganizationUsersDelete']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {string} role 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteApiOrganizationUsersRemoveRole(id: string, role: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteApiOrganizationUsersRemoveRole(id, role, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.deleteApiOrganizationUsersRemoveRole']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2280,19 +2258,6 @@ export const OrganizationUsersApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {string} role 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async putApiOrganizationUsersAddRole(id: string, role: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.putApiOrganizationUsersAddRole(id, role, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['OrganizationUsersApi.putApiOrganizationUsersAddRole']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
          * @param {OrganizationUserUpdate} organizationUserUpdate 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2321,16 +2286,6 @@ export const OrganizationUsersApiFactory = function (configuration?: Configurati
          */
         deleteApiOrganizationUsersDelete(id: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.deleteApiOrganizationUsersDelete(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {string} role 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteApiOrganizationUsersRemoveRole(id: string, role: string, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUser> {
-            return localVarFp.deleteApiOrganizationUsersRemoveRole(id, role, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2393,16 +2348,6 @@ export const OrganizationUsersApiFactory = function (configuration?: Configurati
         /**
          * 
          * @param {string} id 
-         * @param {string} role 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        putApiOrganizationUsersAddRole(id: string, role: string, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationUser> {
-            return localVarFp.putApiOrganizationUsersAddRole(id, role, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
          * @param {OrganizationUserUpdate} organizationUserUpdate 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2429,18 +2374,6 @@ export class OrganizationUsersApi extends BaseAPI {
      */
     public deleteApiOrganizationUsersDelete(id: string, options?: RawAxiosRequestConfig) {
         return OrganizationUsersApiFp(this.configuration).deleteApiOrganizationUsersDelete(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {string} role 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganizationUsersApi
-     */
-    public deleteApiOrganizationUsersRemoveRole(id: string, role: string, options?: RawAxiosRequestConfig) {
-        return OrganizationUsersApiFp(this.configuration).deleteApiOrganizationUsersRemoveRole(id, role, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2509,18 +2442,6 @@ export class OrganizationUsersApi extends BaseAPI {
      */
     public postApiOrganizationUsersCreate(organizationUserCreate: OrganizationUserCreate, options?: RawAxiosRequestConfig) {
         return OrganizationUsersApiFp(this.configuration).postApiOrganizationUsersCreate(organizationUserCreate, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {string} role 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganizationUsersApi
-     */
-    public putApiOrganizationUsersAddRole(id: string, role: string, options?: RawAxiosRequestConfig) {
-        return OrganizationUsersApiFp(this.configuration).putApiOrganizationUsersAddRole(id, role, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
