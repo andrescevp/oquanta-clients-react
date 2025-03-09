@@ -12,6 +12,7 @@ import darkSelectClassNames from '../../components/UI/ReactSelectTheme';
 import { usePermission } from '../../context/PermissionContext';
 import OrganizationPlaceForm from '../../domain/admin/LocalBusiness/components/OrganizationPlaceForm';
 import { useApi } from '../../hooks/useApi';
+import { useTheme } from '../../hooks/useTheme';
 
 interface OrganizationOption {
   value: string;
@@ -60,6 +61,7 @@ const OrganizationPlacesPage: React.FC = () => {
   const [selectedOrganization, setSelectedOrganization] = useState<OrganizationOption | null>(null);
   const [organizationsCache, setOrganizationsCache] = useState<Map<string, Organization>>(new Map());
   const { hasRole } = usePermission();
+  const {isDark} = useTheme();
 
   // Cargar y cachear organización cuando se necesite
   const getOrganizationName = async (uuid: string): Promise<string> => {
@@ -297,8 +299,9 @@ const OrganizationPlacesPage: React.FC = () => {
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md">
+      <div className="rounded-t shadow-md">
         <DataTable<OrganizationPlaceBasic>
+          theme={isDark ? 'dark' : undefined}
           columns={columns}
           data={placesList?.results || []}
           progressPending={loading}

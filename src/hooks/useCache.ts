@@ -1,16 +1,14 @@
 import { useCallback } from 'react';
 
+import { StorageItem } from '../types/shared';
+
 // Prefijo para todas las claves almacenadas por este hook para evitar colisiones
 const CACHE_PREFIX = 'oquanta_cache_';
 
-// Estructura de los datos almacenados en caché
-interface CacheItem<T> {
-  value: T;
-  expiry?: number; // timestamp en milisegundos
-}
-
 /**
- * Hook para almacenar y recuperar datos de localStorage con soporte para expiración
+ * Hook to store and retrieve data used for the well functioning of the application
+ * For now it is implementing directly the localStorage API - in the future it could be replaced by a more sophisticated cache system
+ * @returns Functions to store, retrieve, check existence, remove and clear cache
  */
 export function useCache() {
   /**
@@ -22,7 +20,7 @@ export function useCache() {
   const setCache = useCallback(<T>(key: string, value: T, expirationInSeconds?: number): void => {
     try {
       const cacheKey = CACHE_PREFIX + key;
-      const item: CacheItem<T> = {
+      const item: StorageItem<T> = {
         value
       };
 
@@ -54,7 +52,7 @@ export function useCache() {
       }
 
       // Deserializar el elemento
-      const item: CacheItem<T> = JSON.parse(itemStr);
+      const item: StorageItem<T> = JSON.parse(itemStr);
       
       // Verificar si el elemento ha expirado
       if (item.expiry && Date.now() > item.expiry) {
@@ -86,7 +84,7 @@ export function useCache() {
       }
 
       // Deserializar el elemento
-      const item: CacheItem<unknown> = JSON.parse(itemStr);
+      const item: StorageItem<unknown> = JSON.parse(itemStr);
       
       // Verificar si el elemento ha expirado
       if (item.expiry && Date.now() > item.expiry) {

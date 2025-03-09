@@ -1,27 +1,26 @@
-import React, { useEffect,useState } from 'react';
-import DataTable, { TableColumn } from 'react-data-table-component';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import {useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { 
-  GetApiOrganizationUsersByOrganizationOrderEnum,
+import {
   Organization, 
   OrganizationCreate, 
   OrganizationsApi, 
   OrganizationUpdate, 
-  OrganizationUser, 
-  OrganizationUsersApi
-} from '../../../../api-generated/api';
-import { IconAdd, IconEdit, IconSave, IconUser, IconX } from '../../../../components/UI/Icons';
+  OrganizationUser,
+  OrganizationUsersApi,
+  UsersApi} from '../../../../api-generated/api';
+import { IconSave, IconX } from '../../../../components/UI/Icons';
 import ButtonLoader from '../../../../components/UI/molecules/ButtonLoder';
 import { ConfirmationTooltip } from '../../../../components/UI/molecules/ConfirmationTooltip';
 import InputWithLabel from '../../../../components/UI/molecules/InputWithLabel';
-import { OffsetPanel } from '../../../../components/UI/organisms/OffsetPanel';
 import { useApi } from '../../../../hooks/useApi';
+import { useTheme } from '../../../../hooks/useTheme';
 import { cn } from '../../../../lib/utils';
-import OrganizationUserForm from './OrganizationUserForm';
+import OrganizationUsersTable from './OrganizationUsersTable';
 
 type FormValues = Omit<Organization, 'uuid'>
+type RoleOption = { value: string; label: string };
 
 interface OrganizationFormProps {
   uuid?: string;
@@ -43,22 +42,29 @@ const OrganizationForm: React.FC<OrganizationFormProps> = ({
   const { t } = useTranslation();
   const organizationsApi = useApi(OrganizationsApi);
   const organizationUsersApi = useApi(OrganizationUsersApi);
+  const usersApi = useApi(UsersApi);
   
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingUsers, setLoadingUsers] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  
+  const {isDark} = useTheme();
   
   // Estado para los usuarios de la organización
   const [organizationUsers, setOrganizationUsers] = useState<OrganizationUser[]>([]);
   const [selectedUser, setSelectedUser] = useState<OrganizationUser | null>(null);
   const [isAddUserMode, setIsAddUserMode] = useState(false);
   const [showUserForm, setShowUserForm] = useState(false);
+  const [editingRolesForId, setEditingRolesForId] = useState<number | null>(null);
   const [usersPagination, setUsersPagination] = useState({
     page: 1,
     totalRows: 0,
     perPage: 10
   });
+
+  // Opciones de roles disponibles
+  const roleOptions: RoleOption[] = [
+    { value: 'ROLE_OWNER', label: t('Owner') },
+  ];
   
   const { 
     register, 
@@ -85,45 +91,6 @@ const OrganizationForm: React.FC<OrganizationFormProps> = ({
       postalCode: ''
     }
   });
-  
-  // Cargar usuarios de la organización
-  const loadOrganizationUsers = async (page = 1) => {
-    if (!organizationData?.uuid) {
-      return;
-    }
-    
-    setLoadingUsers(true);
-    try {
-      const response = await organizationUsersApi.call(
-        'getApiOrganizationUsersByOrganization',
-        organizationData.uuid,
-        page,
-        usersPagination.perPage,
-        'user.name',
-        GetApiOrganizationUsersByOrganizationOrderEnum.Asc
-      );
-      
-      if (response.data.results && Array.isArray(response.data.results)) {
-        setOrganizationUsers(response.data.results as OrganizationUser[]);
-        setUsersPagination({
-          ...usersPagination,
-          page: response.data.page,
-          totalRows: response.data.count || 0
-        });
-      }
-    } catch (err) {
-      console.error('Error al cargar usuarios de la organización:', err);
-    } finally {
-      setLoadingUsers(false);
-    }
-  };
-  
-  // Cargar usuarios cuando se está editando una organización existente
-  useEffect(() => {
-    if (organizationData?.uuid) {
-      loadOrganizationUsers();
-    }
-  }, [organizationData?.uuid]);
   
   // Enviar el formulario
   const onSubmit = async (data: FormValues) => {
@@ -191,109 +158,11 @@ const OrganizationForm: React.FC<OrganizationFormProps> = ({
       setLoading(false);
     }
   };
-  
-  // Manejar cambios de página en la tabla
-  const handlePageChange = (page: number) => {
-    loadOrganizationUsers(page);
-  };
-  
-  // Manejar cambios en registros por página
-  const handlePerRowsChange = async (newPerPage: number, page: number) => {
-    setUsersPagination({
-      ...usersPagination,
-      perPage: newPerPage
-    });
-    loadOrganizationUsers(page);
-  };
-  
-  // Editar un usuario
-  const handleEditUser = (user: OrganizationUser) => {
-    setSelectedUser(user);
-    setIsAddUserMode(false);
-    setShowUserForm(true);
-  };
-  
-  // Añadir un nuevo usuario
-  const handleAddUser = () => {
-    setSelectedUser(null);
-    setIsAddUserMode(true);
-    setShowUserForm(true);
-  };
-  
-  // Función que se llama cuando se completa una operación con usuarios
-  const handleUserFormSuccess = () => {
-    setShowUserForm(false);
-    setSelectedUser(null);
-    loadOrganizationUsers(usersPagination.page);
-  };
-  
-  // Definición de columnas para DataTable
-  const columns: TableColumn<OrganizationUser>[] = [
-    {
-      name: t('Usuario'),
-      selector: row => {
-        const user = row.user as any;
-        return `${user?.name || ''} ${user?.lastName || ''}`;
-      },
-      sortable: true,
-      grow: 2,
-    },
-    {
-      name: t('Email'),
-      selector: row => {
-        const user = row.user as any;
-        return user?.email || '';
-      },
-      sortable: true,
-      grow: 2,
-    },
-    {
-      name: t('Roles'),
-      selector: row => {
-        return Array.isArray(row.roles) 
-          ? row.roles.map((role: string) => {
-              switch(role) {
-                case 'ROLE_ORG_ADMIN': return t('Administrador');
-                case 'ROLE_ORG_EDITOR': return t('Editor');
-                case 'ROLE_ORG_VIEWER': return t('Visualizador');
-                default: return role;
-              }
-            }).join(', ')
-          : '';
-      },
-    },
-    {
-      name: t('Acciones'),
-      cell: row => {
-        return (
-          <div className="flex space-x-2">
-          <OffsetPanel
-            title={t('Editar usuario')}
-            buttonIcon={IconEdit}
-            panelId={`edit-organization-user-${row.id}`}
-            persistState={false}
-            defaultOpen={false}
-          >
-            <OrganizationUserForm
-              id={Number(row.id)}
-              organizationUserData={row}
-              onSuccess={handleUserFormSuccess}
-              onCancel={() => setShowUserForm(false)}
-              defaultOrganizationId={organizationData?.uuid || undefined}
-            />
-          </OffsetPanel>
-          </div>
-        );
-      },
-      button: true,
-      width: '100px',
-    },
-  ];
 
   return (
     <div className="p-6 space-y-6 max-w-7xl">      
       {error && (
-        <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700">
+        <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 dark:bg-red-900/30 dark:text-red-400">
           {error}
         </div>
       )}
@@ -478,46 +347,7 @@ const OrganizationForm: React.FC<OrganizationFormProps> = ({
       
       {/* Sección de usuarios (solo para organizaciones existentes) */}
       {organizationData?.uuid && (
-        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold flex items-center gap-2 text-gray-800 dark:text-gray-200">
-              <IconUser className="w-6 h-6" />
-              {t('Usuarios de la organización')}
-            </h2>
-            
-            <OffsetPanel
-              title={isAddUserMode ? t('Añadir usuario') : t('Editar usuario')}
-              position="right"
-              buttonIcon={IconAdd}
-              panelId="new-organization-user-form"
-              buttonText={t('Añadir usuario')}
-              persistState={false}
-              defaultOpen={false}
-            >
-              <OrganizationUserForm
-                id={selectedUser?.id ? Number(selectedUser.id) : undefined}
-                organizationUserData={selectedUser || undefined}
-                onSuccess={handleUserFormSuccess}
-                onCancel={() => setShowUserForm(false)}
-                defaultOrganizationId={organizationData?.uuid || undefined}
-              />
-            </OffsetPanel>
-          </div>
-          
-          <DataTable
-            columns={columns}
-            data={organizationUsers}
-            progressPending={loadingUsers}
-            pagination
-            paginationServer
-            paginationTotalRows={usersPagination.totalRows}
-            onChangePage={handlePageChange}
-            onChangeRowsPerPage={handlePerRowsChange}
-            noDataComponent={<div className="p-4 text-center">{t('No hay usuarios asignados a esta organización')}</div>}
-            persistTableHead
-            className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700"
-          />
-        </div>
+        <OrganizationUsersTable organizationData={organizationData}/>
       )}
     </div>
   );

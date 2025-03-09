@@ -10,6 +10,7 @@ import { OffsetPanel } from '../../components/UI/organisms/OffsetPanel';
 import { usePermission } from '../../context/PermissionContext';
 import UserForm from '../../domain/admin/Users/components/UserForm';
 import { useApi } from '../../hooks/useApi';
+import { useTheme } from '../../hooks/useTheme';
 
 
 
@@ -25,6 +26,7 @@ const UsersPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const { hasRole } = usePermission();
+    const {isDark} = useTheme();
 
   // Cargar lista de usuarios
   const loadUsers = async () => {
@@ -156,8 +158,9 @@ const UsersPage: React.FC = () => {
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md">
+      <div className="rounded-t shadow-md">
         <DataTable<UserBasic>
+          theme={isDark ? 'dark' : undefined}
           columns={columns}
           data={userList?.results || []}
           progressPending={loading}

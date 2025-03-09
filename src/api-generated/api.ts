@@ -73,18 +73,6 @@ export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationReso
 export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2OneOf = object;
 
 /**
- * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3
- * @export
- */
-export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3 = EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3OneOf | object;
-
-/**
- * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3OneOf
- * @export
- */
-export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3OneOf = object;
-
-/**
  * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResourceOneOf
  * @export
  */
@@ -119,18 +107,6 @@ export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2 = EnLaDese
  * @export
  */
 export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2OneOf = object;
-
-/**
- * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3
- * @export
- */
-export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3 = EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3OneOf | object;
-
-/**
- * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3OneOf
- * @export
- */
-export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3OneOf = object;
 
 /**
  * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResourceOneOf
@@ -881,16 +857,16 @@ export interface OrganizationUser {
     'id'?: number | null;
     /**
      * 
-     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2}
+     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1}
      * @memberof OrganizationUser
      */
-    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2 | null;
+    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1 | null;
     /**
      * 
-     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2}
+     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1}
      * @memberof OrganizationUser
      */
-    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2 | null;
+    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1 | null;
     /**
      * 
      * @type {Array<any>}
@@ -934,13 +910,13 @@ export interface OrganizationUserCreate {
      * @type {string}
      * @memberof OrganizationUserCreate
      */
-    'userUuid': string;
+    'userUuid'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof OrganizationUserCreate
      */
-    'organizationUuid': string;
+    'organizationUuid'?: string | null;
     /**
      * 
      * @type {Array<any>}
@@ -994,21 +970,46 @@ export interface OrganizationUserList {
 /**
  * 
  * @export
+ * @interface OrganizationUserRequest
+ */
+export interface OrganizationUserRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUserRequest
+     */
+    'userUuid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationUserRequest
+     */
+    'organizationUuid': string;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof OrganizationUserRequest
+     */
+    'roles'?: Array<any> | null;
+}
+/**
+ * 
+ * @export
  * @interface OrganizationUserResource
  */
 export interface OrganizationUserResource {
     /**
      * 
-     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3}
+     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2}
      * @memberof OrganizationUserResource
      */
-    'user': EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource3;
+    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2 | null;
     /**
      * 
-     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3}
+     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2}
      * @memberof OrganizationUserResource
      */
-    'organization': EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource3;
+    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2 | null;
     /**
      * 
      * @type {Array<any>}
@@ -1022,18 +1023,6 @@ export interface OrganizationUserResource {
  * @interface OrganizationUserUpdate
  */
 export interface OrganizationUserUpdate {
-    /**
-     * 
-     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1}
-     * @memberof OrganizationUserUpdate
-     */
-    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1 | null;
-    /**
-     * 
-     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1}
-     * @memberof OrganizationUserUpdate
-     */
-    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1 | null;
     /**
      * 
      * @type {Array<any>}

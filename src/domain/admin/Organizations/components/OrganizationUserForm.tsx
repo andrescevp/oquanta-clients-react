@@ -20,9 +20,10 @@ import { ConfirmationTooltip } from '../../../../components/UI/molecules/Confirm
 import darkSelectClassNames from '../../../../components/UI/ReactSelectTheme';
 import { useApi } from '../../../../hooks/useApi';
 import { cn } from '../../../../lib/utils';
+import { SelectOption } from '../../../../types/shared';
 
 // Opciones para roles que puede tener un usuario en una organización
-const ORGANIZATION_ROLES = [
+export const ORGANIZATION_ROLES: SelectOption[] = [
     { value: 'ROLE_OWNER', label: 'Owner' },
 ];
 
@@ -296,9 +297,7 @@ const OrganizationUserForm: React.FC<OrganizationUserFormProps> = ({
                 isLoading={loadingOptions.users}
                 placeholder={t('Seleccionar usuario...')}
                 noOptionsMessage={() => t('No hay usuarios disponibles')}
-                classNamePrefix="react-select"
                 className={cn(
-                  "react-select-container",
                   errors.user && "border-red-500 ring-1 ring-red-500 rounded-md"
                 )}
                 isDisabled={!!id} // Deshabilitar si estamos editando
@@ -327,9 +326,7 @@ const OrganizationUserForm: React.FC<OrganizationUserFormProps> = ({
                 isLoading={loadingOptions.organizations}
                 placeholder={t('Seleccionar organización...')}
                 noOptionsMessage={() => t('No hay organizaciones disponibles')}
-                classNamePrefix="react-select"
                 className={cn(
-                  "react-select-container",
                   errors.organization && "border-red-500 ring-1 ring-red-500 rounded-md"
                 )}
                 isDisabled={!!id || !!defaultOrganizationId} // Deshabilitar si estamos editando o si hay una organización predeterminada
@@ -358,9 +355,7 @@ const OrganizationUserForm: React.FC<OrganizationUserFormProps> = ({
                 isMulti
                 placeholder={t('Seleccionar roles...')}
                 noOptionsMessage={() => t('No hay roles disponibles')}
-                classNamePrefix="react-select"
                 className={cn(
-                  "react-select-container",
                   errors.roles && "border-red-500 ring-1 ring-red-500 rounded-md"
                 )}
               />
@@ -408,7 +403,7 @@ const OrganizationUserForm: React.FC<OrganizationUserFormProps> = ({
                 {t('Cancelar')}
               </button>
             )}
-            
+                        
             <ButtonLoader
               type="submit"
               disabled={loading}

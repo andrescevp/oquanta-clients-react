@@ -23,11 +23,10 @@ const ResizablePanel: React.FC<ResizablePanelProps> = ({
   onResize,
   storageKey
 }) => {
-  // Usar custom hook para localStorage
-  const [storedSize, setStoredSize] = useLocalStorage<number>(
-    `resizable-panel-${storageKey || direction}`,
-    initialSize
-  );
+  const {storedValue: storedSize, setValue: setStoredSize} = useLocalStorage<number>({
+    key: `resizable-panel-${storageKey || direction}`,
+    initialValue: initialSize
+  });
   
   const [size, setSize] = useState(storedSize);
   const [resizing, setResizing] = useState(false);

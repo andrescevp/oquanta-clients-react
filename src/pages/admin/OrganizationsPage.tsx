@@ -10,6 +10,7 @@ import { OffsetPanel } from '../../components/UI/organisms/OffsetPanel';
 import { usePermission } from '../../context/PermissionContext';
 import OrganizationForm from '../../domain/admin/Organizations/components/OrganizationForm';
 import { useApi } from '../../hooks/useApi';
+import { useTheme } from '../../hooks/useTheme';
 
 /**
  * Component for managing organizations
@@ -25,6 +26,7 @@ const OrganizationsPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const { hasRole } = usePermission();
+  const {isDark} = useTheme();
 
   // Cargar lista de organizaciones
   const loadOrganizations = async () => {
@@ -160,9 +162,10 @@ const OrganizationsPage: React.FC = () => {
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md">
+      <div className="rounded-t shadow-md">
         <DataTable<OrganizationBasic>
           columns={columns}
+          theme={isDark ? 'dark' : undefined}
           data={organizationList?.results || []}
           progressPending={loading}
           pagination
