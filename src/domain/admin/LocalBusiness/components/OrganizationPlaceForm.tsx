@@ -17,6 +17,7 @@ import { useApi } from '../../../../hooks/useApi';
 import { cn } from '../../../../lib/utils';
 import { useMapForm } from '../hooks/useMapForm';
 import { FormMap } from './MapComponents';
+import OrganizationPlaceWorkingHoursManager from './OrganizationPlaceWorkingHoursManager';
 
 // import 'leaflet/dist/leaflet.css';
 // // Importar el geocodificador correctamente
@@ -546,6 +547,13 @@ const OrganizationPlaceForm: React.FC<OrganizationPlaceFormProps> = ({
           </div>
         </div>
       </form>
+      {
+        organizationPlaceData?.uuid && (
+          <OrganizationPlaceWorkingHoursManager
+            placeUuid={organizationPlaceData.uuid}
+          />
+        )
+      }
     </div>
   );
 };

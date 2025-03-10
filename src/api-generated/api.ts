@@ -43,78 +43,6 @@ export interface Credentials {
     'password'?: string;
 }
 /**
- * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource
- * @export
- */
-export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource = EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResourceOneOf | object;
-
-/**
- * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1
- * @export
- */
-export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1 = EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1OneOf | object;
-
-/**
- * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1OneOf
- * @export
- */
-export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1OneOf = object;
-
-/**
- * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2
- * @export
- */
-export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2 = EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2OneOf | object;
-
-/**
- * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2OneOf
- * @export
- */
-export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2OneOf = object;
-
-/**
- * @type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResourceOneOf
- * @export
- */
-export type EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResourceOneOf = object;
-
-/**
- * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource
- * @export
- */
-export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource = EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResourceOneOf | object;
-
-/**
- * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1
- * @export
- */
-export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1 = EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1OneOf | object;
-
-/**
- * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1OneOf
- * @export
- */
-export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1OneOf = object;
-
-/**
- * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2
- * @export
- */
-export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2 = EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2OneOf | object;
-
-/**
- * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2OneOf
- * @export
- */
-export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2OneOf = object;
-
-/**
- * @type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResourceOneOf
- * @export
- */
-export type EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResourceOneOf = object;
-
-/**
  * 
  * @export
  * @interface GenericError
@@ -176,6 +104,44 @@ export interface ModelValidationErrorPathModel {
      * @memberof ModelValidationErrorPathModel
      */
     'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface NormalSchedule
+ */
+export interface NormalSchedule {
+    /**
+     * 
+     * @type {number}
+     * @memberof NormalSchedule
+     */
+    'day'?: number | null;
+    /**
+     * 
+     * @type {Array<NormalSchedulePeriod>}
+     * @memberof NormalSchedule
+     */
+    'periods'?: Array<NormalSchedulePeriod> | null;
+}
+/**
+ * 
+ * @export
+ * @interface NormalSchedulePeriod
+ */
+export interface NormalSchedulePeriod {
+    /**
+     * 
+     * @type {string}
+     * @memberof NormalSchedulePeriod
+     */
+    'from'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof NormalSchedulePeriod
+     */
+    'to'?: string | null;
 }
 /**
  * 
@@ -338,6 +304,12 @@ export interface OrganizationCreate {
 export interface OrganizationList {
     /**
      * 
+     * @type {Array<Organization>}
+     * @memberof OrganizationList
+     */
+    'results': Array<Organization>;
+    /**
+     * 
      * @type {number}
      * @memberof OrganizationList
      */
@@ -366,12 +338,6 @@ export interface OrganizationList {
      * @memberof OrganizationList
      */
     'count'?: number | null;
-    /**
-     * 
-     * @type {Array<any>}
-     * @memberof OrganizationList
-     */
-    'results'?: Array<any> | null;
 }
 /**
  * 
@@ -546,6 +512,12 @@ export interface OrganizationPlaceCreate {
 export interface OrganizationPlaceList {
     /**
      * 
+     * @type {Array<OrganizationPlaceResource>}
+     * @memberof OrganizationPlaceList
+     */
+    'results': Array<OrganizationPlaceResource>;
+    /**
+     * 
      * @type {number}
      * @memberof OrganizationPlaceList
      */
@@ -574,12 +546,6 @@ export interface OrganizationPlaceList {
      * @memberof OrganizationPlaceList
      */
     'count'?: number | null;
-    /**
-     * 
-     * @type {Array<any>}
-     * @memberof OrganizationPlaceList
-     */
-    'results'?: Array<any> | null;
 }
 /**
  * 
@@ -714,6 +680,44 @@ export interface OrganizationPlaceUpdate {
      * @memberof OrganizationPlaceUpdate
      */
     'region'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceWorkingHours
+ */
+export interface OrganizationPlaceWorkingHours {
+    /**
+     * 
+     * @type {Array<NormalSchedule>}
+     * @memberof OrganizationPlaceWorkingHours
+     */
+    'normalSchedule'?: Array<NormalSchedule>;
+    /**
+     * 
+     * @type {Array<SpecialSchedule>}
+     * @memberof OrganizationPlaceWorkingHours
+     */
+    'specialSchedule'?: Array<SpecialSchedule>;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceWorkingHoursResource
+ */
+export interface OrganizationPlaceWorkingHoursResource {
+    /**
+     * 
+     * @type {Array<NormalSchedule>}
+     * @memberof OrganizationPlaceWorkingHoursResource
+     */
+    'normalSchedule'?: Array<NormalSchedule>;
+    /**
+     * 
+     * @type {Array<SpecialSchedule>}
+     * @memberof OrganizationPlaceWorkingHoursResource
+     */
+    'specialSchedule'?: Array<SpecialSchedule>;
 }
 /**
  * 
@@ -857,16 +861,16 @@ export interface OrganizationUser {
     'id'?: number | null;
     /**
      * 
-     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1}
+     * @type {User}
      * @memberof OrganizationUser
      */
-    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource1 | null;
+    'user': User;
     /**
      * 
-     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1}
+     * @type {Organization}
      * @memberof OrganizationUser
      */
-    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource1 | null;
+    'organization': Organization;
     /**
      * 
      * @type {Array<any>}
@@ -888,16 +892,16 @@ export interface OrganizationUserBasic {
     'id'?: number | null;
     /**
      * 
-     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource}
+     * @type {User}
      * @memberof OrganizationUserBasic
      */
-    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource | null;
+    'user': User;
     /**
      * 
-     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource}
+     * @type {Organization}
      * @memberof OrganizationUserBasic
      */
-    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource | null;
+    'organization': Organization;
 }
 /**
  * 
@@ -932,6 +936,12 @@ export interface OrganizationUserCreate {
 export interface OrganizationUserList {
     /**
      * 
+     * @type {Array<OrganizationUser>}
+     * @memberof OrganizationUserList
+     */
+    'results': Array<OrganizationUser>;
+    /**
+     * 
      * @type {number}
      * @memberof OrganizationUserList
      */
@@ -960,12 +970,6 @@ export interface OrganizationUserList {
      * @memberof OrganizationUserList
      */
     'count'?: number | null;
-    /**
-     * 
-     * @type {Array<any>}
-     * @memberof OrganizationUserList
-     */
-    'results'?: Array<any> | null;
 }
 /**
  * 
@@ -1000,16 +1004,16 @@ export interface OrganizationUserRequest {
 export interface OrganizationUserResource {
     /**
      * 
-     * @type {EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2}
+     * @type {User}
      * @memberof OrganizationUserResource
      */
-    'user'?: EnLaDeserializaciNSerUserEnLaSerializaciNSerUserResource2 | null;
+    'user': User;
     /**
      * 
-     * @type {EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2}
+     * @type {Organization}
      * @memberof OrganizationUserResource
      */
-    'organization'?: EnLaDeserializaciNSerOrganizationEnLaSerializaciNSerOrganizationResource2 | null;
+    'organization': Organization;
     /**
      * 
      * @type {Array<any>}
@@ -1029,6 +1033,43 @@ export interface OrganizationUserUpdate {
      * @memberof OrganizationUserUpdate
      */
     'roles'?: Array<any> | null;
+}
+/**
+ * 
+ * @export
+ * @interface SpecialSchedule
+ */
+export interface SpecialSchedule {
+    /**
+     * 
+     * @type {string}
+     * @memberof SpecialSchedule
+     */
+    'validFrom'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpecialSchedule
+     */
+    'validThrough'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpecialSchedule
+     */
+    'opens'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpecialSchedule
+     */
+    'closes'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpecialSchedule
+     */
+    'reason'?: string | null;
 }
 /**
  * 
@@ -1150,6 +1191,12 @@ export interface UserCreate {
 export interface UserList {
     /**
      * 
+     * @type {Array<User>}
+     * @memberof UserList
+     */
+    'results': Array<User>;
+    /**
+     * 
      * @type {number}
      * @memberof UserList
      */
@@ -1178,12 +1225,6 @@ export interface UserList {
      * @memberof UserList
      */
     'count'?: number | null;
-    /**
-     * 
-     * @type {Array<any>}
-     * @memberof UserList
-     */
-    'results'?: Array<any> | null;
 }
 /**
  * 
@@ -1361,6 +1402,340 @@ export class AuthApi extends BaseAPI {
      */
     public getAuthToken(credentials?: Credentials, options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).getAuthToken(credentials, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * OrganizationPlaceWorkingHoursApi - axios parameter creator
+ * @export
+ */
+export const OrganizationPlaceWorkingHoursApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {string} [date] Date to check (YYYY-MM-DD)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlaceWorkingHoursCheckDate: async (uuid: string, date?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('getApiOrganizationPlaceWorkingHoursCheckDate', 'uuid', uuid)
+            const localVarPath = `/api/organization-place/{uuid}/working-hours/check-date`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (date !== undefined) {
+                localVarQueryParameter['date'] = (date as any instanceof Date) ?
+                    (date as any).toISOString().substring(0,10) :
+                    date;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlaceWorkingHoursGet: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('getApiOrganizationPlaceWorkingHoursGet', 'uuid', uuid)
+            const localVarPath = `/api/organization-place/{uuid}/working-hours`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationPlaceWorkingHoursReset: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('postApiOrganizationPlaceWorkingHoursReset', 'uuid', uuid)
+            const localVarPath = `/api/organization-place/{uuid}/working-hours/reset`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationPlaceWorkingHoursUpdate: async (uuid: string, body: object, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('putApiOrganizationPlaceWorkingHoursUpdate', 'uuid', uuid)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('putApiOrganizationPlaceWorkingHoursUpdate', 'body', body)
+            const localVarPath = `/api/organization-place/{uuid}/working-hours`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * OrganizationPlaceWorkingHoursApi - functional programming interface
+ * @export
+ */
+export const OrganizationPlaceWorkingHoursApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = OrganizationPlaceWorkingHoursApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {string} [date] Date to check (YYYY-MM-DD)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationPlaceWorkingHoursCheckDate(uuid: string, date?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationPlaceWorkingHoursCheckDate(uuid, date, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceWorkingHoursApi.getApiOrganizationPlaceWorkingHoursCheckDate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationPlaceWorkingHoursGet(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlaceWorkingHours>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationPlaceWorkingHoursGet(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceWorkingHoursApi.getApiOrganizationPlaceWorkingHoursGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiOrganizationPlaceWorkingHoursReset(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiOrganizationPlaceWorkingHoursReset(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceWorkingHoursApi.postApiOrganizationPlaceWorkingHoursReset']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putApiOrganizationPlaceWorkingHoursUpdate(uuid: string, body: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putApiOrganizationPlaceWorkingHoursUpdate(uuid, body, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceWorkingHoursApi.putApiOrganizationPlaceWorkingHoursUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * OrganizationPlaceWorkingHoursApi - factory interface
+ * @export
+ */
+export const OrganizationPlaceWorkingHoursApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = OrganizationPlaceWorkingHoursApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {string} [date] Date to check (YYYY-MM-DD)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlaceWorkingHoursCheckDate(uuid: string, date?: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.getApiOrganizationPlaceWorkingHoursCheckDate(uuid, date, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlaceWorkingHoursGet(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlaceWorkingHours> {
+            return localVarFp.getApiOrganizationPlaceWorkingHoursGet(uuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationPlaceWorkingHoursReset(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.postApiOrganizationPlaceWorkingHoursReset(uuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} uuid 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationPlaceWorkingHoursUpdate(uuid: string, body: object, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.putApiOrganizationPlaceWorkingHoursUpdate(uuid, body, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * OrganizationPlaceWorkingHoursApi - object-oriented interface
+ * @export
+ * @class OrganizationPlaceWorkingHoursApi
+ * @extends {BaseAPI}
+ */
+export class OrganizationPlaceWorkingHoursApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {string} [date] Date to check (YYYY-MM-DD)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceWorkingHoursApi
+     */
+    public getApiOrganizationPlaceWorkingHoursCheckDate(uuid: string, date?: string, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceWorkingHoursApiFp(this.configuration).getApiOrganizationPlaceWorkingHoursCheckDate(uuid, date, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceWorkingHoursApi
+     */
+    public getApiOrganizationPlaceWorkingHoursGet(uuid: string, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceWorkingHoursApiFp(this.configuration).getApiOrganizationPlaceWorkingHoursGet(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceWorkingHoursApi
+     */
+    public postApiOrganizationPlaceWorkingHoursReset(uuid: string, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceWorkingHoursApiFp(this.configuration).postApiOrganizationPlaceWorkingHoursReset(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {object} body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceWorkingHoursApi
+     */
+    public putApiOrganizationPlaceWorkingHoursUpdate(uuid: string, body: object, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceWorkingHoursApiFp(this.configuration).putApiOrganizationPlaceWorkingHoursUpdate(uuid, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

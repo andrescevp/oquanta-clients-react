@@ -5,12 +5,13 @@ import AsyncSelect from 'react-select/async';
 
 import { GetApiOrganizationPlacesListOrderEnum, Organization, OrganizationPlace, OrganizationPlaceBasic, OrganizationPlaceList, OrganizationPlacesApi, OrganizationsApi } from '../../api-generated/api';
 import { Restricted } from '../../components/UI/atoms/Restricted';
-import { IconAdd, IconEdit, IconRefresh } from '../../components/UI/Icons';
+import { IconAdd, IconCalendar, IconEdit, IconRefresh } from '../../components/UI/Icons';
 import { SearchButton } from '../../components/UI/molecules/SearchButton';
 import { OffsetPanel } from '../../components/UI/organisms/OffsetPanel';
 import darkSelectClassNames from '../../components/UI/ReactSelectTheme';
 import { usePermission } from '../../context/PermissionContext';
 import OrganizationPlaceForm from '../../domain/admin/LocalBusiness/components/OrganizationPlaceForm';
+import OrganizationPlaceWorkingHoursManager from '../../domain/admin/LocalBusiness/components/OrganizationPlaceWorkingHoursManager';
 import { useApi } from '../../hooks/useApi';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -228,17 +229,34 @@ const OrganizationPlacesPage: React.FC = () => {
     ...[(hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')) ? {  
       name: t('Acciones'),
       cell: (row: OrganizationPlace) => (
+        <div>
         <OffsetPanel
+        buttonPosition="inline" 
+        buttonClassName="p-2 text-gray-500 hover:text-blue-600 transition-colors !bg-transparent border rounded shadow"
+        buttonText={""}
+        title={t('Editar establecimiento')}
+        buttonIcon={IconEdit}
+        buttonIconClassName="w-5 h-5"
+        panelId={`place_${row.uuid}`}
+      >
+        <OrganizationPlaceForm organizationPlaceData={row} onSuccess={loadPlaces} />
+      </OffsetPanel>
+      {row.uuid && <OffsetPanel
           buttonPosition="inline" 
           buttonClassName="p-2 text-gray-500 hover:text-blue-600 transition-colors !bg-transparent border rounded shadow"
           buttonText={""}
-          title={t('Editar establecimiento')}
-          buttonIcon={IconEdit}
+          title={t('Editar horarios del establecimiento')}
+          buttonIcon={IconCalendar}
           buttonIconClassName="w-5 h-5"
           panelId={`place_${row.uuid}`}
         >
-          <OrganizationPlaceForm organizationPlaceData={row} onSuccess={loadPlaces} />
-        </OffsetPanel>
+          <div className='p-2'>
+          <OrganizationPlaceWorkingHoursManager
+            placeUuid={row.uuid}
+          />
+          </div>
+        </OffsetPanel>}
+        </div>
       ),
       selector: (row: OrganizationPlace) => row.uuid || '',  
     } : {}],
