@@ -47,8 +47,9 @@ const App = () => {
                         >
                           <Route index element={<Navigate to="/admin/dashboard" />} />
                           <Route path="users" element={<UsersPage />} />
-                          <Route path="organizations" element={<OrganizationsPage />} />
-                          <Route path="local-business" element={<OrganizationPlacesPage />} />
+                          <Route path="organization" element={<OrganizationsPage />} />
+                          <Route path="local-place" element={<OrganizationPlacesPage />} />
+
                           {/* Más rutas admin */}
                         </Route>
 

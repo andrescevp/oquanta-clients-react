@@ -623,6 +623,283 @@ export interface OrganizationPlaceResource {
 /**
  * 
  * @export
+ * @interface OrganizationPlaceSurvey
+ */
+export interface OrganizationPlaceSurvey {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'uuid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'active'?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'alias'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'startAt'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'endAt'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'subsystem': OrganizationPlaceSurveySubsystemEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'surveyType': OrganizationPlaceSurveySurveyTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'surveyOid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'lookerReportEmbedUrl'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurvey
+     */
+    'organizationPlaceUuid'?: string | null;
+}
+
+export const OrganizationPlaceSurveySubsystemEnum = {
+    Limesurvey: 'limesurvey'
+} as const;
+
+export type OrganizationPlaceSurveySubsystemEnum = typeof OrganizationPlaceSurveySubsystemEnum[keyof typeof OrganizationPlaceSurveySubsystemEnum];
+export const OrganizationPlaceSurveySurveyTypeEnum = {
+    Tracker: 'tracker',
+    Campaign: 'campaign'
+} as const;
+
+export type OrganizationPlaceSurveySurveyTypeEnum = typeof OrganizationPlaceSurveySurveyTypeEnum[keyof typeof OrganizationPlaceSurveySurveyTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceSurveyCreate
+ */
+export interface OrganizationPlaceSurveyCreate {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyCreate
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrganizationPlaceSurveyCreate
+     */
+    'active'?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyCreate
+     */
+    'alias'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyCreate
+     */
+    'startAt'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyCreate
+     */
+    'endAt'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyCreate
+     */
+    'subsystem': OrganizationPlaceSurveyCreateSubsystemEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyCreate
+     */
+    'surveyType': OrganizationPlaceSurveyCreateSurveyTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyCreate
+     */
+    'surveyOid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyCreate
+     */
+    'lookerReportEmbedUrl'?: string | null;
+}
+
+export const OrganizationPlaceSurveyCreateSubsystemEnum = {
+    Limesurvey: 'limesurvey'
+} as const;
+
+export type OrganizationPlaceSurveyCreateSubsystemEnum = typeof OrganizationPlaceSurveyCreateSubsystemEnum[keyof typeof OrganizationPlaceSurveyCreateSubsystemEnum];
+export const OrganizationPlaceSurveyCreateSurveyTypeEnum = {
+    Tracker: 'tracker',
+    Campaign: 'campaign'
+} as const;
+
+export type OrganizationPlaceSurveyCreateSurveyTypeEnum = typeof OrganizationPlaceSurveyCreateSurveyTypeEnum[keyof typeof OrganizationPlaceSurveyCreateSurveyTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceSurveyList
+ */
+export interface OrganizationPlaceSurveyList {
+    /**
+     * 
+     * @type {Array<OrganizationPlaceSurvey>}
+     * @memberof OrganizationPlaceSurveyList
+     */
+    'results': Array<OrganizationPlaceSurvey>;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceSurveyList
+     */
+    'page': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceSurveyList
+     */
+    'lastPage': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceSurveyList
+     */
+    'nextPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceSurveyList
+     */
+    'previousPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganizationPlaceSurveyList
+     */
+    'count'?: number | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrganizationPlaceSurveyUpdate
+ */
+export interface OrganizationPlaceSurveyUpdate {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyUpdate
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrganizationPlaceSurveyUpdate
+     */
+    'active'?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyUpdate
+     */
+    'alias'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyUpdate
+     */
+    'startAt'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyUpdate
+     */
+    'endAt'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyUpdate
+     */
+    'subsystem': OrganizationPlaceSurveyUpdateSubsystemEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyUpdate
+     */
+    'surveyType': OrganizationPlaceSurveyUpdateSurveyTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyUpdate
+     */
+    'surveyOid'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationPlaceSurveyUpdate
+     */
+    'lookerReportEmbedUrl'?: string | null;
+}
+
+export const OrganizationPlaceSurveyUpdateSubsystemEnum = {
+    Limesurvey: 'limesurvey'
+} as const;
+
+export type OrganizationPlaceSurveyUpdateSubsystemEnum = typeof OrganizationPlaceSurveyUpdateSubsystemEnum[keyof typeof OrganizationPlaceSurveyUpdateSubsystemEnum];
+export const OrganizationPlaceSurveyUpdateSurveyTypeEnum = {
+    Tracker: 'tracker',
+    Campaign: 'campaign'
+} as const;
+
+export type OrganizationPlaceSurveyUpdateSurveyTypeEnum = typeof OrganizationPlaceSurveyUpdateSurveyTypeEnum[keyof typeof OrganizationPlaceSurveyUpdateSurveyTypeEnum];
+
+/**
+ * 
+ * @export
  * @interface OrganizationPlaceUpdate
  */
 export interface OrganizationPlaceUpdate {
@@ -1037,6 +1314,19 @@ export interface OrganizationUserUpdate {
 /**
  * 
  * @export
+ * @interface PatchApiOrganizationPlaceSurveysToggleActivationRequest
+ */
+export interface PatchApiOrganizationPlaceSurveysToggleActivationRequest {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PatchApiOrganizationPlaceSurveysToggleActivationRequest
+     */
+    'active'?: boolean;
+}
+/**
+ * 
+ * @export
  * @interface SpecialSchedule
  */
 export interface SpecialSchedule {
@@ -1405,6 +1695,562 @@ export class AuthApi extends BaseAPI {
     }
 }
 
+
+
+/**
+ * OrganizationPlaceSurveysApi - axios parameter creator
+ * @export
+ */
+export const OrganizationPlaceSurveysApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationPlaceSurveysDelete: async (placeUuid: string, surveyUuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'placeUuid' is not null or undefined
+            assertParamExists('deleteApiOrganizationPlaceSurveysDelete', 'placeUuid', placeUuid)
+            // verify required parameter 'surveyUuid' is not null or undefined
+            assertParamExists('deleteApiOrganizationPlaceSurveysDelete', 'surveyUuid', surveyUuid)
+            const localVarPath = `/api/organization-place/{place_uuid}/surveys/{survey_uuid}`
+                .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)))
+                .replace(`{${"survey_uuid"}}`, encodeURIComponent(String(surveyUuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlaceSurveysGet: async (placeUuid: string, surveyUuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'placeUuid' is not null or undefined
+            assertParamExists('getApiOrganizationPlaceSurveysGet', 'placeUuid', placeUuid)
+            // verify required parameter 'surveyUuid' is not null or undefined
+            assertParamExists('getApiOrganizationPlaceSurveysGet', 'surveyUuid', surveyUuid)
+            const localVarPath = `/api/organization-place/{place_uuid}/surveys/{survey_uuid}`
+                .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)))
+                .replace(`{${"survey_uuid"}}`, encodeURIComponent(String(surveyUuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationPlaceSurveysListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlaceSurveysList: async (placeUuid: string, page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlaceSurveysListOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'placeUuid' is not null or undefined
+            assertParamExists('getApiOrganizationPlaceSurveysList', 'placeUuid', placeUuid)
+            const localVarPath = `/api/organization-place/{place_uuid}/surveys`
+                .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {PatchApiOrganizationPlaceSurveysToggleActivationRequest} patchApiOrganizationPlaceSurveysToggleActivationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        patchApiOrganizationPlaceSurveysToggleActivation: async (placeUuid: string, surveyUuid: string, patchApiOrganizationPlaceSurveysToggleActivationRequest: PatchApiOrganizationPlaceSurveysToggleActivationRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'placeUuid' is not null or undefined
+            assertParamExists('patchApiOrganizationPlaceSurveysToggleActivation', 'placeUuid', placeUuid)
+            // verify required parameter 'surveyUuid' is not null or undefined
+            assertParamExists('patchApiOrganizationPlaceSurveysToggleActivation', 'surveyUuid', surveyUuid)
+            // verify required parameter 'patchApiOrganizationPlaceSurveysToggleActivationRequest' is not null or undefined
+            assertParamExists('patchApiOrganizationPlaceSurveysToggleActivation', 'patchApiOrganizationPlaceSurveysToggleActivationRequest', patchApiOrganizationPlaceSurveysToggleActivationRequest)
+            const localVarPath = `/api/organization-place/{place_uuid}/surveys/{survey_uuid}/toggle-activation`
+                .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)))
+                .replace(`{${"survey_uuid"}}`, encodeURIComponent(String(surveyUuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(patchApiOrganizationPlaceSurveysToggleActivationRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {OrganizationPlaceSurveyCreate} organizationPlaceSurveyCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationPlaceSurveysCreate: async (placeUuid: string, organizationPlaceSurveyCreate: OrganizationPlaceSurveyCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'placeUuid' is not null or undefined
+            assertParamExists('postApiOrganizationPlaceSurveysCreate', 'placeUuid', placeUuid)
+            // verify required parameter 'organizationPlaceSurveyCreate' is not null or undefined
+            assertParamExists('postApiOrganizationPlaceSurveysCreate', 'organizationPlaceSurveyCreate', organizationPlaceSurveyCreate)
+            const localVarPath = `/api/organization-place/{place_uuid}/surveys`
+                .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(organizationPlaceSurveyCreate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {OrganizationPlaceSurveyUpdate} organizationPlaceSurveyUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationPlaceSurveysUpdate: async (placeUuid: string, surveyUuid: string, organizationPlaceSurveyUpdate: OrganizationPlaceSurveyUpdate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'placeUuid' is not null or undefined
+            assertParamExists('putApiOrganizationPlaceSurveysUpdate', 'placeUuid', placeUuid)
+            // verify required parameter 'surveyUuid' is not null or undefined
+            assertParamExists('putApiOrganizationPlaceSurveysUpdate', 'surveyUuid', surveyUuid)
+            // verify required parameter 'organizationPlaceSurveyUpdate' is not null or undefined
+            assertParamExists('putApiOrganizationPlaceSurveysUpdate', 'organizationPlaceSurveyUpdate', organizationPlaceSurveyUpdate)
+            const localVarPath = `/api/organization-place/{place_uuid}/surveys/{survey_uuid}`
+                .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)))
+                .replace(`{${"survey_uuid"}}`, encodeURIComponent(String(surveyUuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(organizationPlaceSurveyUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * OrganizationPlaceSurveysApi - functional programming interface
+ * @export
+ */
+export const OrganizationPlaceSurveysApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = OrganizationPlaceSurveysApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteApiOrganizationPlaceSurveysDelete(placeUuid: string, surveyUuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteApiOrganizationPlaceSurveysDelete(placeUuid, surveyUuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceSurveysApi.deleteApiOrganizationPlaceSurveysDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationPlaceSurveysGet(placeUuid: string, surveyUuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlaceSurvey>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationPlaceSurveysGet(placeUuid, surveyUuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceSurveysApi.getApiOrganizationPlaceSurveysGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationPlaceSurveysListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApiOrganizationPlaceSurveysList(placeUuid: string, page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlaceSurveysListOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlaceSurveyList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiOrganizationPlaceSurveysList(placeUuid, page, limit, search, sort, order, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceSurveysApi.getApiOrganizationPlaceSurveysList']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {PatchApiOrganizationPlaceSurveysToggleActivationRequest} patchApiOrganizationPlaceSurveysToggleActivationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async patchApiOrganizationPlaceSurveysToggleActivation(placeUuid: string, surveyUuid: string, patchApiOrganizationPlaceSurveysToggleActivationRequest: PatchApiOrganizationPlaceSurveysToggleActivationRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlaceSurvey>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.patchApiOrganizationPlaceSurveysToggleActivation(placeUuid, surveyUuid, patchApiOrganizationPlaceSurveysToggleActivationRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceSurveysApi.patchApiOrganizationPlaceSurveysToggleActivation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {OrganizationPlaceSurveyCreate} organizationPlaceSurveyCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiOrganizationPlaceSurveysCreate(placeUuid: string, organizationPlaceSurveyCreate: OrganizationPlaceSurveyCreate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlaceSurvey>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiOrganizationPlaceSurveysCreate(placeUuid, organizationPlaceSurveyCreate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceSurveysApi.postApiOrganizationPlaceSurveysCreate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {OrganizationPlaceSurveyUpdate} organizationPlaceSurveyUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putApiOrganizationPlaceSurveysUpdate(placeUuid: string, surveyUuid: string, organizationPlaceSurveyUpdate: OrganizationPlaceSurveyUpdate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationPlaceSurvey>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putApiOrganizationPlaceSurveysUpdate(placeUuid, surveyUuid, organizationPlaceSurveyUpdate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationPlaceSurveysApi.putApiOrganizationPlaceSurveysUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * OrganizationPlaceSurveysApi - factory interface
+ * @export
+ */
+export const OrganizationPlaceSurveysApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = OrganizationPlaceSurveysApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApiOrganizationPlaceSurveysDelete(placeUuid: string, surveyUuid: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteApiOrganizationPlaceSurveysDelete(placeUuid, surveyUuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlaceSurveysGet(placeUuid: string, surveyUuid: string, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlaceSurvey> {
+            return localVarFp.getApiOrganizationPlaceSurveysGet(placeUuid, surveyUuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by
+         * @param {GetApiOrganizationPlaceSurveysListOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApiOrganizationPlaceSurveysList(placeUuid: string, page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlaceSurveysListOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlaceSurveyList> {
+            return localVarFp.getApiOrganizationPlaceSurveysList(placeUuid, page, limit, search, sort, order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {PatchApiOrganizationPlaceSurveysToggleActivationRequest} patchApiOrganizationPlaceSurveysToggleActivationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        patchApiOrganizationPlaceSurveysToggleActivation(placeUuid: string, surveyUuid: string, patchApiOrganizationPlaceSurveysToggleActivationRequest: PatchApiOrganizationPlaceSurveysToggleActivationRequest, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlaceSurvey> {
+            return localVarFp.patchApiOrganizationPlaceSurveysToggleActivation(placeUuid, surveyUuid, patchApiOrganizationPlaceSurveysToggleActivationRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {OrganizationPlaceSurveyCreate} organizationPlaceSurveyCreate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiOrganizationPlaceSurveysCreate(placeUuid: string, organizationPlaceSurveyCreate: OrganizationPlaceSurveyCreate, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlaceSurvey> {
+            return localVarFp.postApiOrganizationPlaceSurveysCreate(placeUuid, organizationPlaceSurveyCreate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} placeUuid 
+         * @param {string} surveyUuid 
+         * @param {OrganizationPlaceSurveyUpdate} organizationPlaceSurveyUpdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putApiOrganizationPlaceSurveysUpdate(placeUuid: string, surveyUuid: string, organizationPlaceSurveyUpdate: OrganizationPlaceSurveyUpdate, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationPlaceSurvey> {
+            return localVarFp.putApiOrganizationPlaceSurveysUpdate(placeUuid, surveyUuid, organizationPlaceSurveyUpdate, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * OrganizationPlaceSurveysApi - object-oriented interface
+ * @export
+ * @class OrganizationPlaceSurveysApi
+ * @extends {BaseAPI}
+ */
+export class OrganizationPlaceSurveysApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} placeUuid 
+     * @param {string} surveyUuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceSurveysApi
+     */
+    public deleteApiOrganizationPlaceSurveysDelete(placeUuid: string, surveyUuid: string, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceSurveysApiFp(this.configuration).deleteApiOrganizationPlaceSurveysDelete(placeUuid, surveyUuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} placeUuid 
+     * @param {string} surveyUuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceSurveysApi
+     */
+    public getApiOrganizationPlaceSurveysGet(placeUuid: string, surveyUuid: string, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceSurveysApiFp(this.configuration).getApiOrganizationPlaceSurveysGet(placeUuid, surveyUuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} placeUuid 
+     * @param {number} [page] Page number
+     * @param {number} [limit] Number of items per page
+     * @param {string} [search] Search term
+     * @param {string} [sort] Field to sort by
+     * @param {GetApiOrganizationPlaceSurveysListOrderEnum} [order] Sort direction (ASC or DESC)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceSurveysApi
+     */
+    public getApiOrganizationPlaceSurveysList(placeUuid: string, page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlaceSurveysListOrderEnum, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceSurveysApiFp(this.configuration).getApiOrganizationPlaceSurveysList(placeUuid, page, limit, search, sort, order, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} placeUuid 
+     * @param {string} surveyUuid 
+     * @param {PatchApiOrganizationPlaceSurveysToggleActivationRequest} patchApiOrganizationPlaceSurveysToggleActivationRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceSurveysApi
+     */
+    public patchApiOrganizationPlaceSurveysToggleActivation(placeUuid: string, surveyUuid: string, patchApiOrganizationPlaceSurveysToggleActivationRequest: PatchApiOrganizationPlaceSurveysToggleActivationRequest, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceSurveysApiFp(this.configuration).patchApiOrganizationPlaceSurveysToggleActivation(placeUuid, surveyUuid, patchApiOrganizationPlaceSurveysToggleActivationRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} placeUuid 
+     * @param {OrganizationPlaceSurveyCreate} organizationPlaceSurveyCreate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceSurveysApi
+     */
+    public postApiOrganizationPlaceSurveysCreate(placeUuid: string, organizationPlaceSurveyCreate: OrganizationPlaceSurveyCreate, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceSurveysApiFp(this.configuration).postApiOrganizationPlaceSurveysCreate(placeUuid, organizationPlaceSurveyCreate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} placeUuid 
+     * @param {string} surveyUuid 
+     * @param {OrganizationPlaceSurveyUpdate} organizationPlaceSurveyUpdate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationPlaceSurveysApi
+     */
+    public putApiOrganizationPlaceSurveysUpdate(placeUuid: string, surveyUuid: string, organizationPlaceSurveyUpdate: OrganizationPlaceSurveyUpdate, options?: RawAxiosRequestConfig) {
+        return OrganizationPlaceSurveysApiFp(this.configuration).putApiOrganizationPlaceSurveysUpdate(placeUuid, surveyUuid, organizationPlaceSurveyUpdate, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const GetApiOrganizationPlaceSurveysListOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetApiOrganizationPlaceSurveysListOrderEnum = typeof GetApiOrganizationPlaceSurveysListOrderEnum[keyof typeof GetApiOrganizationPlaceSurveysListOrderEnum];
 
 
 /**

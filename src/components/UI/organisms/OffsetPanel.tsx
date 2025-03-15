@@ -31,7 +31,18 @@ interface OffsetPanelProps {
    * @default false
    */
   defaultOpen?: boolean;
-
+  /**
+   * Callback function executed when panel opens
+   */
+  onOpen?: () => void;
+  /**
+   * Callback function executed when panel closes
+   */
+  onClose?: () => void;
+  /**
+   * Whether to lazily load panel content
+   * @default true
+   */
   lazy?: boolean;
 }
 
@@ -49,6 +60,8 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
   panelId = 'panel',
   persistState = true,
   defaultOpen = false,
+  onOpen,
+  onClose,
   lazy = true,
 }) => {
   // Usar useQueryParams para gestionar el estado en la URL
@@ -67,13 +80,24 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const startPosRef = useRef<number>(0);
   const startWidthRef = useRef<number>(0);
+  const previousIsOpenRef = useRef(initialIsOpen);
   
   // Sincronizar cambios de estado con URL
   useEffect(() => {
     if (persistState) {
       setPanelState(isOpen ? 'true' : 'false', true); // true para replaceState
     }
-  }, [isOpen, persistState, setPanelState]);
+    
+    // Ejecutar callbacks cuando cambia el estado
+    if (isOpen !== previousIsOpenRef.current) {
+      if (isOpen && onOpen) {
+        onOpen();
+      } else if (!isOpen && onClose) {
+        onClose();
+      }
+      previousIsOpenRef.current = isOpen;
+    }
+  }, [isOpen]);
 
   const openPanel = () => setIsOpen(true);
   const closePanel = () => setIsOpen(false);
@@ -122,6 +146,13 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
       document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isDragging, position]);
+
+  // Manejar cambios en defaultOpen prop
+  useEffect(() => {
+    if (defaultOpen !== isOpen) {
+      setIsOpen(defaultOpen);
+    }
+  }, [defaultOpen]);
 
   return (
     <>
@@ -227,3 +258,5 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
     </>
   );
 };
+
+export default OffsetPanel;

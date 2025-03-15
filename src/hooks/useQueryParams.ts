@@ -16,7 +16,7 @@ export const useQueryParams = <T extends string | number | boolean | null = stri
    */
   const getValue = useCallback(() => {
     return searchParams.get(paramName) as T | null;
-  }, [searchParams, paramName]);
+  }, [paramName]);
 
   /**
    * Set the value of the parameter
@@ -35,7 +35,7 @@ export const useQueryParams = <T extends string | number | boolean | null = stri
       
       setSearchParams(newParams, { replace: replaceState });
     },
-    [searchParams, setSearchParams, paramName]
+    [paramName]
   );
 
   /**
@@ -48,7 +48,7 @@ export const useQueryParams = <T extends string | number | boolean | null = stri
       newParams.delete(paramName);
       setSearchParams(newParams, { replace: replaceState });
     },
-    [searchParams, setSearchParams, paramName]
+    [paramName]
   );
 
   /**

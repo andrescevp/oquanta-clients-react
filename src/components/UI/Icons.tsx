@@ -6,7 +6,7 @@ import {RiInputMethodLine} from 'react-icons/ri';
 import {TbLoader3, TbSection} from 'react-icons/tb';
 import {VscAdd, VscClose, VscSymbolNumeric} from 'react-icons/vsc';
 
-import {AlertCircle, ArrowRight, ArrowUp, BarChart3, Calendar, Check, ChevronDown,ChevronLeft, ChevronRight, ChevronUp,Clock,ExternalLink,Eye, EyeOff, FilePenLine, Files, GripHorizontal, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MapPin, Menu, Moon, Plus, RefreshCcw, RotateCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
+import {AlertCircle, ArrowRight, ArrowUp, BarChart3, Calendar, Check, ChevronDown,ChevronLeft, ChevronRight, ChevronUp,Clock,ExternalLink,Eye, EyeOff, File, FilePenLine, Files, GripHorizontal, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MapPin, Menu, Moon, Plus, RefreshCcw, RotateCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
 
 export const AlertCircleIcon = AlertCircle;
 export const IconCalendar = Calendar;
@@ -22,6 +22,7 @@ export const IconExternalLink = ExternalLink;
 export const IconGripHorizontal = GripHorizontal;
 
 export const IconTrash = FaTrash;
+export const IconFile = File;
 
 export const IconDrag = GrDrag;
 

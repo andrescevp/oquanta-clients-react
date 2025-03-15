@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
 import {
-  IconAnalytics,
-  IconDashboard,
   IconFiles,
   IconSettings,
   IconUsers,
@@ -31,21 +29,13 @@ export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({ child
   
   // Define los menús específicos para admin
   const adminMenuItems: MenuItem[] = [
-    { icon: IconDashboard, label: 'Panel de Control', href: '/admin/dashboard' },
     { icon: IconUsers, label: 'Usuarios', href: '/admin/users' },
-    { icon: IconSettings, label: 'Organizaciones', href: '/admin/organizations' },
-    { icon: IconFiles, label: 'Negocios Locales', href: '/admin/local-business' },
-    { icon: IconAnalytics, label: 'Campañas', href: '/admin/campaigns' },
-    { icon: IconSettings, label: 'Trackers', href: '/admin/trackers' },
+    { icon: IconSettings, label: 'Organizaciones', href: '/admin/organization' },
+    { icon: IconFiles, label: 'Negocios Locales', href: '/admin/local-place' },
   ];
 
   // Define los menús específicos para clientes
   const clientMenuItems: MenuItem[] = [
-    { icon: IconDashboard, label: 'Panel de Control', href: '/client/dashboard' },
-    { icon: IconSettings, label: 'Mi Organización', href: '/client/organization' },
-    { icon: IconFiles, label: 'Mis Negocios', href: '/client/local-businesses' },
-    { icon: IconAnalytics, label: 'Campañas', href: '/client/campaigns' },
-    { icon: IconSettings, label: 'Trackers', href: '/client/trackers' },
   ];
 
   // Determina qué menú mostrar basado en los roles del usuario
