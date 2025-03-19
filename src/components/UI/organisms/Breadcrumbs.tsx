@@ -14,10 +14,12 @@ export const Breadcrumbs: React.FC = () => {
                 <Link 
                     to="/" 
                     className={cn(
-                        "p-1.5 rounded-lg flex items-center justify-center",
+                        "p-1.5 rounded-xl flex items-center justify-center",
                         "hover:bg-gray-100 dark:hover:bg-gray-700",
-                        "hover:text-gray-900 dark:hover:text-white",
-                        "transition-all duration-200"
+                        "hover:text-pumpkin-orange dark:hover:text-pumpkin-orange",
+                        "focus:ring-2 focus:ring-pumpkin-orange/50 focus:outline-none",
+                        "transition-all duration-200 ease-in-out",
+                        "hover:shadow-sm hover:translate-y-[-1px]"
                     )}
                     aria-label="Inicio"
                 >
@@ -32,10 +34,12 @@ export const Breadcrumbs: React.FC = () => {
             <Link 
                 to="/" 
                 className={cn(
-                    "p-1.5 rounded-lg flex items-center justify-center",
+                    "p-1.5 rounded-xl flex items-center justify-center",
                     "hover:bg-gray-100 dark:hover:bg-gray-700",
-                    "hover:text-gray-900 dark:hover:text-white", 
-                    "transition-all duration-200"
+                    "hover:text-pumpkin-orange dark:hover:text-pumpkin-orange",
+                    "focus:ring-2 focus:ring-pumpkin-orange/50 focus:outline-none",
+                    "transition-all duration-200 ease-in-out",
+                    "hover:shadow-sm hover:translate-y-[-1px]"
                 )}
                 aria-label="Inicio"
             >
@@ -50,9 +54,11 @@ export const Breadcrumbs: React.FC = () => {
                     
                     {index === breadcrumbs.length - 1 ? (
                         <div className={cn(
-                            "px-2 py-1 rounded-lg",
-                            "bg-gray-100 dark:bg-gray-700/50",
-                            "font-medium text-gray-900 dark:text-white"
+                            "px-2 py-1 rounded-xl",
+                            "bg-gradient-to-r from-pumpkin-orange/10 to-pumpkin-orange/5 dark:from-pumpkin-orange/20 dark:to-pumpkin-orange/10",
+                            "font-medium text-gray-900 dark:text-white",
+                            "border border-pumpkin-orange/10 dark:border-pumpkin-orange/20",
+                            "shadow-sm"
                         )}>
                             {item.label}
                         </div>
@@ -60,10 +66,12 @@ export const Breadcrumbs: React.FC = () => {
                         <Link 
                             to={item.path} 
                             className={cn(
-                                "px-2 py-1 rounded-lg",
+                                "px-2 py-1 rounded-xl",
                                 "hover:bg-gray-100 dark:hover:bg-gray-700",
-                                "hover:text-gray-900 dark:hover:text-white",
-                                "transition-all duration-200"
+                                "hover:text-pumpkin-orange dark:hover:text-pumpkin-orange",
+                                "focus:ring-2 focus:ring-pumpkin-orange/50 focus:outline-none",
+                                "transition-all duration-200 ease-in-out",
+                                "hover:shadow-sm hover:translate-y-[-1px]"
                             )}
                         >
                             {item.label}

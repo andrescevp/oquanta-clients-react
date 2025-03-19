@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 
 import { useQueryParams } from '../../../hooks/useQueryParams';
 import { cn } from '../../../lib/utils';
-import { IconMenu } from '../Icons';
+import { IconChevronLeft, IconClose, IconMenu } from '../Icons';
 
 interface OffsetPanelProps {
   children: React.ReactNode;
@@ -64,12 +64,12 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
   onClose,
   lazy = true,
 }) => {
-  // Usar useQueryParams para gestionar el estado en la URL
+  // Use useQueryParams to manage state in URL
   const { value: panelStateParam, setValue: setPanelState } = useQueryParams<string>(
     `${panelId}_open`
   );
   
-  // Determinar estado inicial basado en URL o defaultOpen
+  // Determine initial state based on URL or defaultOpen
   const initialIsOpen = persistState 
     ? panelStateParam === 'true' || (panelStateParam === null && defaultOpen)
     : defaultOpen;
@@ -82,13 +82,13 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
   const startWidthRef = useRef<number>(0);
   const previousIsOpenRef = useRef(initialIsOpen);
   
-  // Sincronizar cambios de estado con URL
+  // Sync state changes with URL
   useEffect(() => {
     if (persistState) {
-      setPanelState(isOpen ? 'true' : 'false', true); // true para replaceState
+      setPanelState(isOpen ? 'true' : 'false', true); // true for replaceState
     }
     
-    // Ejecutar callbacks cuando cambia el estado
+    // Execute callbacks when state changes
     if (isOpen !== previousIsOpenRef.current) {
       if (isOpen && onOpen) {
         onOpen();
@@ -97,12 +97,12 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
       }
       previousIsOpenRef.current = isOpen;
     }
-  }, [isOpen]);
+  }, [isOpen, persistState, setPanelState, onOpen, onClose]);
 
   const openPanel = () => setIsOpen(true);
   const closePanel = () => setIsOpen(false);
 
-  // Calcula el ancho inicial (50% en pantallas grandes, 80% en pequeñas)
+  // Calculate initial width (50% on large screens, 80% on small)
   useEffect(() => {
     if (isOpen && !width) {
       const windowWidth = window.innerWidth;
@@ -111,7 +111,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
     }
   }, [isOpen, width]);
 
-  // Gestión del arrastre
+  // Drag handling
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
     startPosRef.current = position === 'right' ? e.clientX : -e.clientX;
@@ -147,7 +147,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
     };
   }, [isDragging, position]);
 
-  // Manejar cambios en defaultOpen prop
+  // Handle changes to defaultOpen prop
   useEffect(() => {
     if (defaultOpen !== isOpen) {
       setIsOpen(defaultOpen);
@@ -156,20 +156,28 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
 
   return (
     <>
-      {/* Botón para abrir el panel */}
+      {/* Button to open panel */}
       <button 
         type="button" 
         onClick={openPanel} 
         className={cn(
-          buttonClassName || 'btn',
-          isOpen && 'bg-blue-50 text-blue-600 dark:bg-black dark:text-white'
+          "btn btn-outline inline-flex items-center justify-center gap-2",
+          "text-sm font-medium transition-all duration-200 ease-in-out",
+          "text-white shadow-lg",
+          "hover:translate-y-[-2px] hover:shadow-xl",
+          "focus:outline-none focus:ring-2 focus:ring-pumpkin-orange/50",
+          "active:translate-y-[1px] active:shadow-md",
+          buttonPosition === 'fixed' ? "fixed z-10" : "",
+          isOpen && "bg-gradient-to-r from-iris-purple to-iris-purple/80 shadow-iris-purple/20",
+          buttonClassName
         )}
+        aria-label={buttonText || "Open panel"}
       >
         {ButtonIcon && <ButtonIcon className={buttonIconClassName} />}
         {buttonText}
       </button>
 
-      {/* Panel deslizable */}
+      {/* Sliding panel */}
       <Transition.Root show={isOpen} as={React.Fragment}>
         <Dialog as="div" className="relative z-40" onClose={closePanel}>
           <Transition.Child
@@ -181,7 +189,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-black dark:bg-opacity-80 transition-opacity" />
+            <div className="fixed inset-0 bg-gray-500/75 dark:bg-black/80 backdrop-blur-sm transition-opacity" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-hidden">
@@ -207,45 +215,70 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
                       width: width ? `${width}px` : undefined,
                     }}
                   >
-                    {/* Borde arrastrable */}
+                    {/* Draggable border/handle */}
                     <div
                       className={cn(
-                        "absolute inset-y-0 cursor-ew-resize w-1 bg-gray-300 hover:bg-iris-purple transition-colors",
-                        "dark:bg-gray-600 dark:hover:bg-iris-purple",
+                        "absolute inset-y-0 cursor-ew-resize w-1.5 z-10",
+                        "transition-all duration-200 ease-in-out",
                         position === 'right' ? 'left-0' : 'right-0',
-                        isDragging && 'bg-blue-600 dark:bg-blue-700'
+                        isDragging 
+                          ? "bg-pumpkin-orange shadow-lg shadow-pumpkin-orange/20" 
+                          : "bg-gradient-to-r from-gray-300/60 to-gray-300/80 dark:from-gray-600/60 dark:to-gray-600/80 hover:bg-iris-purple hover:shadow-md"
                       )}
                       onMouseDown={handleMouseDown}
+                      title="Resize panel"
                     />
                     <div
                       ref={panelRef}
                       className={cn(
-                        "flex flex-col h-full flex-1 overflow-hidden bg-white shadow-xl",
-                        "dark:bg-black-90 dark:text-gray-100",
+                        "flex flex-col h-full flex-1 overflow-hidden",
+                        "bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg",
+                        "border-gray-200 dark:border-gray-700",
+                        position === 'right' ? "border-l" : "border-r",
+                        "shadow-2xl",
                         className
                       )}
                     >
-                      <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
-                        <Dialog.Title className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                      <div className={cn(
+                        "flex justify-between items-center p-4",
+                        "border-b border-gray-200 dark:border-gray-700",
+                        "bg-gradient-to-br from-white/60 to-white/30 dark:from-gray-800/60 dark:to-gray-800/30"
+                      )}>
+                        <Dialog.Title className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                          {position === 'left' ? (
+                            <IconChevronLeft className="w-5 h-5 text-pumpkin-orange" />
+                          ) : (
+                            <IconChevronLeft className="w-5 h-5 text-pumpkin-orange transform rotate-180" />
+                          )}
                           {title || 'Panel'}
                         </Dialog.Title>
                         <button
                           type="button"
-                          className="text-gray-400 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300"
+                          className={cn(
+                            "p-2 rounded-xl inline-flex items-center justify-center",
+                            "text-gray-500 hover:text-pumpkin-orange dark:text-gray-400 dark:hover:text-pumpkin-orange",
+                            "hover:bg-gray-100 dark:hover:bg-gray-700/50",
+                            "focus:outline-none focus:ring-2 focus:ring-pumpkin-orange/50",
+                            "transition-all duration-200 ease-in-out",
+                            "hover:translate-y-[-1px]"
+                          )}
                           onClick={closePanel}
+                          aria-label="Close panel"
                         >
-                          <span className="sr-only">Cerrar panel</span>
-                          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
+                          <IconClose className="h-5 w-5" />
                         </button>
                       </div>
-                      <div className="relative flex-1 overflow-auto dark:bg-black-90 dark:text-gray-200">
-                      {
-                        lazy 
-                          ? <Suspense fallback={null}>{children}</Suspense>
+                      <div className="relative flex-1 overflow-auto p-4 dark:bg-gray-800/90 dark:text-gray-200">
+                        {lazy 
+                          ? <Suspense fallback={
+                              <div className="flex items-center justify-center h-full">
+                                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-pumpkin-orange"></div>
+                              </div>
+                            }>
+                              {children}
+                            </Suspense>
                           : children
-                      }
+                        }
                       </div>
                     </div>
                   </Dialog.Panel>

@@ -139,7 +139,7 @@ const UsersPage: React.FC = () => {
         <Restricted roles={['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']}>
           <OffsetPanel 
             buttonPosition="inline" 
-            buttonClassName="btn"
+            buttonClassName="btn btn-outline"
             buttonText={""}
             title={t('Crear usuario')}
             buttonIcon={IconAdd}
@@ -150,7 +150,7 @@ const UsersPage: React.FC = () => {
           </OffsetPanel>
         </Restricted>
         <button 
-          className="btn"
+          className="btn btn-outline"
           onClick={loadUsers}
           title="Actualizar"
         >

@@ -197,7 +197,7 @@ const OrganizationUsersTable: React.FC<OrganizationFormProps> = ({
               </div>
               <div className="flex justify-end">
                 <Button
-                  className='btn'
+                  className='btn btn-outline'
                   onClick={() => setEditingRolesForId(null)}
                 >
                   <IconX className="w-4 h-4" />
@@ -225,7 +225,7 @@ const OrganizationUsersTable: React.FC<OrganizationFormProps> = ({
             <span>
               <Button
                   onClick={() => setEditingRolesForId(Number(row.id))}
-                  className="btn"
+                  className="btn btn-outline"
                   aria-label={t('Editar roles')}
                 >
                   <IconEdit className="w-4 h-4" />

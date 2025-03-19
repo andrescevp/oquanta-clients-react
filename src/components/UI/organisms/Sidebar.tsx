@@ -21,15 +21,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
         <aside
             className={cn(
                 "h-screen fixed left-0 top-0 z-40",
-                "bg-white/90 dark:bg-black/90 backdrop-blur-lg",
-                "border-r border-gray-200/70 dark:border-gray-700/70",
+                "bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg",
+                "border-r border-gray-200 dark:border-gray-700",
+                "shadow-lg shadow-black/5 dark:shadow-black/20",
                 "transition-all duration-300 ease-in-out",
                 isCollapsed ? "w-16" : "w-64"
             )}
         >
             <div className="flex flex-col h-full">
                 {/* Header with logo */}
-                <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200/70 dark:border-gray-700/70">
+                <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
                     <Transition
                         show={!isCollapsed}
                         enter="transition-opacity duration-300"
@@ -39,7 +40,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="font-semibold bg-gradient-to-r from-pumpkin-orange to-indigo-600 bg-clip-text text-transparent">
+                        <div className="font-semibold bg-gradient-to-r from-pumpkin-orange to-iris-purple bg-clip-text text-transparent">
                             oQuanta
                         </div>
                     </Transition>
@@ -47,10 +48,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
                     <button 
                         onClick={toggleSidebar}
                         className={cn(
-                            "p-1.5 rounded-lg", 
-                            "hover:bg-gray-100 dark:hover:bg-gray-700/50",
-                            "transition-colors duration-200",
-                            "border border-gray-200/50 dark:border-gray-700/50",
+                            "p-1.5 rounded-xl", 
+                            "hover:bg-gray-100 dark:hover:bg-gray-700",
+                            "focus:ring-2 focus:ring-pumpkin-orange/50 focus:outline-none",
+                            "transition-all duration-200 ease-in-out",
+                            "border border-gray-200 dark:border-gray-700",
+                            "hover:shadow-md hover:translate-y-[-1px]",
                             !isCollapsed && "ml-auto"
                         )}
                         aria-label={isCollapsed ? t('Expandir menú') : t('Colapsar menú')}
@@ -106,8 +109,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
                 
                 {/* Footer section with additional info */}
                 <div className={cn(
-                    "p-4 border-t border-gray-200/70 dark:border-gray-700/70",
+                    "p-4 border-t border-gray-200 dark:border-gray-700",
                     "text-xs text-gray-500 dark:text-gray-400",
+                    "bg-gradient-to-br from-white/60 to-white/30 dark:from-gray-800/60 dark:to-gray-800/30",
                     isCollapsed ? "text-center" : ""
                 )}>
                     {isCollapsed ? (

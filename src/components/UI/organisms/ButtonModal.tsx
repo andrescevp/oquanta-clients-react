@@ -16,7 +16,7 @@ interface ButtonModalProps {
 const ButtonModal: React.FC<ButtonModalProps> = ({
     modalFooter,
     showModalCloseButton = true,
-    className = 'btn-primary',
+    className = 'btn btn-outline',
     children = 'Open Modal',
     buttonTitle = 'Open Modal',
     modalTitle = 'Modal',

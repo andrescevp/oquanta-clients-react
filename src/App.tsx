@@ -17,6 +17,7 @@ import ClientLayout from './layouts/ClientLayout';
 import OrganizationPlacesPage from './pages/admin/OrganizationPlacesPage';
 import OrganizationsPage from './pages/admin/OrganizationsPage';
 import UsersPage from './pages/admin/UsersPage';
+import AcceptInvitationPage from './pages/auth/AcceptInvitation';
 import RequestPasswordReset from './pages/auth/RequestPasswordReset';
 import ResetPasswordPage from './pages/auth/ResetPassword';
 import OrganizationPage from './pages/client/OrganizationPage';
@@ -41,6 +42,7 @@ const App = () => {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/forgot-password" element={<RequestPasswordReset />} />
                         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+                        <Route path="/accept-invitation/:token" element={<AcceptInvitationPage />} />
 
                         {/* Rutas Admin */}
                         <Route

@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Transition } from '@headlessui/react';
@@ -13,6 +13,10 @@ export interface DashboardLayoutProps {
     children: React.ReactNode;
 }
 
+/**
+ * Dashboard template component that provides the main application layout
+ * with responsive sidebar, header, and content area
+ */
 export const Dashboard: React.FC<DashboardLayoutProps> = ({ children }) => {
     const { t } = useTranslation();
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -37,7 +41,12 @@ export const Dashboard: React.FC<DashboardLayoutProps> = ({ children }) => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50/90 to-gray-100/90 dark:from-black/75 dark:to-black/95 overflow-hidden backdrop-blur-[2px]">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 overflow-hidden backdrop-blur-sm">
+            {/* Decorative elements */}
+            <div className="fixed top-20 left-20 w-64 h-64 bg-pumpkin-orange/5 rounded-full blur-3xl" aria-hidden="true" />
+            <div className="fixed bottom-20 right-20 w-64 h-64 bg-iris-purple/5 rounded-full blur-3xl" aria-hidden="true" />
+            <div className="fixed top-1/2 left-1/3 w-96 h-96 bg-lime-green/5 rounded-full blur-3xl" aria-hidden="true" />
+
             {/* Desktop Sidebar */}
             <Transition
                 show={!isMobile}
@@ -81,13 +90,13 @@ export const Dashboard: React.FC<DashboardLayoutProps> = ({ children }) => {
                     }
                 )}
             >
-                <header className="sticky top-0 z-30 h-16 bg-white/90 dark:bg-black/95  backdrop-blur-md border-b border-gray-200/70 dark:border-gray-700/70 flex items-center justify-between px-4 lg:px-6 shadow-sm">
+                <header className="sticky top-0 z-30 h-16 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 lg:px-6 shadow-sm bg-white/90 dark:bg-gray-800/90">
                     <div className="flex items-center gap-2">
                         {isMobile && (
                             <button 
                                 onClick={toggleMobileMenu} 
-                                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                                aria-label={t('Abrir menú')}
+                                className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out focus:ring-2 focus:ring-pumpkin-orange/50 focus:outline-none"
+                                aria-label={t('Open menu')}
                             >
                                 <IconMenu className="w-5 h-5 text-gray-700 dark:text-gray-200" />
                             </button>
@@ -101,8 +110,13 @@ export const Dashboard: React.FC<DashboardLayoutProps> = ({ children }) => {
                 </header>
                 
                 <main className="h-[calc(100vh-4rem)] overflow-auto p-4 lg:p-6 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
-                    <div className="max-w-[2000px] mx-auto">
-                        {children}
+                    <div className="relative max-w-[2000px] mx-auto">
+                        <div className="relative backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/30 dark:from-gray-800/60 dark:to-gray-800/30 pointer-events-none" />
+                            <div className="relative z-10">
+                                {children}
+                            </div>
+                        </div>
                     </div>
                 </main>
             </div>

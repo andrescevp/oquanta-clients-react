@@ -157,7 +157,7 @@ export const SearchButton: React.FC<SearchButtonProps> = ({
           type="button"
           data-search-button
           className={cn(
-            "flex items-center justify-center btn",
+            "flex items-center justify-center btn btn-outline",
             "hover:shadow-md active:scale-95",
             isExpanded && expandDirection === 'right' && "mr-2",
             isExpanded && expandDirection === 'left' && "ml-2"

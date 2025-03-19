@@ -1340,6 +1340,25 @@ export interface PostApiResetPasswordRequest200Response {
 /**
  * 
  * @export
+ * @interface PostApiValidateInvitationToken200Response
+ */
+export interface PostApiValidateInvitationToken200Response {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostApiValidateInvitationToken200Response
+     */
+    'valid'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostApiValidateInvitationToken200Response
+     */
+    'userEmail'?: string | null;
+}
+/**
+ * 
+ * @export
  * @interface PostApiValidateResetToken200Response
  */
 export interface PostApiValidateResetToken200Response {
@@ -1588,6 +1607,96 @@ export interface UserCreate {
      * @memberof UserCreate
      */
     'roles'?: Array<any>;
+}
+/**
+ * 
+ * @export
+ * @interface UserInvitationAccept
+ */
+export interface UserInvitationAccept {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInvitationAccept
+     */
+    'token'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInvitationAccept
+     */
+    'password'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface UserInvitationAcceptResource
+ */
+export interface UserInvitationAcceptResource {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInvitationAcceptResource
+     */
+    'token': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInvitationAcceptResource
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface UserInvitationRequest
+ */
+export interface UserInvitationRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInvitationRequest
+     */
+    'userUuid'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface UserInvitationRequestResource
+ */
+export interface UserInvitationRequestResource {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInvitationRequestResource
+     */
+    'userUuid': string;
+}
+/**
+ * 
+ * @export
+ * @interface UserInvitationValidation
+ */
+export interface UserInvitationValidation {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInvitationValidation
+     */
+    'token'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface UserInvitationValidationResource
+ */
+export interface UserInvitationValidationResource {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInvitationValidationResource
+     */
+    'token': string;
 }
 /**
  * 
@@ -4504,6 +4613,270 @@ export class PasswordResetApi extends BaseAPI {
      */
     public postApiValidateResetToken(tokenValidation: TokenValidation, options?: RawAxiosRequestConfig) {
         return PasswordResetApiFp(this.configuration).postApiValidateResetToken(tokenValidation, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * UserInvitationsApi - axios parameter creator
+ * @export
+ */
+export const UserInvitationsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Accept an invitation and set user password.
+         * @param {UserInvitationAccept} userInvitationAccept 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiAcceptUserInvitation: async (userInvitationAccept: UserInvitationAccept, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userInvitationAccept' is not null or undefined
+            assertParamExists('postApiAcceptUserInvitation', 'userInvitationAccept', userInvitationAccept)
+            const localVarPath = `/api/invitation/accept`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userInvitationAccept, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Send an invitation to a user.
+         * @param {UserInvitationRequest} userInvitationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiSendUserInvitation: async (userInvitationRequest: UserInvitationRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userInvitationRequest' is not null or undefined
+            assertParamExists('postApiSendUserInvitation', 'userInvitationRequest', userInvitationRequest)
+            const localVarPath = `/api/invitation/send`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userInvitationRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Validate if an invitation token is still valid.
+         * @param {UserInvitationValidation} userInvitationValidation 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiValidateInvitationToken: async (userInvitationValidation: UserInvitationValidation, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userInvitationValidation' is not null or undefined
+            assertParamExists('postApiValidateInvitationToken', 'userInvitationValidation', userInvitationValidation)
+            const localVarPath = `/api/invitation/validate-token`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userInvitationValidation, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserInvitationsApi - functional programming interface
+ * @export
+ */
+export const UserInvitationsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserInvitationsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Accept an invitation and set user password.
+         * @param {UserInvitationAccept} userInvitationAccept 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiAcceptUserInvitation(userInvitationAccept: UserInvitationAccept, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiResetPasswordRequest200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiAcceptUserInvitation(userInvitationAccept, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserInvitationsApi.postApiAcceptUserInvitation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Send an invitation to a user.
+         * @param {UserInvitationRequest} userInvitationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiSendUserInvitation(userInvitationRequest: UserInvitationRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiResetPasswordRequest200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiSendUserInvitation(userInvitationRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserInvitationsApi.postApiSendUserInvitation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Validate if an invitation token is still valid.
+         * @param {UserInvitationValidation} userInvitationValidation 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiValidateInvitationToken(userInvitationValidation: UserInvitationValidation, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiValidateInvitationToken200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiValidateInvitationToken(userInvitationValidation, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserInvitationsApi.postApiValidateInvitationToken']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * UserInvitationsApi - factory interface
+ * @export
+ */
+export const UserInvitationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserInvitationsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Accept an invitation and set user password.
+         * @param {UserInvitationAccept} userInvitationAccept 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiAcceptUserInvitation(userInvitationAccept: UserInvitationAccept, options?: RawAxiosRequestConfig): AxiosPromise<PostApiResetPasswordRequest200Response> {
+            return localVarFp.postApiAcceptUserInvitation(userInvitationAccept, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Send an invitation to a user.
+         * @param {UserInvitationRequest} userInvitationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiSendUserInvitation(userInvitationRequest: UserInvitationRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostApiResetPasswordRequest200Response> {
+            return localVarFp.postApiSendUserInvitation(userInvitationRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Validate if an invitation token is still valid.
+         * @param {UserInvitationValidation} userInvitationValidation 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiValidateInvitationToken(userInvitationValidation: UserInvitationValidation, options?: RawAxiosRequestConfig): AxiosPromise<PostApiValidateInvitationToken200Response> {
+            return localVarFp.postApiValidateInvitationToken(userInvitationValidation, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserInvitationsApi - object-oriented interface
+ * @export
+ * @class UserInvitationsApi
+ * @extends {BaseAPI}
+ */
+export class UserInvitationsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Accept an invitation and set user password.
+     * @param {UserInvitationAccept} userInvitationAccept 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserInvitationsApi
+     */
+    public postApiAcceptUserInvitation(userInvitationAccept: UserInvitationAccept, options?: RawAxiosRequestConfig) {
+        return UserInvitationsApiFp(this.configuration).postApiAcceptUserInvitation(userInvitationAccept, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Send an invitation to a user.
+     * @param {UserInvitationRequest} userInvitationRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserInvitationsApi
+     */
+    public postApiSendUserInvitation(userInvitationRequest: UserInvitationRequest, options?: RawAxiosRequestConfig) {
+        return UserInvitationsApiFp(this.configuration).postApiSendUserInvitation(userInvitationRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Validate if an invitation token is still valid.
+     * @param {UserInvitationValidation} userInvitationValidation 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserInvitationsApi
+     */
+    public postApiValidateInvitationToken(userInvitationValidation: UserInvitationValidation, options?: RawAxiosRequestConfig) {
+        return UserInvitationsApiFp(this.configuration).postApiValidateInvitationToken(userInvitationValidation, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

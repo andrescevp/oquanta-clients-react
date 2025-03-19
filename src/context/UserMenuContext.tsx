@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
-import { IconLogOut, IconSettings, IconShield, IconUser, IconUserCog } from '../components/UI/Icons';
+import { IconLogOut, IconUserCog } from '../components/UI/Icons';
 import { useTheme } from '../hooks/useTheme';
 import { useAuth } from './AuthContext';
 
@@ -30,16 +30,16 @@ export const UserMenuProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     // Elementos comunes para todos los usuarios
     const commonItems: UserMenuItem[] = [
-      {
-        icon: IconUser,
-        label: 'Mi perfil',
-        href: '/profile',
-      },
-      {
-        icon: IconSettings,
-        label: 'Configuración',
-        href: '/settings',
-      },
+      // {
+      //   icon: IconUser,
+      //   label: 'Mi perfil',
+      //   href: '/profile',
+      // },
+      // {
+      //   icon: IconSettings,
+      //   label: 'Configuración',
+      //   href: '/settings',
+      // },
       {
         // Elemento para cambiar el tema
         label: isDark ? 'Modo claro' : 'Modo oscuro',
@@ -59,12 +59,12 @@ export const UserMenuProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     // Elementos específicos para administradores
     const adminItems: UserMenuItem[] = [
-      {
-        icon: IconShield,
-        label: 'Panel de administración',
-        href: '/admin/dashboard',
-        roles: ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],
-      },
+      // {
+      //   icon: IconShield,
+      //   label: 'Panel de administración',
+      //   href: '/admin/dashboard',
+      //   roles: ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],
+      // },
       {
         icon: IconUserCog,
         label: 'Gestionar usuarios',
