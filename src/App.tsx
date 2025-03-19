@@ -17,6 +17,8 @@ import ClientLayout from './layouts/ClientLayout';
 import OrganizationPlacesPage from './pages/admin/OrganizationPlacesPage';
 import OrganizationsPage from './pages/admin/OrganizationsPage';
 import UsersPage from './pages/admin/UsersPage';
+import RequestPasswordReset from './pages/auth/RequestPasswordReset';
+import ResetPasswordPage from './pages/auth/ResetPassword';
 import OrganizationPage from './pages/client/OrganizationPage';
 import { LoginPage } from './pages/LoginPage';
 
@@ -37,6 +39,8 @@ const App = () => {
                       <Toaster />
                       <Routes>
                         <Route path="/login" element={<LoginPage />} />
+                        <Route path="/forgot-password" element={<RequestPasswordReset />} />
+                        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
 
                         {/* Rutas Admin */}
                         <Route

@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import { AuthApi, Configuration } from '../api-generated';
 import { storage } from '../lib/storage';
+import { settings } from '../settings';
 import { AuthContextType, AuthState, LoginCredentials, User } from '../types/auth';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,7 +27,7 @@ export const AuthProvider: React.FC<{
 }> = ({ children, navigate }) => {
     const [state, setState] = useState<AuthState>(initialState);
     const api = new AuthApi({
-        basePath: process.env.REACT_APP_BACKEND_API_URL || '',
+        basePath: settings.apiBasePath || '',
         isJsonMime: () => true,
     });
     const isSessionExpired = storage.isSessionExpired();

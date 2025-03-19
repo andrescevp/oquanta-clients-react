@@ -1327,6 +1327,96 @@ export interface PatchApiOrganizationPlaceSurveysToggleActivationRequest {
 /**
  * 
  * @export
+ * @interface PostApiResetPasswordRequest200Response
+ */
+export interface PostApiResetPasswordRequest200Response {
+    /**
+     * 
+     * @type {string}
+     * @memberof PostApiResetPasswordRequest200Response
+     */
+    'message'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface PostApiValidateResetToken200Response
+ */
+export interface PostApiValidateResetToken200Response {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostApiValidateResetToken200Response
+     */
+    'valid'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ResetPassword
+ */
+export interface ResetPassword {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetPassword
+     */
+    'token'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetPassword
+     */
+    'password'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface ResetPasswordRequest
+ */
+export interface ResetPasswordRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetPasswordRequest
+     */
+    'email'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface ResetPasswordRequestResource
+ */
+export interface ResetPasswordRequestResource {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetPasswordRequestResource
+     */
+    'email': string;
+}
+/**
+ * 
+ * @export
+ * @interface ResetPasswordResource
+ */
+export interface ResetPasswordResource {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetPasswordResource
+     */
+    'token': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetPasswordResource
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
  * @interface SpecialSchedule
  */
 export interface SpecialSchedule {
@@ -1373,6 +1463,32 @@ export interface Token {
      * @memberof Token
      */
     'token'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenValidation
+ */
+export interface TokenValidation {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenValidation
+     */
+    'token'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface TokenValidationResource
+ */
+export interface TokenValidationResource {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenValidationResource
+     */
+    'token': string;
 }
 /**
  * 
@@ -4127,6 +4243,270 @@ export const GetApiOrganizationsListOrderEnum = {
     Desc: 'DESC'
 } as const;
 export type GetApiOrganizationsListOrderEnum = typeof GetApiOrganizationsListOrderEnum[keyof typeof GetApiOrganizationsListOrderEnum];
+
+
+/**
+ * PasswordResetApi - axios parameter creator
+ * @export
+ */
+export const PasswordResetApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Validate token and reset password.
+         * @param {ResetPassword} resetPassword 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiResetPassword: async (resetPassword: ResetPassword, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'resetPassword' is not null or undefined
+            assertParamExists('postApiResetPassword', 'resetPassword', resetPassword)
+            const localVarPath = `/api/reset-password/reset`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resetPassword, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Request a password reset email.
+         * @param {ResetPasswordRequest} resetPasswordRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiResetPasswordRequest: async (resetPasswordRequest: ResetPasswordRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'resetPasswordRequest' is not null or undefined
+            assertParamExists('postApiResetPasswordRequest', 'resetPasswordRequest', resetPasswordRequest)
+            const localVarPath = `/api/reset-password/request`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resetPasswordRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Validate if a token is still valid (for frontend verification).
+         * @param {TokenValidation} tokenValidation 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiValidateResetToken: async (tokenValidation: TokenValidation, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tokenValidation' is not null or undefined
+            assertParamExists('postApiValidateResetToken', 'tokenValidation', tokenValidation)
+            const localVarPath = `/api/reset-password/validate-token`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tokenValidation, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PasswordResetApi - functional programming interface
+ * @export
+ */
+export const PasswordResetApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PasswordResetApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Validate token and reset password.
+         * @param {ResetPassword} resetPassword 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiResetPassword(resetPassword: ResetPassword, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiResetPasswordRequest200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiResetPassword(resetPassword, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PasswordResetApi.postApiResetPassword']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Request a password reset email.
+         * @param {ResetPasswordRequest} resetPasswordRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiResetPasswordRequest(resetPasswordRequest: ResetPasswordRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiResetPasswordRequest200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiResetPasswordRequest(resetPasswordRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PasswordResetApi.postApiResetPasswordRequest']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Validate if a token is still valid (for frontend verification).
+         * @param {TokenValidation} tokenValidation 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postApiValidateResetToken(tokenValidation: TokenValidation, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiValidateResetToken200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postApiValidateResetToken(tokenValidation, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PasswordResetApi.postApiValidateResetToken']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * PasswordResetApi - factory interface
+ * @export
+ */
+export const PasswordResetApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PasswordResetApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Validate token and reset password.
+         * @param {ResetPassword} resetPassword 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiResetPassword(resetPassword: ResetPassword, options?: RawAxiosRequestConfig): AxiosPromise<PostApiResetPasswordRequest200Response> {
+            return localVarFp.postApiResetPassword(resetPassword, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Request a password reset email.
+         * @param {ResetPasswordRequest} resetPasswordRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiResetPasswordRequest(resetPasswordRequest: ResetPasswordRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostApiResetPasswordRequest200Response> {
+            return localVarFp.postApiResetPasswordRequest(resetPasswordRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Validate if a token is still valid (for frontend verification).
+         * @param {TokenValidation} tokenValidation 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postApiValidateResetToken(tokenValidation: TokenValidation, options?: RawAxiosRequestConfig): AxiosPromise<PostApiValidateResetToken200Response> {
+            return localVarFp.postApiValidateResetToken(tokenValidation, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * PasswordResetApi - object-oriented interface
+ * @export
+ * @class PasswordResetApi
+ * @extends {BaseAPI}
+ */
+export class PasswordResetApi extends BaseAPI {
+    /**
+     * 
+     * @summary Validate token and reset password.
+     * @param {ResetPassword} resetPassword 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PasswordResetApi
+     */
+    public postApiResetPassword(resetPassword: ResetPassword, options?: RawAxiosRequestConfig) {
+        return PasswordResetApiFp(this.configuration).postApiResetPassword(resetPassword, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Request a password reset email.
+     * @param {ResetPasswordRequest} resetPasswordRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PasswordResetApi
+     */
+    public postApiResetPasswordRequest(resetPasswordRequest: ResetPasswordRequest, options?: RawAxiosRequestConfig) {
+        return PasswordResetApiFp(this.configuration).postApiResetPasswordRequest(resetPasswordRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Validate if a token is still valid (for frontend verification).
+     * @param {TokenValidation} tokenValidation 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PasswordResetApi
+     */
+    public postApiValidateResetToken(tokenValidation: TokenValidation, options?: RawAxiosRequestConfig) {
+        return PasswordResetApiFp(this.configuration).postApiValidateResetToken(tokenValidation, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 
 /**

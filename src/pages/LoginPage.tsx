@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Link } from 'react-router-dom';
 
 import { Transition } from '@headlessui/react';
 
@@ -175,12 +176,12 @@ export const LoginPage = () => {
                                 )}
                                 
                                 <div className="flex justify-end mt-2">
-                                    <button 
-                                        type="button" 
-                                        className="text-sm text-pumpkin-orange hover:text-pumpkin-orange/80 font-medium transition-colors"
+                                    <Link 
+                                        to="/forgot-password" 
+                                        className="text-sm font-medium text-pumpkin-orange hover:text-pumpkin-orange/80 transition-colors"
                                     >
                                         {t('¿Olvidaste tu contraseña?')}
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                             
