@@ -1,3 +1,4 @@
+import React from 'react';
 import { FaRedo, FaTrash} from 'react-icons/fa';
 import {GrDrag} from 'react-icons/gr';
 import {ImPageBreak} from 'react-icons/im';
@@ -6,10 +7,13 @@ import {RiInputMethodLine} from 'react-icons/ri';
 import {TbLoader3, TbSection} from 'react-icons/tb';
 import {VscAdd, VscClose, VscSymbolNumeric} from 'react-icons/vsc';
 
-import {AlertCircle, ArrowRight, ArrowUp, BarChart3, Calendar, Check, ChevronDown,ChevronLeft, ChevronRight, ChevronUp,Clock,ExternalLink,Eye, EyeOff, File, FilePenLine, Files, GripHorizontal, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MailCheck, MapPin, Menu, Moon, Plus, RefreshCcw, RotateCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
+import {AlertCircle, ArrowRight, ArrowUp, BarChart3, Calendar, Check, ChevronDown,ChevronLeft, ChevronRight, ChevronUp,Clipboard, Clock,ExternalLink,Eye, EyeOff, File, FilePenLine, Files, FileText, GripHorizontal, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MailCheck, MapPin, Menu, Moon, Plus, RefreshCcw, RotateCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
 
 export const AlertCircleIcon = AlertCircle;
+export const FileTextIcon = FileText;
+
 export const IconCalendar = Calendar;
+export const ClipboardIcon = Clipboard;
 export const IconReset = RotateCcw;
 export const ArrowUpIcon = ArrowUp;
 export const ArrowRightIcon = ArrowRight;
@@ -87,6 +91,26 @@ export const IconMapPin = MapPin;
 export const IconChevronDown = ChevronDown;
 export const IconChevronUp = ChevronUp;
 
-
+export const IconGripVertical = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      {...props}
+    >
+      <circle cx="9" cy="12" r="1" />
+      <circle cx="9" cy="5" r="1" />
+      <circle cx="9" cy="19" r="1" />
+      <circle cx="15" cy="12" r="1" />
+      <circle cx="15" cy="5" r="1" />
+      <circle cx="15" cy="19" r="1" />
+    </svg>
+  );
 
 export default {};

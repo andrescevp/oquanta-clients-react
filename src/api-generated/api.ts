@@ -26,6 +26,140 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface Block
+ */
+export interface Block {
+    /**
+     * 
+     * @type {string}
+     * @memberof Block
+     */
+    'code': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Block
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Block
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Block
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ElementOptionsBlock}
+     * @memberof Block
+     */
+    'options': ElementOptionsBlock;
+    /**
+     * 
+     * @type {Array<SurveyRequestChildrenInner>}
+     * @memberof Block
+     */
+    'children': Array<SurveyRequestChildrenInner>;
+    /**
+     * 
+     * @type {number}
+     * @memberof Block
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Block
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Block
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Block
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof Block
+     */
+    'parentIndexes'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
+ * @interface BreakPage
+ */
+export interface BreakPage {
+    /**
+     * 
+     * @type {string}
+     * @memberof BreakPage
+     */
+    'code': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof BreakPage
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BreakPage
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BreakPage
+     */
+    'type': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof BreakPage
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof BreakPage
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof BreakPage
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof BreakPage
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof BreakPage
+     */
+    'parentIndexes'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
  * @interface Credentials
  */
 export interface Credentials {
@@ -45,6 +179,335 @@ export interface Credentials {
 /**
  * 
  * @export
+ * @interface ElementColumn
+ */
+export interface ElementColumn {
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementColumn
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementColumn
+     */
+    'code': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementColumn
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementColumn
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementColumn
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementColumn
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof ElementColumn
+     */
+    'parentIndexes'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
+ * @interface ElementOptionsBlock
+ */
+export interface ElementOptionsBlock {
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsBlock
+     */
+    'condition'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsBlock
+     */
+    'showLabel'?: boolean | null;
+}
+/**
+ * 
+ * @export
+ * @interface ElementOptionsChoice
+ */
+export interface ElementOptionsChoice {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsChoice
+     */
+    'hidden'?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsChoice
+     */
+    'condition'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsChoice
+     */
+    'required'?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsChoice
+     */
+    'randomizeRows'?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsChoice
+     */
+    'randomizeColumns'?: boolean | null;
+}
+/**
+ * 
+ * @export
+ * @interface ElementOptionsLoop
+ */
+export interface ElementOptionsLoop {
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsLoop
+     */
+    'condition'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface ElementOptionsMarker
+ */
+export interface ElementOptionsMarker {
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsMarker
+     */
+    'condition': string;
+}
+/**
+ * 
+ * @export
+ * @interface ElementOptionsNumber
+ */
+export interface ElementOptionsNumber {
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementOptionsNumber
+     */
+    'min'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementOptionsNumber
+     */
+    'max'?: number | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsNumber
+     */
+    'hidden'?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsNumber
+     */
+    'condition'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsNumber
+     */
+    'required'?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsNumber
+     */
+    'randomizeRows'?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsNumber
+     */
+    'randomizeColumns'?: boolean | null;
+}
+/**
+ * 
+ * @export
+ * @interface ElementOptionsQuota
+ */
+export interface ElementOptionsQuota {
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsQuota
+     */
+    'condition': string;
+}
+/**
+ * 
+ * @export
+ * @interface ElementOptionsString
+ */
+export interface ElementOptionsString {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsString
+     */
+    'multiline'?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsString
+     */
+    'placeholder'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsString
+     */
+    'regex'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsString
+     */
+    'hidden'?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsString
+     */
+    'condition'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsString
+     */
+    'required'?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsString
+     */
+    'randomizeRows'?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsString
+     */
+    'randomizeColumns'?: boolean | null;
+}
+/**
+ * 
+ * @export
+ * @interface ElementOptionsTermination
+ */
+export interface ElementOptionsTermination {
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsTermination
+     */
+    'condition'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface ElementOptionsText
+ */
+export interface ElementOptionsText {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsText
+     */
+    'hidden'?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementOptionsText
+     */
+    'condition'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface ElementRow
+ */
+export interface ElementRow {
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementRow
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementRow
+     */
+    'code': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementRow
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementRow
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementRow
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementRow
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof ElementRow
+     */
+    'parentIndexes'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
  * @interface GenericError
  */
 export interface GenericError {
@@ -60,6 +523,134 @@ export interface GenericError {
      * @memberof GenericError
      */
     'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface Loop
+ */
+export interface Loop {
+    /**
+     * 
+     * @type {string}
+     * @memberof Loop
+     */
+    'code': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Loop
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Loop
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Loop
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ElementOptionsLoop}
+     * @memberof Loop
+     */
+    'options': ElementOptionsLoop;
+    /**
+     * 
+     * @type {Array<SurveyRequestChildrenInner>}
+     * @memberof Loop
+     */
+    'children': Array<SurveyRequestChildrenInner>;
+    /**
+     * 
+     * @type {Array<LoopConcept>}
+     * @memberof Loop
+     */
+    'loopConcepts'?: Array<LoopConcept> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Loop
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Loop
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Loop
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Loop
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof Loop
+     */
+    'parentIndexes'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
+ * @interface LoopConcept
+ */
+export interface LoopConcept {
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopConcept
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopConcept
+     */
+    'code': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof LoopConcept
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof LoopConcept
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LoopConcept
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof LoopConcept
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof LoopConcept
+     */
+    'parentIndexes'?: Array<number> | null;
 }
 /**
  * 
@@ -1372,6 +1963,279 @@ export interface PostApiValidateResetToken200Response {
 /**
  * 
  * @export
+ * @interface QuestionChoice
+ */
+export interface QuestionChoice {
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionChoice
+     */
+    'code': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof QuestionChoice
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionChoice
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionChoice
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionChoice
+     */
+    'help'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionChoice
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ElementOptionsChoice}
+     * @memberof QuestionChoice
+     */
+    'options': ElementOptionsChoice;
+    /**
+     * 
+     * @type {Array<ElementRow>}
+     * @memberof QuestionChoice
+     */
+    'rows'?: Array<ElementRow> | null;
+    /**
+     * 
+     * @type {Array<ElementColumn>}
+     * @memberof QuestionChoice
+     */
+    'columns'?: Array<ElementColumn> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionChoice
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionChoice
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionChoice
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionChoice
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof QuestionChoice
+     */
+    'parentIndexes'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
+ * @interface QuestionNumber
+ */
+export interface QuestionNumber {
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionNumber
+     */
+    'code': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof QuestionNumber
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionNumber
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionNumber
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionNumber
+     */
+    'help'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionNumber
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ElementOptionsNumber}
+     * @memberof QuestionNumber
+     */
+    'options': ElementOptionsNumber;
+    /**
+     * 
+     * @type {Array<ElementRow>}
+     * @memberof QuestionNumber
+     */
+    'rows'?: Array<ElementRow> | null;
+    /**
+     * 
+     * @type {Array<ElementColumn>}
+     * @memberof QuestionNumber
+     */
+    'columns'?: Array<ElementColumn> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionNumber
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionNumber
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionNumber
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionNumber
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof QuestionNumber
+     */
+    'parentIndexes'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
+ * @interface QuestionString
+ */
+export interface QuestionString {
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionString
+     */
+    'code': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof QuestionString
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionString
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionString
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionString
+     */
+    'help'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionString
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ElementOptionsString}
+     * @memberof QuestionString
+     */
+    'options': ElementOptionsString;
+    /**
+     * 
+     * @type {Array<ElementRow>}
+     * @memberof QuestionString
+     */
+    'rows'?: Array<ElementRow> | null;
+    /**
+     * 
+     * @type {Array<ElementColumn>}
+     * @memberof QuestionString
+     */
+    'columns'?: Array<ElementColumn> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionString
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionString
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionString
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionString
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof QuestionString
+     */
+    'parentIndexes'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
  * @interface ResetPassword
  */
 export interface ResetPassword {
@@ -1469,6 +2333,294 @@ export interface SpecialSchedule {
      * @memberof SpecialSchedule
      */
     'reason'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface SurveyList
+ */
+export interface SurveyList {
+    /**
+     * 
+     * @type {Array<SurveyListItem>}
+     * @memberof SurveyList
+     */
+    'results': Array<SurveyListItem>;
+    /**
+     * 
+     * @type {number}
+     * @memberof SurveyList
+     */
+    'page': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SurveyList
+     */
+    'lastPage': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SurveyList
+     */
+    'nextPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SurveyList
+     */
+    'previousPage'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SurveyList
+     */
+    'count'?: number | null;
+}
+/**
+ * 
+ * @export
+ * @interface SurveyListItem
+ */
+export interface SurveyListItem {
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyListItem
+     */
+    'uuid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyListItem
+     */
+    'title': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyListItem
+     */
+    'description'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface SurveyModel
+ */
+export interface SurveyModel {
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyModel
+     */
+    'uuid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyModel
+     */
+    'title': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyModel
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {Array<SurveyRequestChildrenInner>}
+     * @memberof SurveyModel
+     */
+    'children': Array<SurveyRequestChildrenInner>;
+}
+/**
+ * 
+ * @export
+ * @interface SurveyRequest
+ */
+export interface SurveyRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequest
+     */
+    'title': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequest
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {Array<SurveyRequestChildrenInner>}
+     * @memberof SurveyRequest
+     */
+    'children': Array<SurveyRequestChildrenInner>;
+}
+/**
+ * 
+ * @export
+ * @interface SurveyRequestChildrenInner
+ */
+export interface SurveyRequestChildrenInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'code': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ElementOptionsString}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'options': ElementOptionsString;
+    /**
+     * 
+     * @type {Array<SurveyRequestChildrenInner>}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'children': Array<SurveyRequestChildrenInner>;
+    /**
+     * 
+     * @type {number}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<LoopConcept>}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'loopConcepts'?: Array<LoopConcept> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'help'?: string | null;
+    /**
+     * 
+     * @type {Array<ElementRow>}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'rows'?: Array<ElementRow> | null;
+    /**
+     * 
+     * @type {Array<ElementColumn>}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'columns'?: Array<ElementColumn> | null;
+}
+/**
+ * 
+ * @export
+ * @interface Text
+ */
+export interface Text {
+    /**
+     * 
+     * @type {string}
+     * @memberof Text
+     */
+    'code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Text
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Text
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ElementOptionsText}
+     * @memberof Text
+     */
+    'options': ElementOptionsText;
+    /**
+     * 
+     * @type {number}
+     * @memberof Text
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof Text
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Text
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Text
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof Text
+     */
+    'parentIndexes'?: Array<number> | null;
 }
 /**
  * 
@@ -4616,6 +5768,442 @@ export class PasswordResetApi extends BaseAPI {
     }
 }
 
+
+
+/**
+ * SurveysApi - axios parameter creator
+ * @export
+ */
+export const SurveysApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a survey
+         * @param {SurveyRequest} surveyRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSurvey: async (surveyRequest: SurveyRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'surveyRequest' is not null or undefined
+            assertParamExists('createSurvey', 'surveyRequest', surveyRequest)
+            const localVarPath = `/api/survey`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(surveyRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete a survey
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSurvey: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('deleteSurvey', 'uuid', uuid)
+            const localVarPath = `/api/survey/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a survey
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSurvey: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('getSurvey', 'uuid', uuid)
+            const localVarPath = `/api/survey/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns list of surveys
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by (e.g. title)
+         * @param {ListSurveysOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listSurveys: async (page?: number, limit?: number, search?: string, sort?: string, order?: ListSurveysOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/survey`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update a survey
+         * @param {string} uuid 
+         * @param {SurveyRequest} surveyRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSurvey: async (uuid: string, surveyRequest: SurveyRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('updateSurvey', 'uuid', uuid)
+            // verify required parameter 'surveyRequest' is not null or undefined
+            assertParamExists('updateSurvey', 'surveyRequest', surveyRequest)
+            const localVarPath = `/api/survey/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(surveyRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SurveysApi - functional programming interface
+ * @export
+ */
+export const SurveysApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SurveysApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Create a survey
+         * @param {SurveyRequest} surveyRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createSurvey(surveyRequest: SurveyRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createSurvey(surveyRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SurveysApi.createSurvey']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete a survey
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteSurvey(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSurvey(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SurveysApi.deleteSurvey']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns a survey
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSurvey(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvey(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SurveysApi.getSurvey']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns list of surveys
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by (e.g. title)
+         * @param {ListSurveysOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listSurveys(page?: number, limit?: number, search?: string, sort?: string, order?: ListSurveysOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listSurveys(page, limit, search, sort, order, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SurveysApi.listSurveys']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update a survey
+         * @param {string} uuid 
+         * @param {SurveyRequest} surveyRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateSurvey(uuid: string, surveyRequest: SurveyRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvey(uuid, surveyRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SurveysApi.updateSurvey']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * SurveysApi - factory interface
+ * @export
+ */
+export const SurveysApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SurveysApiFp(configuration)
+    return {
+        /**
+         * Create a survey
+         * @param {SurveyRequest} surveyRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSurvey(surveyRequest: SurveyRequest, options?: RawAxiosRequestConfig): AxiosPromise<SurveyModel> {
+            return localVarFp.createSurvey(surveyRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete a survey
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSurvey(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteSurvey(uuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a survey
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSurvey(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<SurveyModel> {
+            return localVarFp.getSurvey(uuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns list of surveys
+         * @param {number} [page] Page number
+         * @param {number} [limit] Number of items per page
+         * @param {string} [search] Search term
+         * @param {string} [sort] Field to sort by (e.g. title)
+         * @param {ListSurveysOrderEnum} [order] Sort direction (ASC or DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listSurveys(page?: number, limit?: number, search?: string, sort?: string, order?: ListSurveysOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<SurveyList> {
+            return localVarFp.listSurveys(page, limit, search, sort, order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update a survey
+         * @param {string} uuid 
+         * @param {SurveyRequest} surveyRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSurvey(uuid: string, surveyRequest: SurveyRequest, options?: RawAxiosRequestConfig): AxiosPromise<SurveyModel> {
+            return localVarFp.updateSurvey(uuid, surveyRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SurveysApi - object-oriented interface
+ * @export
+ * @class SurveysApi
+ * @extends {BaseAPI}
+ */
+export class SurveysApi extends BaseAPI {
+    /**
+     * Create a survey
+     * @param {SurveyRequest} surveyRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SurveysApi
+     */
+    public createSurvey(surveyRequest: SurveyRequest, options?: RawAxiosRequestConfig) {
+        return SurveysApiFp(this.configuration).createSurvey(surveyRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete a survey
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SurveysApi
+     */
+    public deleteSurvey(uuid: string, options?: RawAxiosRequestConfig) {
+        return SurveysApiFp(this.configuration).deleteSurvey(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a survey
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SurveysApi
+     */
+    public getSurvey(uuid: string, options?: RawAxiosRequestConfig) {
+        return SurveysApiFp(this.configuration).getSurvey(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns list of surveys
+     * @param {number} [page] Page number
+     * @param {number} [limit] Number of items per page
+     * @param {string} [search] Search term
+     * @param {string} [sort] Field to sort by (e.g. title)
+     * @param {ListSurveysOrderEnum} [order] Sort direction (ASC or DESC)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SurveysApi
+     */
+    public listSurveys(page?: number, limit?: number, search?: string, sort?: string, order?: ListSurveysOrderEnum, options?: RawAxiosRequestConfig) {
+        return SurveysApiFp(this.configuration).listSurveys(page, limit, search, sort, order, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update a survey
+     * @param {string} uuid 
+     * @param {SurveyRequest} surveyRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SurveysApi
+     */
+    public updateSurvey(uuid: string, surveyRequest: SurveyRequest, options?: RawAxiosRequestConfig) {
+        return SurveysApiFp(this.configuration).updateSurvey(uuid, surveyRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const ListSurveysOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type ListSurveysOrderEnum = typeof ListSurveysOrderEnum[keyof typeof ListSurveysOrderEnum];
 
 
 /**

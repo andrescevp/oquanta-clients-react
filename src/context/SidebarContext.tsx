@@ -32,6 +32,7 @@ export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({ child
     { icon: IconUsers, label: 'Usuarios', href: '/admin/users' },
     { icon: IconSettings, label: 'Organizaciones', href: '/admin/organization' },
     { icon: IconFiles, label: 'Negocios Locales', href: '/admin/local-place' },
+    { icon: IconFiles, label: 'Encuestas', href: '/admin/surveys' },
   ];
 
   // Define los menús específicos para clientes

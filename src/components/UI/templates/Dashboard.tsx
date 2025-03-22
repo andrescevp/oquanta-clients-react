@@ -111,12 +111,7 @@ export const Dashboard: React.FC<DashboardLayoutProps> = ({ children }) => {
                 
                 <main className="h-[calc(100vh-4rem)] overflow-auto p-4 lg:p-6 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
                     <div className="relative max-w-[2000px] mx-auto">
-                        <div className="relative backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/30 dark:from-gray-800/60 dark:to-gray-800/30 pointer-events-none" />
-                            <div className="relative z-10">
-                                {children}
-                            </div>
-                        </div>
+                    {children}
                     </div>
                 </main>
             </div>

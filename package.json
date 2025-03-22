@@ -55,6 +55,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "preview": "serve -s build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "openapi": "node_modules/.bin/openapi-generator-cli generate -i http://localhost:8001/api/doc.json -g typescript-axios -o ./src/api-generated",
@@ -78,6 +79,9 @@
       "last 1 safari version"
     ]
   },
+  "overrides": {
+    "resolve-url-loader": "^5.0.0"
+  },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@craco/craco": "^7.1.0",
@@ -98,6 +102,8 @@
     "postcss-nesting": "^13.0.1",
     "prettier": "^3.4.2",
     "react-lazy-load-image-component": "^1.6.3",
+    "resolve-url-loader": "5.0.0",
+    "serve": "^14.2.4",
     "sharp": "^0.33.5",
     "url-loader": "^4.1.1",
     "webp-loader": "^0.6.0",

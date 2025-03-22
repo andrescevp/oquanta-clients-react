@@ -13,10 +13,10 @@ module.exports = {
       // }
 
       // Añadir soporte para WebP
-      webpackConfig.module.rules.push({
-        test: /\.(gif|png|jpe?g|svg|avif|webp)$/i,
-        type: "asset",
-      });
+      // webpackConfig.module.rules.push({
+      //   test: /\.(gif|png|jpe?g|svg|avif|webp)$/i,
+      //   type: "asset",
+      // });
 
       // Añadir plugin de optimización de imágenes
       webpackConfig.optimization.minimizer.push(

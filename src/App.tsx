@@ -16,6 +16,8 @@ import AdminLayout from './layouts/AdminLayout';
 import ClientLayout from './layouts/ClientLayout';
 import OrganizationPlacesPage from './pages/admin/OrganizationPlacesPage';
 import OrganizationsPage from './pages/admin/OrganizationsPage';
+import { SurveyBuilderPage } from './pages/admin/SurveyBuilderPage';
+import { SurveysPage } from './pages/admin/SurveysPage';
 import UsersPage from './pages/admin/UsersPage';
 import AcceptInvitationPage from './pages/auth/AcceptInvitation';
 import RequestPasswordReset from './pages/auth/RequestPasswordReset';
@@ -55,6 +57,8 @@ const App = () => {
                           <Route path="users" element={<UsersPage />} />
                           <Route path="organization" element={<OrganizationsPage />} />
                           <Route path="local-place" element={<OrganizationPlacesPage />} />
+                          <Route path="surveys" element={<SurveysPage />} />
+                          <Route path="surveys/:uuid" element={<SurveyBuilderPage />} />
 
                           {/* Más rutas admin */}
                         </Route>
