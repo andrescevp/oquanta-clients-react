@@ -61,10 +61,10 @@ export interface Block {
     'options': ElementOptionsBlock;
     /**
      * 
-     * @type {Array<SurveyRequestChildrenInner>}
+     * @type {Array<LoopChildrenInner>}
      * @memberof Block
      */
-    'children': Array<SurveyRequestChildrenInner>;
+    'children': Array<LoopChildrenInner>;
     /**
      * 
      * @type {number}
@@ -251,6 +251,18 @@ export interface ElementOptionsBlock {
  */
 export interface ElementOptionsChoice {
     /**
+     * Widget type
+     * @type {string}
+     * @memberof ElementOptionsChoice
+     */
+    'widget'?: ElementOptionsChoiceWidgetEnum;
+    /**
+     * Multiple choice
+     * @type {boolean}
+     * @memberof ElementOptionsChoice
+     */
+    'muliple'?: boolean;
+    /**
      * 
      * @type {boolean}
      * @memberof ElementOptionsChoice
@@ -281,6 +293,15 @@ export interface ElementOptionsChoice {
      */
     'randomizeColumns'?: boolean | null;
 }
+
+export const ElementOptionsChoiceWidgetEnum = {
+    Radio: 'radio',
+    Checkbox: 'checkbox',
+    Dropdown: 'dropdown'
+} as const;
+
+export type ElementOptionsChoiceWidgetEnum = typeof ElementOptionsChoiceWidgetEnum[keyof typeof ElementOptionsChoiceWidgetEnum];
+
 /**
  * 
  * @export
@@ -325,6 +346,12 @@ export interface ElementOptionsNumber {
      * @memberof ElementOptionsNumber
      */
     'max'?: number | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementOptionsNumber
+     */
+    'decimal'?: boolean | null;
     /**
      * 
      * @type {boolean}
@@ -376,7 +403,7 @@ export interface ElementOptionsQuota {
  */
 export interface ElementOptionsString {
     /**
-     * 
+     * Multiline text
      * @type {boolean}
      * @memberof ElementOptionsString
      */
@@ -393,6 +420,18 @@ export interface ElementOptionsString {
      * @memberof ElementOptionsString
      */
     'regex'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementOptionsString
+     */
+    'minLength'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementOptionsString
+     */
+    'maxLength'?: number | null;
     /**
      * 
      * @type {boolean}
@@ -562,10 +601,10 @@ export interface Loop {
     'options': ElementOptionsLoop;
     /**
      * 
-     * @type {Array<SurveyRequestChildrenInner>}
+     * @type {Array<LoopChildrenInner>}
      * @memberof Loop
      */
-    'children': Array<SurveyRequestChildrenInner>;
+    'children': Array<LoopChildrenInner>;
     /**
      * 
      * @type {Array<LoopConcept>}
@@ -602,6 +641,109 @@ export interface Loop {
      * @memberof Loop
      */
     'parentIndexes'?: Array<number> | null;
+}
+/**
+ * 
+ * @export
+ * @interface LoopChildrenInner
+ */
+export interface LoopChildrenInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopChildrenInner
+     */
+    'code': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof LoopChildrenInner
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopChildrenInner
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopChildrenInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ElementOptionsString}
+     * @memberof LoopChildrenInner
+     */
+    'options': ElementOptionsString;
+    /**
+     * 
+     * @type {Array<LoopChildrenInner>}
+     * @memberof LoopChildrenInner
+     */
+    'children': Array<LoopChildrenInner>;
+    /**
+     * 
+     * @type {number}
+     * @memberof LoopChildrenInner
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof LoopChildrenInner
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LoopChildrenInner
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof LoopChildrenInner
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof LoopChildrenInner
+     */
+    'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<LoopConcept>}
+     * @memberof LoopChildrenInner
+     */
+    'loopConcepts'?: Array<LoopConcept> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopChildrenInner
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopChildrenInner
+     */
+    'help'?: string | null;
+    /**
+     * 
+     * @type {Array<ElementRow>}
+     * @memberof LoopChildrenInner
+     */
+    'rows'?: Array<ElementRow> | null;
+    /**
+     * 
+     * @type {Array<ElementColumn>}
+     * @memberof LoopChildrenInner
+     */
+    'columns'?: Array<ElementColumn> | null;
 }
 /**
  * 
@@ -2496,10 +2638,10 @@ export interface SurveyRequestChildrenInner {
     'options': ElementOptionsString;
     /**
      * 
-     * @type {Array<SurveyRequestChildrenInner>}
+     * @type {Array<LoopChildrenInner>}
      * @memberof SurveyRequestChildrenInner
      */
-    'children': Array<SurveyRequestChildrenInner>;
+    'children': Array<LoopChildrenInner>;
     /**
      * 
      * @type {number}

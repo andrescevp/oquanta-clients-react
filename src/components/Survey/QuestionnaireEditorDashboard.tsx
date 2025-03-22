@@ -16,19 +16,20 @@ const QuestionnaireEditorDashboard: React.FC<QuestionnaireEditorDashboardProps> 
   initialQuestions = [],
   onChange 
 }) => {
-  // Usar useFormContext para acceder al formulario
-  const { setValue, watch, getValues } = useFormContext<ISurvey>();
+  // Access form context
+  const { setValue, watch } = useFormContext<ISurvey>();
   const questions = watch('children') || initialQuestions;
   const [selectedQuestion, setSelectedQuestion] = React.useState<SurveyRequestChildrenInner | null>(null);
+  const [selectedQuestionFormKey, setSelectedQuestionFormKey] = React.useState<string>('children');
   
-  // Inicializar los children en el formulario si no existen
+  // Initialize children in the form if they don't exist
   useEffect(() => {
     if (initialQuestions.length > 0 && (!questions || questions.length === 0)) {
       setValue('children', initialQuestions);
     }
   }, [initialQuestions, setValue, questions]);
   
-  // Función para actualizar las preguntas y notificar al componente padre
+  // Function to update questions and notify parent component
   const handleQuestionsChange = (newQuestions: ISurvey["children"]) => {
     setValue('children', newQuestions, {
       shouldValidate: true,
@@ -42,61 +43,54 @@ const QuestionnaireEditorDashboard: React.FC<QuestionnaireEditorDashboardProps> 
     }
   };
   
-  // Función para actualizar una pregunta específica
-  const handleQuestionUpdate = (updatedQuestion: QuestionItem) => {
-    // Función recursiva para encontrar y actualizar una pregunta en el árbol
-    const updateQuestionInTree = (treeQuestions: QuestionItem[], targetCode: string): QuestionItem[] => {
-      return treeQuestions.map(q => {
-        if (q.code === targetCode) {
-          return updatedQuestion;
-        } 
-        
-        if (q.children && q.children.length > 0) {
-          return {
-            ...q,
-            children: updateQuestionInTree(q.children, targetCode)
-          };
-        }
-        
-        return q;
-      });
-    };
-
-    // Buscar la pregunta en cualquier nivel del árbol
-    const newQuestions = updateQuestionInTree(questions, updatedQuestion.code);
-    
-    handleQuestionsChange(newQuestions);
-    setSelectedQuestion(updatedQuestion);
-  };
-  
-  // Función para seleccionar una pregunta
-  const handleQuestionSelect = (question: QuestionItem) => {
+  // Function to select a question and update its form path
+  const handleQuestionSelect = (question: QuestionItem, formPath: string) => {
     setSelectedQuestion(question);
+    setSelectedQuestionFormKey(formPath);
+    console.log('Selected question path:', formPath);
   };
 
   return (
     <div className="flex h-full w-full bg-white dark:bg-dark-900 border rounded-lg shadow-sm dark:border-dark-700 overflow-hidden">
-        <div className="w-1/4 border-r border-gray-200 dark:border-gray-700">
+      <div className="w-1/4 border-r border-gray-200 dark:border-gray-700">
         <QuestionTree 
           items={questions}
           onItemsChange={handleQuestionsChange}
           onItemSelect={handleQuestionSelect}
           selectedItemId={selectedQuestion?.code}
         />
-        </div>
-        <div className="w-1/2 border-r border-gray-200 dark:border-gray-700">
+      </div>
+      <div className="w-1/2 border-r border-gray-200 dark:border-gray-700">
         <QuestionEditor 
-          selectedQuestion={selectedQuestion} 
-          onQuestionUpdate={handleQuestionUpdate}
+          selectedQuestion={selectedQuestion}
+          selectedQuestionFormKey={selectedQuestionFormKey}
         />
-        </div>
-        <div className="w-1/4">
+      </div>
+      <div className="w-1/4">
         <QuestionConfig 
-          selectedQuestion={selectedQuestion} 
-          onQuestionUpdate={handleQuestionUpdate}
+          selectedQuestion={selectedQuestion}
+          selectedQuestionFormKey={selectedQuestionFormKey}
+          onQuestionUpdate={(updatedQuestion) => {
+            // Update the form with the updated question
+            if (selectedQuestionFormKey !== 'children') {
+              setValue(selectedQuestionFormKey as any, updatedQuestion, {
+                shouldValidate: true,
+                shouldDirty: true
+              });
+            } else {
+              // Handle top-level updates if needed
+              const newQuestions = [...questions];
+              const index = newQuestions.findIndex(q => q.code === updatedQuestion.code);
+              if (index !== -1) {
+                newQuestions[index] = updatedQuestion;
+                handleQuestionsChange(newQuestions);
+              }
+            }
+            
+            setSelectedQuestion(updatedQuestion);
+          }}
         />
-
-        </div>
+      </div>
     </div>
   );
 };

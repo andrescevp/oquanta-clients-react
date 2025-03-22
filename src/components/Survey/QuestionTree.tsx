@@ -17,10 +17,14 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import clsx from "clsx";
+import { Transition } from "@headlessui/react";
 
 import { SurveyRequestChildrenInner } from "../../api-generated";
-import { IconLayoutList, IconPlus, IconRefresh } from "../UI/Icons";
+import { cn } from "../../lib/utils";
+import { 
+  IconLayoutList, 
+  IconPlus, 
+  IconRefresh} from "../UI/Icons";
 import DropZone from "./DropZone";
 import SortableItem from "./SortableItem";
 
@@ -35,7 +39,7 @@ const canHaveChildren = (type: string | undefined): boolean => {
 interface QuestionTreeProps {
   items: QuestionItem[];
   onItemsChange: (items: QuestionItem[]) => void;
-  onItemSelect: (item: QuestionItem) => void;
+  onItemSelect: (item: QuestionItem, formPath: string) => void; // Updated to include formPath
   selectedItemId?: string;
 }
 
@@ -97,10 +101,23 @@ const rebuildTree = (flatItems: QuestionItem[]): QuestionItem[] => {
 
 // DropIndicator Component
 const DropIndicator = ({ isActive }: { isActive: boolean }) => {
-  if (!isActive) return null;
-
   return (
-    <div className="h-1 bg-blue-500 w-full my-1 rounded-full animate-pulse transition-all duration-200" />
+    <Transition
+      show={isActive}
+      enter="transition-all duration-200 ease-in-out"
+      enterFrom="opacity-0 transform scale-95"
+      enterTo="opacity-100 transform scale-100"
+      leave="transition-all duration-150 ease-in-out"
+      leaveFrom="opacity-100 transform scale-100"
+      leaveTo="opacity-0 transform scale-95"
+      unmount={true}
+    >
+      <div className="h-1 bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80 w-full my-1 rounded-full shadow-lg shadow-pumpkin-orange/10" 
+           style={{
+             animation: isActive ? 'pulse 1.5s infinite ease-in-out' : 'none'
+           }}
+      />
+    </Transition>
   );
 };
 
@@ -149,6 +166,43 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
   // Ref to store the active item for DragOverlay
   const activeItemRef = useRef<QuestionItem | null>(null);
+
+  // Helper function to generate form path
+  const generateFormPath = (item: QuestionItem): string => {
+    const path: string[] = [];
+    let currentItem = item;
+    let currentIndex: number | undefined;
+    
+    // Build path from bottom up
+    while (currentItem) {
+      // Find the index of the current item within its parent's children
+      if (currentItem.parentCode) {
+        const parent = flatItems.find(i => i.code === currentItem.parentCode);
+        if (parent && parent.children) {
+          currentIndex = parent.children.findIndex(child => child.code === currentItem.code);
+          if (currentIndex !== -1) {
+            path.unshift(`children[${currentIndex}]`);
+          }
+        }
+      } else {
+        // Top-level item
+        currentIndex = items.findIndex(i => i.code === currentItem.code);
+        if (currentIndex !== -1) {
+          path.unshift(`children[${currentIndex}]`);
+          break; // We've reached the top level
+        }
+      }
+      
+      // Move up to parent
+      if (currentItem.parentCode) {
+        currentItem = flatItems.find(i => i.code === currentItem.parentCode) || currentItem;
+      } else {
+        break;
+      }
+    }
+    
+    return path.length ? path.join('.') : 'children';
+  };
 
   const handleDragStart = (event: any) => {
     setActiveId(event.active.id);
@@ -417,7 +471,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     const newItems = [...updatedItems, newQuestion];
 
     onItemsChange(newItems);
-    onItemSelect(newQuestion);
+    onItemSelect(newQuestion, 'children');
   };
 
   const addNewBlock = () => {
@@ -441,7 +495,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     const newItems = [...updatedItems, newBlock];
 
     onItemsChange(newItems);
-    onItemSelect(newBlock);
+    onItemSelect(newBlock, 'children');
   };
 
   const addNewLoop = () => {
@@ -465,7 +519,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     const newItems = [...updatedItems, newLoop];
 
     onItemsChange(newItems);
-    onItemSelect(newLoop);
+    onItemSelect(newLoop, 'children');
   };
 
   const addSubQuestion = (parentId: string) => {
@@ -496,7 +550,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     const newTree = rebuildTree(newFlatItems);
 
     onItemsChange(newTree);
-    onItemSelect(newSubQuestion);
+    onItemSelect(newSubQuestion, generateFormPath(newSubQuestion));
   };
 
   const handleDeleteItem = (itemCode: string) => {
@@ -598,7 +652,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     const updatedItems = updateParent(items, parentId, newChild);
 
     onItemsChange(updatedItems);
-    onItemSelect(newChild);
+    onItemSelect(newChild, generateFormPath(newChild));
   };
 
   const addSubBlock = (parentId: string) => addChildElement(parentId, "block");
@@ -657,7 +711,10 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
                 id={item.code}
                 item={item}
                 isSelected={selectedItemId === item.code}
-                onClick={() => onItemSelect(item)}
+                onClick={() => {
+                  const formPath = generateFormPath(item);
+                  onItemSelect(item, formPath);
+                }}
                 onAddSubQuestion={() => addSubQuestion(item.code)}
                 onAddSubBlock={() => addSubBlock(item.code)}
                 onAddSubLoop={() => addSubLoop(item.code)}
@@ -668,12 +725,12 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
               {canHaveChildren(item.type) && (
                 <div
-                  className={clsx(
+                  className={cn(
                     "pl-6 ml-4 border-l transition-all duration-200",
                     {
-                      "border-blue-500 bg-blue-50/30 dark:bg-blue-900/10 rounded-l":
+                      "border-pumpkin-orange bg-pumpkin-orange/5 dark:bg-pumpkin-orange/10 rounded-l-xl":
                         isItemTarget && dropPosition === "inside",
-                      "border-gray-200 dark:border-dark-600":
+                      "border-gray-200 dark:border-gray-700":
                         !(isItemTarget && dropPosition === "inside"),
                     }
                   )}
@@ -698,62 +755,54 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     );
   };
 
-  const rootContainerClasses = clsx(
-    "p-4 border rounded-md transition-all duration-200",
+  const rootContainerClasses = cn(
+    "p-1 backdrop-blur-sm rounded-2xl transition-all duration-200",
     {
-      "border-blue-400 bg-blue-50/40 dark:bg-blue-900/10 dark:border-blue-600 shadow-sm":
+      "border-pumpkin-orange shadow-xl shadow-pumpkin-orange/10 dark:border-pumpkin-orange/50":
         dragOverRoot && activeId,
-      "border-gray-200 dark:border-dark-600": !(dragOverRoot && activeId),
     }
   );
 
   return (
     <div className="h-full flex flex-col">
-      <div className="p-3 border-b dark:border-dark-700">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="font-medium">{t("Questions")}</h3>
-          <div className="flex space-x-1">
+      <div className="p-2 space-y-2 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("Questions")}</h3>
+        </div>
+        <div className="flex space-x-2">
             <button
               onClick={addNewQuestion}
-              className="p-1 rounded hover:bg-gray-200 dark:hover:bg-dark-700"
+              className="p-2 rounded-xl text-sm bg-blue-50 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30 transition-all duration-200 hover:shadow-md flex items-center"
               title={t("Add Question")}
+              aria-label={t("Add Question")}
             >
-              <IconPlus className="w-5 h-5" />
+              <IconPlus className="w-4 h-4 mr-1" />
+              <span>{t("Question")}</span>
             </button>
+            
             <button
               onClick={addNewBlock}
-              className="p-1 rounded hover:bg-gray-200 dark:hover:bg-dark-700"
+              className="p-2 rounded-xl text-sm bg-green-50 text-green-600 hover:bg-green-100 dark:bg-green-900/20 dark:text-green-400 dark:hover:bg-green-900/30 transition-all duration-200 hover:shadow-md flex items-center"
               title={t("Add Block")}
+              aria-label={t("Add Block")}
             >
-              <IconLayoutList className="w-5 h-5" />
+              <IconLayoutList className="w-4 h-4 mr-1" />
+              <span>{t("Block")}</span>
             </button>
+            
             <button
               onClick={addNewLoop}
-              className="p-1 rounded hover:bg-gray-200 dark:hover:bg-dark-700"
+              className="p-2 rounded-xl text-sm bg-purple-50 text-purple-600 hover:bg-purple-100 dark:bg-purple-900/20 dark:text-purple-400 dark:hover:bg-purple-900/30 transition-all duration-200 hover:shadow-md flex items-center"
               title={t("Add Loop")}
+              aria-label={t("Add Loop")}
             >
-              <IconRefresh className="w-5 h-5" />
+              <IconRefresh className="w-4 h-4 mr-1" />
+              <span>{t("Loop")}</span>
             </button>
           </div>
-        </div>
-
-        <div className="flex flex-wrap gap-2 text-xs text-gray-500">
-          <div className="flex items-center">
-            <span className="inline-block w-3 h-3 bg-blue-100 border border-blue-300 rounded mr-1"></span>
-            <span>{t("Question")}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="inline-block w-3 h-3 bg-green-100 border border-green-300 rounded mr-1"></span>
-            <span>{t("Block")}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="inline-block w-3 h-3 bg-purple-100 border border-purple-300 rounded mr-1"></span>
-            <span>{t("Loop")}</span>
-          </div>
-        </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-2">
+      <div className="flex-1 overflow-y-auto p-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -778,8 +827,12 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
               {items.length > 0 ? (
                 renderTreeItems(items)
               ) : (
-                <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                  {t("No questions yet. Click + to add one.")}
+                <div className="text-center py-12 text-gray-500 dark:text-gray-400 flex flex-col items-center">
+                  <div className="w-16 h-16 mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                    <IconPlus className="w-8 h-8 text-gray-400 dark:text-gray-500" />
+                  </div>
+                  <p className="text-lg">{t("No questions yet")}</p>
+                  <p className="text-sm mt-1">{t("Add a question to get started")}</p>
                 </div>
               )}
             </div>
@@ -787,7 +840,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
           <DragOverlay>
             {activeItemRef.current ? (
-              <div className="opacity-80 bg-white dark:bg-dark-700 p-2 rounded border shadow-md">
+              <div className="opacity-90 bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-800/70 p-3 rounded-xl border border-gray-200 dark:border-gray-700 shadow-xl backdrop-blur-sm">
                 {activeItemRef.current.label || ""}
               </div>
             ) : null}

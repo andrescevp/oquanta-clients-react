@@ -7,10 +7,12 @@ import {RiInputMethodLine} from 'react-icons/ri';
 import {TbLoader3, TbSection} from 'react-icons/tb';
 import {VscAdd, VscClose, VscSymbolNumeric} from 'react-icons/vsc';
 
-import {AlertCircle, ArrowRight, ArrowUp, BarChart3, Calendar, Check, ChevronDown,ChevronLeft, ChevronRight, ChevronUp,Clipboard, Clock,ExternalLink,Eye, EyeOff, File, FilePenLine, Files, FileText, GripHorizontal, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MailCheck, MapPin, Menu, Moon, Plus, RefreshCcw, RotateCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
+import {AlertCircle, ArrowRight, ArrowUp, BarChart3, Calendar, Check, ChevronDown,ChevronLeft, ChevronRight, ChevronUp,Clipboard, Clock, Cog, ExternalLink,Eye, EyeOff, File, FilePenLine, Files, FileText, GripHorizontal, Home, LayoutDashboard, LayoutList, LoaderCircle, Lock, LogOut, Mail, MailCheck, MapPin, Menu, MessageCircleQuestion, Moon, Plus, RefreshCcw, RotateCcw, Save, Search,Settings, Shield, Sun, User,UserCog, Users,XIcon} from 'lucide-react';
 
 export const AlertCircleIcon = AlertCircle;
 export const FileTextIcon = FileText;
+export const HelpCircleIcon = MessageCircleQuestion;
+export const SettingsIcon = Cog;
 
 export const IconCalendar = Calendar;
 export const ClipboardIcon = Clipboard;
