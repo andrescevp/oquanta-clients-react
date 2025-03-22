@@ -237,12 +237,6 @@ export interface ElementOptionsBlock {
      * @memberof ElementOptionsBlock
      */
     'condition'?: string | null;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ElementOptionsBlock
-     */
-    'showLabel'?: boolean | null;
 }
 /**
  * 

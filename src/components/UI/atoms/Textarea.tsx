@@ -5,22 +5,28 @@ import { Transition } from '@headlessui/react';
 import { cn } from '../../../lib/utils';
 import { AlertCircleIcon } from '../Icons';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     className?: string;
     error?: boolean | string | React.ReactNode | React.ReactNode[];
     icon?: React.ReactNode;
     iconPosition?: 'left' | 'right';
+    resizable?: boolean;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+/**
+ * Textarea component for multiline text input
+ * Follows the same styling patterns as Input component
+ */
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     // eslint-disable-next-line complexity
-    (props: InputProps, ref) => {
+    (props: TextareaProps, ref) => {
         const { 
-            type = 'text', 
             className, 
             error, 
             icon, 
             iconPosition = 'left',
+            resizable = true,
+            rows = 3,
             ...rest 
         } = props;
         
@@ -30,13 +36,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             <div className="w-full space-y-1.5">
                 <div className="relative">
                     {icon && iconPosition === 'left' && (
-                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">
+                        <div className="absolute left-3 top-3 text-gray-500 dark:text-gray-400">
                             {icon}
                         </div>
                     )}
                     
-                    <input
-                        type={type}
+                    <textarea
                         className={cn(
                             "w-full bg-gray-50 dark:bg-gray-700/50 backdrop-blur-sm",
                             "border border-gray-300 dark:border-gray-600",
@@ -47,23 +52,25 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                             'py-2.5',
                             "placeholder:text-gray-400 dark:placeholder:text-gray-500",
                             "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-100 dark:disabled:bg-gray-800/50",
+                            !resizable && "resize-none",
                             hasError ? 
                                 "border-red-500 focus:ring-red-500/50 focus:border-red-500" : 
                                 "focus:ring-pumpkin-orange/50",
                             className
                         )}
                         ref={ref}
+                        rows={rows}
                         {...rest}
                     />
                     
                     {icon && iconPosition === 'right' && (
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">
+                        <div className="absolute right-3 top-3 text-gray-500 dark:text-gray-400">
                             {icon}
                         </div>
                     )}
                     
                     {hasError && typeof error === 'boolean' && (
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-500">
+                        <div className="absolute right-3 top-3 text-red-500">
                             <AlertCircleIcon className="h-5 w-5" />
                         </div>
                     )}
@@ -88,6 +95,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
 );
 
-Input.displayName = 'Input';
+Textarea.displayName = 'Textarea';
 
-export default Input;
+export default Textarea;

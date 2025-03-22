@@ -3,8 +3,8 @@ import { useFormContext } from 'react-hook-form';
 
 import { SurveyRequestChildrenInner } from '../../api-generated';
 import { ISurvey } from '../../types/surveys';
-import QuestionConfig from './QuestionConfig';
-import QuestionEditor from './QuestionEditor';
+import QuestionConfig from './Children/ChildrenConfig/QuestionConfig';
+import QuestionEditor from './Children/QuestionEditor';
 import QuestionTree, { QuestionItem } from './QuestionTree';
 
 interface QuestionnaireEditorDashboardProps {

@@ -1,27 +1,32 @@
 import * as React from 'react';
 
 import { cn } from '../../../lib/utils';
-import Input from '../atoms/Input';
 import Label from '../atoms/Label';
+import Textarea from '../atoms/Textarea';
 
-interface InputWithLabelProps {
+/**
+ * TextareaWithLabel component
+ * Combines a label with a textarea field for multiline input scenarios
+ * Follows the same pattern as InputWithLabel for consistency
+ */
+interface TextareaWithLabelProps {
     label: string;
     id: string;
     inline?: boolean;
     className?: string;
-    inputProps?: React.ComponentProps<typeof Input>;
+    textareaProps?: React.ComponentProps<typeof Textarea>;
     error?: boolean | string | React.ReactNode | React.ReactNode[];
     helperText?: string;
     required?: boolean;
 }
 
-const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
+const TextareaWithLabel = React.forwardRef<HTMLTextAreaElement, TextareaWithLabelProps>(
     ({ 
         label, 
         id, 
         inline, 
         className, 
-        inputProps, 
+        textareaProps, 
         error, 
         helperText,
         required
@@ -48,11 +53,11 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
                 </Label>
                 
                 <div className={cn("flex-1 flex flex-col", !inline && "w-full")}>
-                    <Input 
+                    <Textarea 
                         id={id} 
                         ref={ref} 
                         error={error} 
-                        {...inputProps} 
+                        {...textareaProps} 
                     />
                     
                     {helperText && !hasError && (
@@ -66,6 +71,6 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
     },
 );
 
-InputWithLabel.displayName = 'InputWithLabel';
+TextareaWithLabel.displayName = 'TextareaWithLabel';
 
-export default InputWithLabel;
+export default TextareaWithLabel;

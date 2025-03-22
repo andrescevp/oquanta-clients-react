@@ -11,7 +11,7 @@ import {
     SurveyRequestChildrenInner,
 } from '../api-generated';
 
-export type QuestionType = 'single_choice' | 'string' | 'number';
+export type QuestionType = 'choice' | 'string' | 'number';
 export type SpecialType = 'quota' | 'marker' | 'termination' | 'text';
 export type FlowControlType = 'block' | 'loop' | 'break_page';
 export type SurveyElementType = QuestionType | SpecialType | FlowControlType;

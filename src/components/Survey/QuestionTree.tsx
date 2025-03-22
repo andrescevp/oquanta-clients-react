@@ -453,7 +453,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
   const addNewQuestion = () => {
     const newQuestion: SurveyRequestChildrenInner = {
       code: `Q${Math.floor(Math.random() * Date.now())}`,
-      type: "text",
+      type: "string",
       label: t("New Question"),
       index: items.length,
       options: {},
@@ -535,7 +535,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
     const newSubQuestion: SurveyRequestChildrenInner = {
       code: `Q${Math.floor(Math.random() * Date.now())}`,
-      type: "text",
+      type: "string",
       label: t("New Question"),
       index: 0,
       options: {},

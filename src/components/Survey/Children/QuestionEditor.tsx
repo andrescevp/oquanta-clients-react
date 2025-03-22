@@ -2,24 +2,29 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { SurveyRequestChildrenInner } from '../../api-generated';
-import { cn } from '../../lib/utils';
-import { ISurvey } from '../../types/surveys';
-import { AlertCircleIcon, HelpCircleIcon } from '../UI/Icons';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../UI/molecules/Tabs';
-import { QuestionItem } from './QuestionTree';
+import { SurveyRequestChildrenInner } from '../../../api-generated';
+import { cn } from '../../../lib/utils';
+import { ISurvey } from '../../../types/surveys';
+import { AlertCircleIcon, HelpCircleIcon } from '../../UI/Icons';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../UI/molecules/Tabs';
+import { QuestionItem } from '../QuestionTree';
+import QuestionPropertiesEditor from './QuestionPropertiesEditor';
 
 interface QuestionEditorProps {
   selectedQuestion: QuestionItem | null;
   selectedQuestionFormKey: string;
 }
 
+/**
+ * QuestionEditor component for editing survey question properties
+ * Uses atomic UI components for consistent styling and behavior
+ */
 const QuestionEditor: React.FC<QuestionEditorProps> = ({ 
   selectedQuestion,
   selectedQuestionFormKey
 }) => {
   const { t } = useTranslation();
-  const { watch, setValue, formState: { errors } } = useFormContext<ISurvey>();
+  const { watch, setValue } = useFormContext<ISurvey>();
   
   // Use the direct form path to update fields
   const handleFieldChange = (field: keyof SurveyRequestChildrenInner, value: any) => {
@@ -51,130 +56,43 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
   }
 
   // Render different editors based on question type
+  // eslint-disable-next-line complexity
   const renderQuestionEditor = () => {
     switch (selectedQuestion.type) {
-      case 'text':
+      case 'choice':
+      case 'number':
+      case 'string':
         return (
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-                {t('Question Text')}
-              </label>
-              <input
-                type="text"
-                value={selectedQuestion.label}
-                onChange={(e) => handleFieldChange('label', e.target.value)}
-                className={cn(
-                  "w-full pl-3 pr-4 py-2.5 rounded-xl",
-                  "bg-gray-50 dark:bg-gray-700/50 backdrop-blur-sm",
-                  "border border-gray-300 dark:border-gray-600", 
-                  "focus:ring-2 focus:ring-pumpkin-orange/50 focus:border-pumpkin-orange",
-                  "transition-all duration-200"
-                )}
-                placeholder={t('Enter your question')}
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-                {t('Help Text')}
-              </label>
-              <textarea
-                value={selectedQuestion.help || ''}
-                onChange={(e) => handleFieldChange('help', e.target.value)}
-                className={cn(
-                  "w-full pl-3 pr-4 py-2.5 rounded-xl",
-                  "bg-gray-50 dark:bg-gray-700/50 backdrop-blur-sm",
-                  "border border-gray-300 dark:border-gray-600", 
-                  "focus:ring-2 focus:ring-pumpkin-orange/50 focus:border-pumpkin-orange",
-                  "transition-all duration-200"
-                )}
-                placeholder={t('Additional help text for respondents')}
-                rows={3}
-              />
-            </div>
-          </div>
-        );
-      case 'radio':
-        return (
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-                {t('Question Text')}
-              </label>
-              <input
-                type="text"
-                value={selectedQuestion.label}
-                onChange={(e) => handleFieldChange('label', e.target.value)}
-                className={cn(
-                  "w-full pl-3 pr-4 py-2.5 rounded-xl",
-                  "bg-gray-50 dark:bg-gray-700/50 backdrop-blur-sm",
-                  "border border-gray-300 dark:border-gray-600", 
-                  "focus:ring-2 focus:ring-pumpkin-orange/50 focus:border-pumpkin-orange",
-                  "transition-all duration-200"
-                )}
-                placeholder={t('Enter your question')}
-              />
-            </div>
-            
-            {/* Options for radio buttons would go here */}
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-                {t('Options')}
-              </label>
-              <div className="bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-gray-200 dark:border-gray-700">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {t('Options editor will be implemented here')}
-                </p>
-              </div>
-            </div>
+          <div className="space-y-6">
+            {/* Common properties for all question types */}
+            <QuestionPropertiesEditor
+              questionType={selectedQuestion.type}
+              questionCode={selectedQuestion.code}
+              formPath={selectedQuestionFormKey}
+              label={selectedQuestion.label}
+              help={selectedQuestion.help || ''}
+              rows={selectedQuestion.rows}
+              columns={selectedQuestion.columns}
+            />
           </div>
         );
       case 'block':
       case 'loop':
         return (
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-                {t('Block Title')}
-              </label>
-              <input
-                type="text"
-                value={selectedQuestion.label}
-                onChange={(e) => handleFieldChange('label', e.target.value)}
-                className={cn(
-                  "w-full pl-3 pr-4 py-2.5 rounded-xl",
-                  "bg-gray-50 dark:bg-gray-700/50 backdrop-blur-sm",
-                  "border border-gray-300 dark:border-gray-600", 
-                  "focus:ring-2 focus:ring-pumpkin-orange/50 focus:border-pumpkin-orange",
-                  "transition-all duration-200"
-                )}
-                placeholder={t('Enter block title')}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-                {t('Description')}
-              </label>
-              <textarea
-                value={selectedQuestion.help || ''}
-                onChange={(e) => handleFieldChange('help', e.target.value)}
-                className={cn(
-                  "w-full pl-3 pr-4 py-2.5 rounded-xl",
-                  "bg-gray-50 dark:bg-gray-700/50 backdrop-blur-sm",
-                  "border border-gray-300 dark:border-gray-600", 
-                  "focus:ring-2 focus:ring-pumpkin-orange/50 focus:border-pumpkin-orange",
-                  "transition-all duration-200"
-                )}
-                placeholder={t('Block description')}
-                rows={3}
-              />
-            </div>
+          <div className="space-y-6">
+            {/* Common properties for block types */}
+            <QuestionPropertiesEditor
+              questionType={selectedQuestion.type}
+              questionCode={selectedQuestion.code}
+              formPath={selectedQuestionFormKey}
+              label={selectedQuestion.label}
+              help={selectedQuestion.help || ''}
+            />
           </div>
         );
       default:
         return (
-          <div className="p-4 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700">
+          <div className="p-4 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
             <p className="text-gray-700 dark:text-gray-300">{t('Editor not implemented for this question type:')}</p>
             <div className="mt-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md text-sm font-mono">
               {selectedQuestion.type}
@@ -184,11 +102,11 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
     }
   };
 
-  // Renderizar vista previa según el tipo de pregunta
+  // Render preview based on question type
   // eslint-disable-next-line complexity
   const renderQuestionPreview = () => {
     switch (selectedQuestion.type) {
-      case 'text':
+      case 'string':
         return (
           <div className="p-6 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
             <p className="font-medium mb-2 text-gray-900 dark:text-white">{selectedQuestion.label || t('Question text')}</p>
@@ -198,12 +116,27 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
             <input
               type="text"
               disabled
-              className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md"
+              className="w-full px-3 py-2.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl"
               placeholder={t('Text answer')}
             />
           </div>
         );
-      case 'radio':
+      case 'number':
+        return (
+          <div className="p-6 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+            <p className="font-medium mb-2 text-gray-900 dark:text-white">{selectedQuestion.label || t('Question text')}</p>
+            {selectedQuestion.help && (
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{selectedQuestion.help}</p>
+            )}
+            <input
+              type="number"
+              disabled
+              className="w-full px-3 py-2.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl"
+              placeholder={t('Numeric answer')}
+            />
+          </div>
+        );
+      case 'choice':
         return (
           <div className="p-6 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
             <p className="font-medium mb-2 text-gray-900 dark:text-white">{selectedQuestion.label || t('Question text')}</p>
@@ -268,7 +201,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
         );
       default:
         return (
-          <div className="flex flex-col items-center justify-center p-10 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col items-center justify-center p-10 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
             <AlertCircleIcon className="h-10 w-10 text-gray-400 mb-2" />
             <p className="text-gray-700 dark:text-gray-300">{t('Preview not available')}</p>
           </div>
@@ -283,13 +216,11 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
           <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{t('Question Editor')}</h3>
           <div className={cn(
             "px-3 py-1 text-xs rounded-full", 
-            selectedQuestion.type === 'text' 
+            ['string', 'number', 'choice'].includes(selectedQuestion.type)
               ? "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
-              : selectedQuestion.type === 'radio'
-                ? "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400"
-                : selectedQuestion.type === 'block'
-                  ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" 
-                  : "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400"
+              : selectedQuestion.type === 'block'
+                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" 
+                : "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400"
           )}>
             {selectedQuestion.type.toUpperCase()}
           </div>
@@ -303,7 +234,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
       </div>
       
       <div className="flex-1 overflow-y-auto p-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-        <Tabs className="w-full">
+        <Tabs defaultIndex={0} className="w-full">
           <TabsList className="mb-4 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm">
             <TabsTrigger id="edit">{t('Edit')}</TabsTrigger>
             <TabsTrigger id="preview">{t('Preview')}</TabsTrigger>

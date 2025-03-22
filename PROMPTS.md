@@ -24,12 +24,15 @@ To create UI components use allways `tailwind`, `cn`, `lucide-react and` `@headl
 `cn` util is localted in `src/lib/utils.ts`
 All icons must be interfaced in `src/components/UI/Icons.tsx`
 To create tables we use `react-data-table-component`.
-To manage Forms we use `react-hook-form`, Submit Button must be build with `src/components/UI/molecules/ButtonLoder.tsx` so it shows a spinner while sending requests.
-Strings displayed to the user are translated with `useTranslation` and always use literals strings - never keys.
+strings - never keys.
 Selects are created using `react-select`
+Strings displayed to the user are translated with `useTranslation` and always use literals.
 Components must have interfaces and related types in the same file as the Component. 
 All components documentation and comments must be in English.
-<style_guide>
+# Forms
+To manage Forms we use `react-hook-form`, Submit Button must be build with `src/components/UI/molecules/ButtonLoder.tsx` so it shows a spinner while sending requests.
+Use  `src/components/UI/molecules/InputWithLabel.tsx` and `src/components/UI/molecules/TexareaWithLabel.tsx`
+# Style Guide
 ## Design System Overview
 The oQuanta application follows atomic design principles with a modern, clean UI using Tailwind CSS for styling. This guide outlines the key style patterns to maintain consistency across the password reset flow.
 ## Color Palette
@@ -96,4 +99,3 @@ Primary:
 - Use `ButtonLoader` for submit buttons to show loading states
 - Apply `cn()` utility for conditional class merging
 - Use `Transition` component for elements that appear/disappear
-</style_guide>
