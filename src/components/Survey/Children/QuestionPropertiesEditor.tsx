@@ -2,10 +2,11 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { ElementColumn,ElementRow, SurveyRequestChildrenInner } from '../../../api-generated';
+import { ElementColumn, ElementRow, LoopConcept, SurveyRequestChildrenInner } from '../../../api-generated';
 import { ISurvey } from '../../../types/surveys';
 import InputWithLabel from '../../UI/molecules/InputWithLabel';
 import TextareaWithLabel from '../../UI/molecules/TextareaWithLabel';
+import QuestionLoopConceptsEditor from './QuestionLoopConceptsEditor';
 import QuestionRowsColumnsEditor from './QuestionRowsColumnsEditor';
 
 interface QuestionPropertiesEditorProps {
@@ -16,6 +17,7 @@ interface QuestionPropertiesEditorProps {
   help?: string;
   rows?: ElementRow[] | null;
   columns?: ElementColumn[] | null;
+  loopConcepts?: LoopConcept[] | null;
 }
 
 /**
@@ -30,7 +32,8 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
   label,
   help,
   rows,
-  columns
+  columns,
+  loopConcepts
 }) => {
   const { t } = useTranslation();
   const { setValue } = useFormContext<ISurvey>();
@@ -54,11 +57,11 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
 
   // Check if the question type supports rows and columns
   const supportsRowsColumns = ['choice', 'number', 'string'].includes(questionType);
+  const isLoop = questionType === 'loop';
 
   return (
     <div className="space-y-6">
-      {/* Question Text/Title */}
-      {['block', 'loop'].includes(questionType) ? (
+      {/* Block/Loop Title or Question Code */}
       <InputWithLabel
         id={`${questionCode}-code`}
         label={t('Question Code')}
@@ -71,64 +74,78 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
         }}
         helperText={t('Unique identifier used for data analysis')}
       />
-      ) : (<>      
-        {/* Question Code */}
+      
+      {/* For blocks and loops, we need label instead of question text */}
+      {['block', 'loop'].includes(questionType) ? (
         <InputWithLabel
-          id={`${questionCode}-code`}
-          label={t('Question Code')}
+          id={`${questionCode}-label`}
+          label={labelText}
           inputProps={{
             type: "text",
-            value: questionCode,
-            onChange: (e) => handleFieldChange('code', e.target.value),
-            placeholder: t('Enter unique identifier'),
+            value: label,
+            onChange: (e) => handleFieldChange('label', e.target.value),
+            placeholder: t('Enter title'),
             className: "backdrop-blur-sm"
           }}
-          helperText={t('Unique identifier used for data analysis')}
+          helperText={isLoop ? t('Descriptive name for this loop section') : t('Title for this group of questions')}
         />
-        <TextareaWithLabel
+      ) : (
+        <>
+          {/* Question text for regular questions */}
+          <TextareaWithLabel
             id={`${questionCode}-label`}
             label={labelText}
             textareaProps={{
-                value: label,
-                onChange: (e) => handleFieldChange('label', e.target.value),
-                placeholder: t('Enter your question'),
-                className: "backdrop-blur-sm",
-                rows: 3
+              value: label,
+              onChange: (e) => handleFieldChange('label', e.target.value),
+              placeholder: t('Enter your question'),
+              className: "backdrop-blur-sm",
+              rows: 3
             }}
-            />
-        
-        {/* Help Text */}
-        <TextareaWithLabel
-          id={`${questionCode}-help`}
-          label={t('Help Text')}
-          textareaProps={{
-            value: help || '',
-            onChange: (e) => handleFieldChange('help', e.target.value),
-            placeholder: t('Additional help text for respondents'),
-            className: "backdrop-blur-sm",
-            rows: 2
-          }}
-          helperText={t('Provide additional context or instructions for this question')}
-        />
-  
-        {/* Rows and Columns Editor for supported question types */}
-        {supportsRowsColumns && (
-          <div className="mt-6">
-            <div className="mb-4">
-              <h3 className="font-medium text-gray-800 dark:text-gray-200">{t('Matrix Configuration')}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {t('Configure rows and columns for this matrix question')}
-              </p>
-            </div>            
-            <QuestionRowsColumnsEditor 
-              questionCode={questionCode}
-              formPath={formPath}
-              rows={rows}
-              columns={columns}
-            />
+          />
+          
+          {/* Help Text */}
+          <TextareaWithLabel
+            id={`${questionCode}-help`}
+            label={t('Help Text')}
+            textareaProps={{
+              value: help || '',
+              onChange: (e) => handleFieldChange('help', e.target.value),
+              placeholder: t('Additional help text for respondents'),
+              className: "backdrop-blur-sm",
+              rows: 2
+            }}
+            helperText={t('Provide additional context or instructions for this question')}
+          />
+        </>
+      )}
+      
+      {/* Loop Concepts Editor for loop type */}
+      {isLoop && (
+          <QuestionLoopConceptsEditor
+            questionCode={questionCode}
+            formPath={formPath}
+          />
+      )}
+
+      {/* Rows and Columns Editor for supported question types */}
+      {supportsRowsColumns && (
+        <div className="mt-6">
+          <div className="mb-4">
+            <h3 className="font-medium text-gray-800 dark:text-gray-200">{t('Matrix Configuration')}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {t('Configure rows and columns for this matrix question')}
+            </p>
           </div>
-        )}
-      </>)}
+          
+          <QuestionRowsColumnsEditor 
+            questionCode={questionCode}
+            formPath={formPath}
+            rows={rows}
+            columns={columns}
+          />
+        </div>
+      )}
     </div>
   );
 };
