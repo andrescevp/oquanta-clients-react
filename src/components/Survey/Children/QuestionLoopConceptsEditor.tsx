@@ -41,7 +41,8 @@ const QuestionLoopConceptsEditor: React.FC<QuestionLoopConceptsEditorProps> = ({
       label: t('New Concept'),
       index: conceptIndex,
       depth: 0,             // Required depth property
-      isLast: true          // Required isLast property
+      isLast: true,         // Required isLast property
+      uniqueId: String(Math.floor(Math.random() * Date.now())),
     };
     
     // Update isLast property for previous concepts

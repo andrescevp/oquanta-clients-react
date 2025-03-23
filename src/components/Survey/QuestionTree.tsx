@@ -52,7 +52,7 @@ const flattenTree = (items: QuestionItem[]): QuestionItem[] => {
       .forEach((item) => {
         result.push(item);
         if (item.children && item.children.length > 0) {
-          flatten(item.children, item.code);
+          flatten(item.children, item.uniqueId);
         }
       });
   };
@@ -68,11 +68,11 @@ const rebuildTree = (flatItems: QuestionItem[]): QuestionItem[] => {
 
   flatItems.forEach((item) => {
     const itemWithoutChildren = { ...item, children: [] };
-    itemMap.set(item.code, itemWithoutChildren);
+    itemMap.set(item.uniqueId, itemWithoutChildren);
   });
 
   flatItems.forEach((item) => {
-    const current = itemMap.get(item.code);
+    const current = itemMap.get(item.uniqueId);
     if (!current) return;
 
     if (item.parentCode && itemMap.has(item.parentCode)) {
@@ -132,7 +132,7 @@ const isDescendantOf = (
   let current = possibleDescendant;
   
   while (current) {
-    const item = items.find(i => i.code === current);
+    const item = items.find(i => i.uniqueId === current);
     if (!item || !item.parentCode) break;
     
     if (item.parentCode === possibleAncestor) return true;
@@ -177,25 +177,25 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     while (currentItem) {
       // Find the index of the current item within its parent's children
       if (currentItem.parentCode) {
-        const parent = flatItems.find(i => i.code === currentItem.parentCode);
+        const parent = flatItems.find(i => i.uniqueId === currentItem.parentCode);
         if (parent && parent.children) {
-          currentIndex = parent.children.findIndex(child => child.code === currentItem.code);
+          currentIndex = parent.children.findIndex(child => child.uniqueId === currentItem.uniqueId);
           if (currentIndex !== -1) {
-            path.unshift(`children[${currentIndex}]`);
+            path.unshift(`children.${currentIndex}`);
           }
         }
       } else {
         // Top-level item
-        currentIndex = items.findIndex(i => i.code === currentItem.code);
+        currentIndex = items.findIndex(i => i.uniqueId === currentItem.uniqueId);
         if (currentIndex !== -1) {
-          path.unshift(`children[${currentIndex}]`);
+          path.unshift(`children.${currentIndex}`);
           break; // We've reached the top level
         }
       }
       
       // Move up to parent
       if (currentItem.parentCode) {
-        currentItem = flatItems.find(i => i.code === currentItem.parentCode) || currentItem;
+        currentItem = flatItems.find(i => i.uniqueId === currentItem.parentCode) || currentItem;
       } else {
         break;
       }
@@ -208,7 +208,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     setActiveId(event.active.id);
     // Store the active item
     activeItemRef.current = flatItems.find(
-      (item) => item.code === event.active.id
+      (item) => item.uniqueId === event.active.id
     ) || null;
   };
 
@@ -248,7 +248,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     const cursorY = event.delta.y ?? 0;
     const isInUpperHalf = cursorY < overCenter;
 
-    const overItem = flatItems.find((item) => item.code === overId);
+    const overItem = flatItems.find((item) => item.uniqueId === overId);
 
     if (overItem) {
       setDragOverId(overId);
@@ -285,7 +285,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
   ) => {
     const parentId = overId.split("-dropzone")[0];
     const activeItemIndex = flatItems.findIndex(
-      (item) => item.code === activeSurveyQuestionId
+      (item) => item.uniqueId === activeSurveyQuestionId
     );
 
     // Check if attempted drop would create a circular reference
@@ -295,7 +295,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     }
 
     if (activeItemIndex >= 0) {
-      const parentItem = flatItems.find((item) => item.code === parentId);
+      const parentItem = flatItems.find((item) => item.uniqueId === parentId);
       if (!parentItem) return;
 
       const newFlatItems = [...flatItems];
@@ -313,7 +313,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
         let currentParent = item.parentCode;
         while (currentParent) {
           if (currentParent === activeSurveyQuestionId) return true;
-          const parent = flatItems.find((p) => p.code === currentParent);
+          const parent = flatItems.find((p) => p.uniqueId === currentParent);
           currentParent = parent?.parentCode;
         }
         return false;
@@ -321,7 +321,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
       childrenToMove.forEach((child) => {
         const childInNewList = newFlatItems.find(
-          (item) => item.code === child.code
+          (item) => item.uniqueId === child.uniqueId
         );
         if (childInNewList) {
           const originalDepthDiff =
@@ -342,9 +342,9 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     finalDropPosition: any
   ) => {
     const activeItemIndex = flatItems.findIndex(
-      (item) => item.code === active.id
+      (item) => item.uniqueId === active.id
     );
-    const overItemIndex = flatItems.findIndex((item) => item.code === over.id);
+    const overItemIndex = flatItems.findIndex((item) => item.uniqueId === over.id);
 
     if (activeItemIndex !== -1 && overItemIndex !== -1) {
       const activeItem = flatItems[activeItemIndex];
@@ -354,9 +354,9 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       // This is an invalid operation that can break the tree structure
       if (finalDropPosition !== "inside") {
         // Check if the target item is a descendant of the active item
-        const isTargetDescendant = isDescendantOf(overItem.code, activeItem.code, flatItems);
+        const isTargetDescendant = isDescendantOf(overItem.uniqueId, activeItem.uniqueId, flatItems);
         
-        if (isTargetDescendant && overItem.code !== activeItem.code) {
+        if (isTargetDescendant && overItem.uniqueId !== activeItem.uniqueId) {
           console.warn("Cannot reorder a parent before or after its own descendants");
           return; // Prevent the invalid operation
         }
@@ -364,7 +364,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
       // Existing check for dropping inside
       if (finalDropPosition === "inside" && 
-          isDescendantOf(overItem.code, activeItem.code, flatItems)) {
+          isDescendantOf(overItem.uniqueId, activeItem.uniqueId, flatItems)) {
         console.warn("Cannot drop an element inside itself or its descendants");
         return; // Prevent the invalid operation
       }
@@ -392,11 +392,11 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
           break;
         }
         case "inside": {
-          newParentCode = overItem.code;
+          newParentCode = overItem.uniqueId;
           newDepth = overItem.depth + 1; // Depth increased by 1
           const lastChildIndex = findLastIndex(
             newFlatItems,
-            (item: SurveyRequestChildrenInner) => item.parentCode === overItem.code
+            (item: SurveyRequestChildrenInner) => item.parentCode === overItem.uniqueId
           );
           newIndex =
             lastChildIndex !== -1 ? lastChildIndex + 1 : newFlatItems.length;
@@ -452,6 +452,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
   const addNewQuestion = () => {
     const newQuestion: SurveyRequestChildrenInner = {
+      uniqueId: String(Math.floor(Math.random() * Date.now())),
       code: `Q${Math.floor(Math.random() * Date.now())}`,
       type: "string",
       label: t("New Question"),
@@ -476,6 +477,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
   const addNewBlock = () => {
     const newBlock: SurveyRequestChildrenInner = {
+      uniqueId: String(Math.floor(Math.random() * Date.now())),
       code: `BL${Math.floor(Math.random() * Date.now())}`,
       type: "block",
       label: t("New Block"),
@@ -500,6 +502,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
   const addNewLoop = () => {
     const newLoop: SurveyRequestChildrenInner = {
+      uniqueId: String(Math.floor(Math.random() * Date.now())),
       code: `LP${Math.floor(Math.random() * Date.now())}`,
       type: "loop",
       label: t("New Loop"),
@@ -523,7 +526,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
   };
 
   const addSubQuestion = (parentId: string) => {
-    const parent = flatItems.find((item) => item.code === parentId);
+    const parent = flatItems.find((item) => item.uniqueId === parentId);
     if (!parent) return;
 
     if (!canHaveChildren(parent.type)) {
@@ -534,6 +537,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     }
 
     const newSubQuestion: SurveyRequestChildrenInner = {
+      uniqueId: String(Math.floor(Math.random() * Date.now())),
       code: `Q${Math.floor(Math.random() * Date.now())}`,
       type: "string",
       label: t("New Question"),
@@ -559,7 +563,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       codeToRemove: string
     ): QuestionItem[] => {
       return treeItems.filter((item) => {
-        if (item.code === codeToRemove) return false;
+        if (item.uniqueId === codeToRemove) return false;
 
         if (item.children && item.children.length > 0) {
           item.children = filterItems(item.children, codeToRemove);
@@ -580,7 +584,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
   };
 
   const addChildElement = (parentId: string, type: string) => {
-    const parent = flatItems.find((item) => item.code === parentId);
+    const parent = flatItems.find((item) => item.uniqueId === parentId);
     if (!parent) return;
 
     if (!canHaveChildren(parent.type)) {
@@ -617,6 +621,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       depth: (parent.depth || 0) + 1,
       isLast: true,
       parentCode: parentId,
+      uniqueId: String(Math.floor(Math.random() * Date.now())),
     };
 
     const updateParent = (
@@ -625,7 +630,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       newChildToUpdate: QuestionItem
     ): QuestionItem[] => {
       return treeItems.map((item) => {
-        if (item.code === parentIdToUpdate) {
+        if (item.uniqueId === parentIdToUpdate) {
           const updatedChildren = item.children
             ? item.children.map((child) => ({ ...child, isLast: false }))
             : [];
@@ -667,7 +672,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     if (parentId === null) {
       itemsAtLevel = treeItems.filter((item) => !item.parentCode);
     } else {
-      const parentItem = flatItems.find((item) => item.code === parentId);
+      const parentItem = flatItems.find((item) => item.uniqueId === parentId);
       if (parentItem) {
         itemsAtLevel = parentItem.children || [];
       }
@@ -675,13 +680,13 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
     if (itemsAtLevel.length === 0) {
       if (parentId) {
-        const parentItem = flatItems.find((item) => item.code === parentId);
+        const parentItem = flatItems.find((item) => item.uniqueId === parentId);
         if (parentItem && canHaveChildren(parentItem.type)) {
           return (
             <DropZone
-              id={`${parentItem.code}-dropzone`}
-              parentId={parentItem.code}
-              isActive={dragOverId === `${parentItem.code}-dropzone`}
+              id={`${parentItem.uniqueId}-dropzone`}
+              parentId={parentItem.uniqueId}
+              isActive={dragOverId === `${parentItem.uniqueId}-dropzone`}
             />
           );
         }
@@ -692,34 +697,34 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     return (
       <>
         {itemsAtLevel.map((item) => {
-          const isContainerTarget = dragOverId === `${item.code}-container`;
-          const isItemTarget = dragOverId === item.code;
+          const isContainerTarget = dragOverId === `${item.uniqueId}-container`;
+          const isItemTarget = dragOverId === item.uniqueId;
 
           return (
-            <React.Fragment key={item.code}>             
+            <React.Fragment key={item.uniqueId}>             
               <div className="my-2">
                 <DropIndicator
                   isActive={
                     isItemTarget &&
                     dropPosition === "before" &&
-                    activeId !== item.code
+                    activeId !== item.uniqueId
                   }
                 />
               </div>
 
               <SortableItem
-                id={item.code}
+                id={item.uniqueId}
                 item={item}
-                isSelected={selectedItemId === item.code}
+                isSelected={selectedItemId === item.uniqueId}
                 onClick={() => {
                   const formPath = generateFormPath(item);
                   onItemSelect(item, formPath);
                 }}
-                onAddSubQuestion={() => addSubQuestion(item.code)}
-                onAddSubBlock={() => addSubBlock(item.code)}
-                onAddSubLoop={() => addSubLoop(item.code)}
+                onAddSubQuestion={() => addSubQuestion(item.uniqueId)}
+                onAddSubBlock={() => addSubBlock(item.uniqueId)}
+                onAddSubLoop={() => addSubLoop(item.uniqueId)}
                 canHaveChildren={canHaveChildren(item.type)}
-                onDelete={() => handleDeleteItem(item.code)}
+                onDelete={() => handleDeleteItem(item.uniqueId)}
                 isDragOver={isItemTarget || isContainerTarget}
               />
 
@@ -735,7 +740,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
                     }
                   )}
                 >
-                  {renderTreeItems(treeItems, item.code)}
+                  {renderTreeItems(treeItems, item.uniqueId)}
                 </div>
               )}
 
@@ -744,7 +749,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
                   isActive={
                     isItemTarget &&
                     dropPosition === "after" &&
-                    activeId !== item.code
+                    activeId !== item.uniqueId
                   }
                 />
               </div>
@@ -812,14 +817,14 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
         >
           <SortableContext
             items={[
-              ...flatItems.map((item) => item.code),
+              ...flatItems.map((item) => item.uniqueId),
               ...flatItems
                 .filter(
                   (item) =>
                     canHaveChildren(item.type) &&
                     (!item.children || item.children.length === 0)
                 )
-                .map((item) => `${item.code}-dropzone`),
+                .map((item) => `${item.uniqueId}-dropzone`),
             ]}
             strategy={verticalListSortingStrategy}
           >

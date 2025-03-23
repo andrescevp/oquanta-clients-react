@@ -2,7 +2,6 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { SurveyRequestChildrenInner } from '../../../api-generated';
 import { cn } from '../../../lib/utils';
 import { ISurvey } from '../../../types/surveys';
 import { AlertCircleIcon, HelpCircleIcon } from '../../UI/Icons';
@@ -24,21 +23,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
   selectedQuestionFormKey
 }) => {
   const { t } = useTranslation();
-  const { watch, setValue } = useFormContext<ISurvey>();
-  
-  // Use the direct form path to update fields
-  const handleFieldChange = (field: keyof SurveyRequestChildrenInner, value: any) => {
-    if (!selectedQuestion) return;
-    
-    // Create the full path for the specific field
-    const fieldPath = `${selectedQuestionFormKey}.${field}` as any;
-    
-    // Update the field directly in the form
-    setValue(fieldPath, value, {
-      shouldValidate: true,
-      shouldDirty: true
-    });
-  };
+  const { setValue } = useFormContext<ISurvey>();
 
   // Check if we have a valid selected question
   if (!selectedQuestion) {

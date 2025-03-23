@@ -67,6 +67,12 @@ export interface Block {
     'children': Array<LoopChildrenInner>;
     /**
      * 
+     * @type {string}
+     * @memberof Block
+     */
+    'uniqueId': string;
+    /**
+     * 
      * @type {number}
      * @memberof Block
      */
@@ -126,6 +132,12 @@ export interface BreakPage {
      * @memberof BreakPage
      */
     'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BreakPage
+     */
+    'uniqueId': string;
     /**
      * 
      * @type {number}
@@ -194,6 +206,12 @@ export interface ElementColumn {
      * @memberof ElementColumn
      */
     'code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementColumn
+     */
+    'uniqueId': string;
     /**
      * 
      * @type {number}
@@ -509,6 +527,12 @@ export interface ElementRow {
     'code': string;
     /**
      * 
+     * @type {string}
+     * @memberof ElementRow
+     */
+    'uniqueId': string;
+    /**
+     * 
      * @type {number}
      * @memberof ElementRow
      */
@@ -607,6 +631,12 @@ export interface Loop {
     'loopConcepts'?: Array<LoopConcept> | null;
     /**
      * 
+     * @type {string}
+     * @memberof Loop
+     */
+    'uniqueId': string;
+    /**
+     * 
      * @type {number}
      * @memberof Loop
      */
@@ -678,6 +708,12 @@ export interface LoopChildrenInner {
      * @memberof LoopChildrenInner
      */
     'children': Array<LoopChildrenInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopChildrenInner
+     */
+    'uniqueId': string;
     /**
      * 
      * @type {number}
@@ -757,6 +793,12 @@ export interface LoopConcept {
      * @memberof LoopConcept
      */
     'code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopConcept
+     */
+    'uniqueId': string;
     /**
      * 
      * @type {number}
@@ -2158,6 +2200,12 @@ export interface QuestionChoice {
     'columns'?: Array<ElementColumn> | null;
     /**
      * 
+     * @type {string}
+     * @memberof QuestionChoice
+     */
+    'uniqueId': string;
+    /**
+     * 
      * @type {number}
      * @memberof QuestionChoice
      */
@@ -2249,6 +2297,12 @@ export interface QuestionNumber {
     'columns'?: Array<ElementColumn> | null;
     /**
      * 
+     * @type {string}
+     * @memberof QuestionNumber
+     */
+    'uniqueId': string;
+    /**
+     * 
      * @type {number}
      * @memberof QuestionNumber
      */
@@ -2338,6 +2392,12 @@ export interface QuestionString {
      * @memberof QuestionString
      */
     'columns'?: Array<ElementColumn> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionString
+     */
+    'uniqueId': string;
     /**
      * 
      * @type {number}
@@ -2638,6 +2698,12 @@ export interface SurveyRequestChildrenInner {
     'children': Array<LoopChildrenInner>;
     /**
      * 
+     * @type {string}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'uniqueId': string;
+    /**
+     * 
      * @type {number}
      * @memberof SurveyRequestChildrenInner
      */
@@ -2727,6 +2793,12 @@ export interface Text {
      * @memberof Text
      */
     'options': ElementOptionsText;
+    /**
+     * 
+     * @type {string}
+     * @memberof Text
+     */
+    'uniqueId': string;
     /**
      * 
      * @type {number}
@@ -3096,6 +3168,141 @@ export interface UserUpdate {
      * @memberof UserUpdate
      */
     'roles'?: Array<any>;
+}
+/**
+ * 
+ * @export
+ * @interface ValidationError
+ */
+export interface ValidationError {
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationError
+     */
+    'type'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationError
+     */
+    'title'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ValidationError
+     */
+    'status'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationError
+     */
+    'detail'?: string;
+    /**
+     * 
+     * @type {Array<ValidationErrorViolationsInner>}
+     * @memberof ValidationError
+     */
+    'violations'?: Array<ValidationErrorViolationsInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationError
+     */
+    'class'?: string | null;
+    /**
+     * 
+     * @type {Array<ValidationErrorTraceInner>}
+     * @memberof ValidationError
+     */
+    'trace'?: Array<ValidationErrorTraceInner> | null;
+}
+/**
+ * 
+ * @export
+ * @interface ValidationErrorTraceInner
+ */
+export interface ValidationErrorTraceInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationErrorTraceInner
+     */
+    'namespace'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationErrorTraceInner
+     */
+    'short_class'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationErrorTraceInner
+     */
+    'class'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationErrorTraceInner
+     */
+    'type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationErrorTraceInner
+     */
+    'function'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationErrorTraceInner
+     */
+    'file'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ValidationErrorTraceInner
+     */
+    'line'?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ValidationErrorTraceInner
+     */
+    'args'?: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface ValidationErrorViolationsInner
+ */
+export interface ValidationErrorViolationsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationErrorViolationsInner
+     */
+    'propertyPath'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationErrorViolationsInner
+     */
+    'title'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ValidationErrorViolationsInner
+     */
+    'template'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ValidationErrorViolationsInner
+     */
+    'parameters'?: Array<string>;
 }
 
 /**

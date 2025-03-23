@@ -1,8 +1,8 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { FieldValue, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { ElementColumn, ElementRow, LoopConcept, SurveyRequestChildrenInner } from '../../../api-generated';
+import { ElementColumn, ElementRow, SurveyRequestChildrenInner } from '../../../api-generated';
 import { ISurvey } from '../../../types/surveys';
 import InputWithLabel from '../../UI/molecules/InputWithLabel';
 import TextareaWithLabel from '../../UI/molecules/TextareaWithLabel';
@@ -17,7 +17,6 @@ interface QuestionPropertiesEditorProps {
   help?: string;
   rows?: ElementRow[] | null;
   columns?: ElementColumn[] | null;
-  loopConcepts?: LoopConcept[] | null;
 }
 
 /**
@@ -32,11 +31,12 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
   label,
   help,
   rows,
-  columns,
-  loopConcepts
+  columns
 }) => {
   const { t } = useTranslation();
-  const { setValue } = useFormContext<ISurvey>();
+  const { setValue, formState, getFieldState } = useFormContext<ISurvey>();
+  const {errors} = formState;
+  const { error } = getFieldState(`${formPath}.code` as keyof FieldValue<ISurvey>, formState);
 
   // Handler for field changes
   const handleFieldChange = (field: keyof SurveyRequestChildrenInner, value: any) => {
@@ -65,10 +65,13 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
       <InputWithLabel
         id={`${questionCode}-code`}
         label={t('Question Code')}
+        error={error && error.message}
         inputProps={{
           type: "text",
           value: questionCode,
-          onChange: (e) => handleFieldChange('code', e.target.value),
+          onChange: (e) => {
+            handleFieldChange('code', e.target.value);
+          },
           placeholder: t('Enter unique identifier'),
           className: "backdrop-blur-sm"
         }}

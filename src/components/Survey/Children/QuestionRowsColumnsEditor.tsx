@@ -48,6 +48,7 @@ const QuestionRowsColumnsEditor: React.FC<QuestionRowsColumnsEditorProps> = ({
   const handleAddRow = () => {
     const rowIndex = rows?.length || 0;
     const newRow: ElementRow = {
+      uniqueId: String(Math.floor(Math.random() * Date.now())),
       code: `row_${rowIndex + 1}`,
       label: t('New Row'),
       index: rowIndex,
@@ -68,6 +69,7 @@ const QuestionRowsColumnsEditor: React.FC<QuestionRowsColumnsEditorProps> = ({
   const handleAddColumn = () => {
     const columnIndex = columns?.length || 0;
     const newColumn: ElementColumn = {
+      uniqueId: String(Math.floor(Math.random() * Date.now())),
       code: `col_${columnIndex + 1}`,
       label: t('New Column'),
       index: columnIndex,

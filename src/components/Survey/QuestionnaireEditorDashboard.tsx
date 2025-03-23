@@ -57,7 +57,7 @@ const QuestionnaireEditorDashboard: React.FC<QuestionnaireEditorDashboardProps> 
           items={questions}
           onItemsChange={handleQuestionsChange}
           onItemSelect={handleQuestionSelect}
-          selectedItemId={selectedQuestion?.code}
+          selectedItemId={selectedQuestion?.uniqueId}
         />
       </div>
       <div className="w-1/2 border-r border-gray-200 dark:border-gray-700">
@@ -80,7 +80,7 @@ const QuestionnaireEditorDashboard: React.FC<QuestionnaireEditorDashboardProps> 
             } else {
               // Handle top-level updates if needed
               const newQuestions = [...questions];
-              const index = newQuestions.findIndex(q => q.code === updatedQuestion.code);
+              const index = newQuestions.findIndex(q => q.uniqueId === updatedQuestion.uniqueId);
               if (index !== -1) {
                 newQuestions[index] = updatedQuestion;
                 handleQuestionsChange(newQuestions);

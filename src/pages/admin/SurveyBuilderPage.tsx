@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { AxiosError } from 'axios';
 import { toast } from 'sonner';
 
-import { SurveysApi } from '../../api-generated';
+import { SurveysApi, ValidationError } from '../../api-generated';
 import { GeneralSurveyForm } from '../../components/Survey/GeneralSurveyForm';
 import QuestionnaireEditorDashboard from '../../components/Survey/QuestionnaireEditorDashboard';
 import { QuestionItem } from '../../components/Survey/QuestionTree';
-import { IconSave as SaveIcon } from '../../components/UI/Icons';
+import { AlertCircleIcon,IconSave as SaveIcon } from '../../components/UI/Icons';
 import ButtonLoader from '../../components/UI/molecules/ButtonLoder';
 import { SurveyTabs } from '../../components/UI/molecules/SurveyTabs';
 import { useApi } from '../../hooks/useApi';
+import { cn } from '../../lib/utils';
 import { ISurvey } from '../../types/surveys';
 
 const DefaultSurvey: ISurvey = {
@@ -21,6 +23,7 @@ const DefaultSurvey: ISurvey = {
     description: '',
     children: [
         {
+            uniqueId: String(Math.floor(Math.random() * Date.now())),
             code: 'q1',
             type: 'text',
             label: 'What is your name?',
@@ -31,6 +34,7 @@ const DefaultSurvey: ISurvey = {
             isLast: false,
         },
         {
+            uniqueId: String(Math.floor(Math.random() * Date.now())),
             code: 'q2',
             type: 'radio',
             label: 'How did you hear about us?',
@@ -50,26 +54,31 @@ export const SurveyBuilderPage: React.FC = () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [currentUuid, setCurrentUuid] = useState<string>();
     const [isSaving, setIsSaving] = useState<boolean>(false);
+    const [validationFailed, setValidationFailed] = useState<boolean>(false);
     const { call, isLoading } = useApi<SurveysApi>(SurveysApi);
     const navigate = useNavigate();
 
-    const showSuccess = (message : string) => toast(message);
-    const showError = (message : string) => toast.error(message);
-
-    console.log('SurveyBuilderPage', uuid);
+    const showSuccess = (message: string) => toast(message);
+    const showError = (message: string) => toast.error(message);
 
     const formMethods = useForm<ISurvey>({
-        defaultValues: DefaultSurvey
+        defaultValues: DefaultSurvey,
+        mode: 'onSubmit' // Ensure we validate on submit, not onChange
     });
 
-    const { setValue, handleSubmit, formState: { isDirty, isSubmitting }, } = formMethods;
+    const { 
+        setValue, 
+        handleSubmit, 
+        formState: { isSubmitting, isValid, errors }, 
+        setError,
+        clearErrors 
+    } = formMethods;
 
     useEffect(() => {
         if (loaded || isLoading || !uuid) {
             return;
         }     
         // Aquí se cargarían las preguntas desde la API si es una encuesta existente
-        // Por ahora usamos datos de ejemplo
         if (uuid) {
             setCurrentUuid(uuid);   
             // Simular carga desde API
@@ -81,22 +90,29 @@ export const SurveyBuilderPage: React.FC = () => {
                     setValue('children', survey.children);
                 })
                 .catch(error => {
-                    console.error(error);
-                }
-                ).finally(() => {
+                    console.error('Error loading survey:', error);
+                    showError(t('Error loading survey. Please try again.'));
+                })
+                .finally(() => {
                     setLoaded(true);
                 });
         }
-    }, []);
+    }, [call, isLoading, loaded, setValue, t, uuid]);
 
     const handleQuestionsChange = (newQuestions: QuestionItem[]) => {
         setValue('children', newQuestions);
-        console.log('Questions updated', newQuestions);
-        // Aquí se podrían guardar los cambios en la API
+        // When content changes, clear any previous validation errors
+        if (validationFailed) {
+            clearErrors();
+            setValidationFailed(false);
+        }
     };
 
     const onSubmit = async (data: ISurvey) => {
+        // Clear previous validation state
+        setValidationFailed(false);
         setIsSaving(true);
+        
         try {
             let response;
             
@@ -113,18 +129,61 @@ export const SurveyBuilderPage: React.FC = () => {
                     navigate(`/admin/surveys/${response.data.uuid}`);
                 }
             }
-            
-            console.log('Survey saved successfully', response);
         } catch (error) {
-            console.error('Error saving survey', error);
-            showError(t('Error saving survey. Please try again.'));
+            console.error('Error saving survey:', error);
+            
+            if (error instanceof AxiosError) {
+                const axiosError = error as AxiosError<ValidationError>;
+                
+                if (axiosError.response?.status === 400) {
+                    const validationData = axiosError.response.data;
+                    
+                    if (validationData?.violations && validationData.violations.length > 0) {
+                        // Set validation failed flag
+                        setValidationFailed(true);
+                        
+                        // Clear all previous errors first
+                        clearErrors();
+                        
+                        // Set individual field errors
+                        validationData.violations.forEach(violation => {
+                            setError(violation.propertyPath as keyof ISurvey, {
+                                type: 'custom',
+                                message: violation.title 
+                            });
+                        });
+                        
+                        // Show a more specific error message
+                        showError(t('Please correct the highlighted fields and try again.'));
+                    } else {
+                        // Generic bad request error
+                        showError(t('Invalid form data. Please check your entries and try again.'));
+                    }
+                } else {
+                    // Other API errors
+                    showError(t('Error saving survey. Please try again later.'));
+                }
+            } else {
+                // Non-Axios errors
+                showError(t('An unexpected error occurred. Please try again.'));
+            }
         } finally {
             setIsSaving(false);
         }
     };
 
     if (isLoading && !isSubmitting) {
-        return <span>Loading...</span>;
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+                <div className="backdrop-blur-sm bg-white/60 dark:bg-gray-800/50 p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div className="animate-pulse flex flex-col items-center">
+                        <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-full mb-4"></div>
+                        <div className="h-5 w-40 bg-gray-200 dark:bg-gray-700 rounded-xl mb-3"></div>
+                        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     const tabs = [
@@ -150,16 +209,31 @@ export const SurveyBuilderPage: React.FC = () => {
 
     return (
         <div className="container mx-auto px-4 py-6">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold">
-                    {currentUuid === 'new' ? t('New survey') : t('Edit survey')}
-                </h1>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                <div>
+                    <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                        {currentUuid === 'new' ? t('New survey') : t('Edit survey')}
+                    </h1>
+                    
+                    {validationFailed && (
+                        <div className="flex items-center mt-2 text-red-600 dark:text-red-400 text-sm">
+                            <AlertCircleIcon className="h-4 w-4 mr-1.5 flex-shrink-0" />
+                            <span>{t('Please fix the validation errors before saving')}</span>
+                        </div>
+                    )}
+                </div>
                 
                 <ButtonLoader
                     onClick={handleSubmit(onSubmit)}
                     loading={isSaving}
                     disabled={isSaving}
-                    className="bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80 text-white py-2 px-4 rounded-xl shadow-lg shadow-pumpkin-orange/20 hover:translate-y-[-2px] transition-all duration-200 ease-in-out"
+                    className={cn(
+                        "bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80",
+                        "text-white py-3 px-4 rounded-xl",
+                        "shadow-lg shadow-pumpkin-orange/20",
+                        "hover:translate-y-[-2px] transition-all duration-200 ease-in-out",
+                        "flex items-center justify-center"
+                    )}
                 >
                     <SaveIcon className="h-5 w-5 mr-2" />
                     {t('Save survey')}
