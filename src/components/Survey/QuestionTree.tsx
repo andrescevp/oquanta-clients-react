@@ -48,7 +48,7 @@ const flattenTree = (items: QuestionItem[]): QuestionItem[] => {
 
   const flatten = (questions: QuestionItem[], parentId: string | null = null) => {
     questions
-      .filter((item) => item.parentCode === parentId)
+      .filter((item) => item.parentUniqueId === parentId)
       .forEach((item) => {
         result.push(item);
         if (item.children && item.children.length > 0) {
@@ -75,8 +75,8 @@ const rebuildTree = (flatItems: QuestionItem[]): QuestionItem[] => {
     const current = itemMap.get(item.uniqueId);
     if (!current) return;
 
-    if (item.parentCode && itemMap.has(item.parentCode)) {
-      const parent = itemMap.get(item.parentCode);
+    if (item.parentUniqueId && itemMap.has(item.parentUniqueId)) {
+      const parent = itemMap.get(item.parentUniqueId);
       if (parent) {
         if (!parent.children) parent.children = [];
         parent.children.push(current);
@@ -133,10 +133,10 @@ const isDescendantOf = (
   
   while (current) {
     const item = items.find(i => i.uniqueId === current);
-    if (!item || !item.parentCode) break;
+    if (!item || !item.parentUniqueId) break;
     
-    if (item.parentCode === possibleAncestor) return true;
-    current = item.parentCode;
+    if (item.parentUniqueId === possibleAncestor) return true;
+    current = item.parentUniqueId;
   }
   
   return false;
@@ -176,8 +176,8 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     // Build path from bottom up
     while (currentItem) {
       // Find the index of the current item within its parent's children
-      if (currentItem.parentCode) {
-        const parent = flatItems.find(i => i.uniqueId === currentItem.parentCode);
+      if (currentItem.parentUniqueId) {
+        const parent = flatItems.find(i => i.uniqueId === currentItem.parentUniqueId);
         if (parent && parent.children) {
           currentIndex = parent.children.findIndex(child => child.uniqueId === currentItem.uniqueId);
           if (currentIndex !== -1) {
@@ -194,8 +194,8 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       }
       
       // Move up to parent
-      if (currentItem.parentCode) {
-        currentItem = flatItems.find(i => i.uniqueId === currentItem.parentCode) || currentItem;
+      if (currentItem.parentUniqueId) {
+        currentItem = flatItems.find(i => i.uniqueId === currentItem.parentUniqueId) || currentItem;
       } else {
         break;
       }
@@ -301,7 +301,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       const newFlatItems = [...flatItems];
       const movedItem = { ...newFlatItems[activeItemIndex] };
 
-      movedItem.parentCode = parentId;
+      movedItem.parentUniqueId = parentId;
       movedItem.depth = (parentItem.depth || 0) + 1;
       movedItem.index = 0;
 
@@ -310,11 +310,11 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       newFlatItems.push(movedItem);
 
       const childrenToMove = flatItems.filter((item) => {
-        let currentParent = item.parentCode;
+        let currentParent = item.parentUniqueId;
         while (currentParent) {
           if (currentParent === activeSurveyQuestionId) return true;
           const parent = flatItems.find((p) => p.uniqueId === currentParent);
-          currentParent = parent?.parentCode;
+          currentParent = parent?.parentUniqueId;
         }
         return false;
       });
@@ -373,30 +373,30 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       newFlatItems.splice(activeItemIndex, 1);
 
       let newIndex;
-      let newParentCode = overItem.parentCode;
+      let newParentUniqueId = overItem.parentUniqueId;
       let newDepth = overItem.depth; // Add this line
       console.log("Final drop position:", finalDropPosition);
       switch (finalDropPosition) {
         case "before": {
           newIndex =
             overItemIndex > activeItemIndex ? overItemIndex - 1 : overItemIndex;
-          newParentCode = overItem.parentCode; // Set parent to overItem's parent
+          newParentUniqueId = overItem.parentUniqueId; // Set parent to overItem's parent
           newDepth = overItem.depth; // and depth to overItem's depth
           break;
         }
         case "after": {
           newIndex =
             overItemIndex > activeItemIndex ? overItemIndex : overItemIndex + 1;
-          newParentCode = overItem.parentCode; // Set parent to overItem's parent
+          newParentUniqueId = overItem.parentUniqueId; // Set parent to overItem's parent
           newDepth = overItem.depth; // and depth to overItem's depth
           break;
         }
         case "inside": {
-          newParentCode = overItem.uniqueId;
+          newParentUniqueId = overItem.uniqueId;
           newDepth = overItem.depth + 1; // Depth increased by 1
           const lastChildIndex = findLastIndex(
             newFlatItems,
-            (item: SurveyRequestChildrenInner) => item.parentCode === overItem.uniqueId
+            (item: SurveyRequestChildrenInner) => item.parentUniqueId === overItem.uniqueId
           );
           newIndex =
             lastChildIndex !== -1 ? lastChildIndex + 1 : newFlatItems.length;
@@ -409,8 +409,16 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
 
       const movedItem = {
         ...activeItem,
-        parentCode: newParentCode,
+        parentUniqueId: newParentUniqueId,
         depth: newDepth, // Use the calculated depth
+        parentCode: overItem.code,
+        parentIndex: overItem.index,
+        parentCodes: overItem.parentCodes
+          ? [...overItem.parentCodes, overItem.code]
+          : [overItem.code],
+          parentIndexes: overItem.parentIndexes
+          ? [...overItem.parentIndexes, overItem.index]
+          : [overItem.index],
       };
 
       newFlatItems.splice(newIndex, 0, movedItem);
@@ -461,7 +469,11 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       children: [],
       depth: 0,
       isLast: true,
+      parentUniqueId: null,
       parentCode: null,
+      parentIndex: null,
+      parentCodes: null,
+      parentIndexes: null,
     };
 
     const updatedItems = items.map((item) => ({
@@ -486,7 +498,11 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       children: [],
       depth: 0,
       isLast: true,
+      parentUniqueId: null,
       parentCode: null,
+      parentIndex: null,
+      parentCodes: null,
+      parentIndexes: null,
     };
 
     const updatedItems = items.map((item) => ({
@@ -511,7 +527,11 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       children: [],
       depth: 0,
       isLast: true,
+      parentUniqueId: null,
       parentCode: null,
+      parentIndex: null,
+      parentCodes: null,
+      parentIndexes: null,
     };
 
     const updatedItems = items.map((item) => ({
@@ -546,7 +566,15 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       children: [],
       depth: (parent.depth || 0) + 1,
       isLast: true,
-      parentCode: parentId,
+      parentUniqueId: parentId,
+      parentCode: parent.code,
+      parentIndex: parent.index,
+      parentCodes: parent.parentCodes
+        ? [...parent.parentCodes, parent.code]
+        : [parent.code],
+        parentIndexes: parent.parentIndexes
+        ? [...parent.parentIndexes, parent.index]
+        : [parent.index],
     };
 
     const newFlatItems = [...flatItems, newSubQuestion];
@@ -620,8 +648,16 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       children: [],
       depth: (parent.depth || 0) + 1,
       isLast: true,
-      parentCode: parentId,
+      parentUniqueId: parentId,
       uniqueId: String(Math.floor(Math.random() * Date.now())),
+      parentCode: parent.code,
+      parentIndex: parent.index,
+      parentCodes: parent.parentCodes
+        ? [...parent.parentCodes, parent.code]
+        : [parent.code],
+        parentIndexes: parent.parentIndexes
+        ? [...parent.parentIndexes, parent.index]
+        : [parent.index],
     };
 
     const updateParent = (
@@ -670,7 +706,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     let itemsAtLevel: QuestionItem[] = [];
 
     if (parentId === null) {
-      itemsAtLevel = treeItems.filter((item) => !item.parentCode);
+      itemsAtLevel = treeItems.filter((item) => !item.parentUniqueId);
     } else {
       const parentItem = flatItems.find((item) => item.uniqueId === parentId);
       if (parentItem) {

@@ -37,18 +37,6 @@ export interface Block {
     'code': string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof Block
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof Block
-     */
-    'parentCode'?: string | null;
-    /**
-     * 
      * @type {string}
      * @memberof Block
      */
@@ -101,6 +89,24 @@ export interface Block {
      * @memberof Block
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Block
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Block
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Block
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -114,18 +120,6 @@ export interface BreakPage {
      * @memberof BreakPage
      */
     'code': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof BreakPage
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BreakPage
-     */
-    'parentCode'?: string | null;
     /**
      * 
      * @type {string}
@@ -168,6 +162,24 @@ export interface BreakPage {
      * @memberof BreakPage
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof BreakPage
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BreakPage
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BreakPage
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -242,6 +254,24 @@ export interface ElementColumn {
      * @memberof ElementColumn
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ElementColumn
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementColumn
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementColumn
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -561,6 +591,24 @@ export interface ElementRow {
      * @memberof ElementRow
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ElementRow
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementRow
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementRow
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -593,18 +641,6 @@ export interface Loop {
      * @memberof Loop
      */
     'code': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof Loop
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof Loop
-     */
-    'parentCode'?: string | null;
     /**
      * 
      * @type {string}
@@ -665,6 +701,24 @@ export interface Loop {
      * @memberof Loop
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Loop
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Loop
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Loop
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -678,18 +732,6 @@ export interface LoopChildrenInner {
      * @memberof LoopChildrenInner
      */
     'code': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LoopChildrenInner
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof LoopChildrenInner
-     */
-    'parentCode'?: string | null;
     /**
      * 
      * @type {string}
@@ -744,6 +786,24 @@ export interface LoopChildrenInner {
      * @memberof LoopChildrenInner
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof LoopChildrenInner
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopChildrenInner
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopChildrenInner
+     */
+    'parentUniqueId'?: string | null;
     /**
      * 
      * @type {Array<LoopConcept>}
@@ -829,6 +889,24 @@ export interface LoopConcept {
      * @memberof LoopConcept
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof LoopConcept
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopConcept
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopConcept
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -2152,18 +2230,6 @@ export interface QuestionChoice {
     'code': string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof QuestionChoice
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionChoice
-     */
-    'parentCode'?: string | null;
-    /**
-     * 
      * @type {string}
      * @memberof QuestionChoice
      */
@@ -2234,6 +2300,24 @@ export interface QuestionChoice {
      * @memberof QuestionChoice
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof QuestionChoice
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionChoice
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionChoice
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -2247,18 +2331,6 @@ export interface QuestionNumber {
      * @memberof QuestionNumber
      */
     'code': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof QuestionNumber
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionNumber
-     */
-    'parentCode'?: string | null;
     /**
      * 
      * @type {string}
@@ -2331,6 +2403,24 @@ export interface QuestionNumber {
      * @memberof QuestionNumber
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof QuestionNumber
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionNumber
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionNumber
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -2344,18 +2434,6 @@ export interface QuestionString {
      * @memberof QuestionString
      */
     'code': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof QuestionString
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionString
-     */
-    'parentCode'?: string | null;
     /**
      * 
      * @type {string}
@@ -2428,6 +2506,24 @@ export interface QuestionString {
      * @memberof QuestionString
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof QuestionString
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionString
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionString
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -2668,18 +2764,6 @@ export interface SurveyRequestChildrenInner {
     'code': string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof SurveyRequestChildrenInner
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof SurveyRequestChildrenInner
-     */
-    'parentCode'?: string | null;
-    /**
-     * 
      * @type {string}
      * @memberof SurveyRequestChildrenInner
      */
@@ -2732,6 +2816,24 @@ export interface SurveyRequestChildrenInner {
      * @memberof SurveyRequestChildrenInner
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'parentUniqueId'?: string | null;
     /**
      * 
      * @type {Array<LoopConcept>}
@@ -2829,6 +2931,24 @@ export interface Text {
      * @memberof Text
      */
     'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Text
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Text
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Text
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
