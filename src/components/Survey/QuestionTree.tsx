@@ -304,6 +304,15 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       movedItem.parentUniqueId = parentId;
       movedItem.depth = (parentItem.depth || 0) + 1;
       movedItem.index = 0;
+      movedItem.parentCode = parentItem.code;
+      movedItem.parentIndex = parentItem.index;
+      movedItem.parentCodes = parentItem.parentCodes
+        ? [...parentItem.parentCodes, parentItem.code]
+        : [parentItem.code];
+      movedItem.parentIndexes = parentItem.parentIndexes
+        ? [...parentItem.parentIndexes, parentItem.index]
+        : [parentItem.index];
+        
 
       newFlatItems.splice(activeItemIndex, 1);
 
@@ -375,6 +384,10 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       let newIndex;
       let newParentUniqueId = overItem.parentUniqueId;
       let newDepth = overItem.depth; // Add this line
+      let parentCode = null;
+      let parentIndex = null;
+      let parentCodes = null;
+      let parentIndexes = null;
       console.log("Final drop position:", finalDropPosition);
       switch (finalDropPosition) {
         case "before": {
@@ -382,6 +395,10 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
             overItemIndex > activeItemIndex ? overItemIndex - 1 : overItemIndex;
           newParentUniqueId = overItem.parentUniqueId; // Set parent to overItem's parent
           newDepth = overItem.depth; // and depth to overItem's depth
+          parentCode = overItem.parentCode;
+          parentIndex = overItem.parentIndex;
+          parentCodes = overItem.parentCodes;
+          parentIndexes = overItem.parentIndexes;
           break;
         }
         case "after": {
@@ -389,6 +406,10 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
             overItemIndex > activeItemIndex ? overItemIndex : overItemIndex + 1;
           newParentUniqueId = overItem.parentUniqueId; // Set parent to overItem's parent
           newDepth = overItem.depth; // and depth to overItem's depth
+          parentCode = overItem.parentCode;
+          parentIndex = overItem.parentIndex;
+          parentCodes = overItem.parentCodes;
+          parentIndexes = overItem.parentIndexes;
           break;
         }
         case "inside": {
@@ -400,6 +421,14 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
           );
           newIndex =
             lastChildIndex !== -1 ? lastChildIndex + 1 : newFlatItems.length;
+          parentCode = overItem.code;
+          parentIndex = overItem.index;
+          parentCodes = overItem.parentCodes
+            ? [...overItem.parentCodes, overItem.code]
+            : [overItem.code];
+          parentIndexes = overItem.parentIndexes
+            ? [...overItem.parentIndexes, overItem.index]
+            : [overItem.index];
           break;
         }
         default: {
@@ -411,14 +440,11 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
         ...activeItem,
         parentUniqueId: newParentUniqueId,
         depth: newDepth, // Use the calculated depth
-        parentCode: overItem.code,
-        parentIndex: overItem.index,
-        parentCodes: overItem.parentCodes
-          ? [...overItem.parentCodes, overItem.code]
-          : [overItem.code],
-          parentIndexes: overItem.parentIndexes
-          ? [...overItem.parentIndexes, overItem.index]
-          : [overItem.index],
+        index: newIndex,
+        parentCode,
+        parentIndex,
+        parentCodes,
+        parentIndexes,
       };
 
       newFlatItems.splice(newIndex, 0, movedItem);
