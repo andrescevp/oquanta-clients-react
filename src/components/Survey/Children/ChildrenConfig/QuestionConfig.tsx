@@ -76,7 +76,7 @@ const QuestionConfig: React.FC<QuestionConfigProps> = ({
     
     // Call the callback if provided
     if (onQuestionUpdate) {
-      onQuestionUpdate(updatedQuestion);
+      onQuestionUpdate(updatedQuestion as QuestionItem);
     }
   };
 

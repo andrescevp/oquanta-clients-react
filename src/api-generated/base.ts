@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * oQuanta Clients API
- * Internal Private API for oQuanta Clients APP
+ * oQuanta API documentation
  *
  * The version of the OpenAPI document: 1.0.0
  * 

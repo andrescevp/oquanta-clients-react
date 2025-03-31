@@ -39,7 +39,7 @@ const QuestionnaireEditorDashboard: React.FC<QuestionnaireEditorDashboardProps> 
     console.log('New questions:', newQuestions);
     
     if (onChange) {
-      onChange(newQuestions);
+      onChange(newQuestions as QuestionItem[]);
     }
   };
   

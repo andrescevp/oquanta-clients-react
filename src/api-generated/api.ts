@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * oQuanta Clients API
- * Internal Private API for oQuanta Clients APP
+ * oQuanta API documentation
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -34,25 +34,25 @@ export interface Block {
      * @type {string}
      * @memberof Block
      */
-    'code': string;
+    'type': string;
+    /**
+     * 
+     * @type {BlockOptions}
+     * @memberof Block
+     */
+    'options'?: BlockOptions | null;
+    /**
+     * 
+     * @type {Array<BlockChildrenInner>}
+     * @memberof Block
+     */
+    'children'?: Array<BlockChildrenInner> | null;
     /**
      * 
      * @type {string}
      * @memberof Block
      */
-    'type': string;
-    /**
-     * 
-     * @type {ElementOptionsBlock}
-     * @memberof Block
-     */
-    'options': ElementOptionsBlock;
-    /**
-     * 
-     * @type {Array<LoopChildrenInner>}
-     * @memberof Block
-     */
-    'children': Array<LoopChildrenInner>;
+    'code': string;
     /**
      * 
      * @type {string}
@@ -111,6 +111,127 @@ export interface Block {
 /**
  * 
  * @export
+ * @interface BlockChildrenInner
+ */
+export interface BlockChildrenInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof BlockChildrenInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {QuestionStringOptions}
+     * @memberof BlockChildrenInner
+     */
+    'options'?: QuestionStringOptions | null;
+    /**
+     * 
+     * @type {Array<LoopChildrenInner>}
+     * @memberof BlockChildrenInner
+     */
+    'children'?: Array<LoopChildrenInner> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BlockChildrenInner
+     */
+    'code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BlockChildrenInner
+     */
+    'uniqueId': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof BlockChildrenInner
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof BlockChildrenInner
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof BlockChildrenInner
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof BlockChildrenInner
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof BlockChildrenInner
+     */
+    'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof BlockChildrenInner
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BlockChildrenInner
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BlockChildrenInner
+     */
+    'parentUniqueId'?: string | null;
+    /**
+     * 
+     * @type {Array<LoopConcept>}
+     * @memberof BlockChildrenInner
+     */
+    'loopConcepts'?: Array<LoopConcept> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BlockChildrenInner
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BlockChildrenInner
+     */
+    'help'?: string | null;
+    /**
+     * 
+     * @type {Array<ElementRow>}
+     * @memberof BlockChildrenInner
+     */
+    'rows'?: Array<ElementRow> | null;
+    /**
+     * 
+     * @type {Array<ElementColumn>}
+     * @memberof BlockChildrenInner
+     */
+    'columns'?: Array<ElementColumn> | null;
+}
+/**
+ * @type BlockOptions
+ * @export
+ */
+export type BlockOptions = ElementOptionsBlock;
+
+/**
+ * 
+ * @export
  * @interface BreakPage
  */
 export interface BreakPage {
@@ -119,13 +240,13 @@ export interface BreakPage {
      * @type {string}
      * @memberof BreakPage
      */
-    'code': string;
+    'type': string;
     /**
      * 
      * @type {string}
      * @memberof BreakPage
      */
-    'type': string;
+    'code': string;
     /**
      * 
      * @type {string}
@@ -199,6 +320,79 @@ export interface Credentials {
      * @memberof Credentials
      */
     'password'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ElementChoice
+ */
+export interface ElementChoice {
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementChoice
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementChoice
+     */
+    'code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementChoice
+     */
+    'uniqueId': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementChoice
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementChoice
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementChoice
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ElementChoice
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof ElementChoice
+     */
+    'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ElementChoice
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementChoice
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ElementChoice
+     */
+    'parentUniqueId'?: string | null;
 }
 /**
  * 
@@ -293,57 +487,60 @@ export interface ElementOptionsBlock {
  */
 export interface ElementOptionsChoice {
     /**
-     * Widget type
-     * @type {string}
-     * @memberof ElementOptionsChoice
-     */
-    'widget'?: ElementOptionsChoiceWidgetEnum;
-    /**
      * Multiple choice
      * @type {boolean}
      * @memberof ElementOptionsChoice
      */
-    'muliple'?: boolean;
+    'multiple'?: boolean;
     /**
-     * 
+     * Minimum choices. Applicable only when multiple is true
+     * @type {number}
+     * @memberof ElementOptionsChoice
+     */
+    'minChoices'?: number;
+    /**
+     * Maximum choices. Applicable only when multiple is true
+     * @type {number}
+     * @memberof ElementOptionsChoice
+     */
+    'maxChoices': number;
+    /**
+     * Fixed number of choices. Applicable only when multiple is true. If set, minChoices and maxChoices are ignored
+     * @type {number}
+     * @memberof ElementOptionsChoice
+     */
+    'fixedChoices': number;
+    /**
+     * Hidden question
      * @type {boolean}
      * @memberof ElementOptionsChoice
      */
-    'hidden'?: boolean | null;
+    'hidden'?: boolean;
     /**
-     * 
+     * Question condition
      * @type {string}
      * @memberof ElementOptionsChoice
      */
-    'condition'?: string | null;
+    'condition': string;
     /**
-     * 
+     * Required question
      * @type {boolean}
      * @memberof ElementOptionsChoice
      */
-    'required'?: boolean | null;
+    'required'?: boolean;
     /**
-     * 
-     * @type {boolean}
+     * Randomize rows
+     * @type {string}
      * @memberof ElementOptionsChoice
      */
-    'randomizeRows'?: boolean | null;
+    'randomizeRows': string;
     /**
-     * 
-     * @type {boolean}
+     * Randomize columns
+     * @type {string}
      * @memberof ElementOptionsChoice
      */
-    'randomizeColumns'?: boolean | null;
+    'randomizeColumns': string;
 }
-
-export const ElementOptionsChoiceWidgetEnum = {
-    Radio: 'radio',
-    Checkbox: 'checkbox',
-    Dropdown: 'dropdown'
-} as const;
-
-export type ElementOptionsChoiceWidgetEnum = typeof ElementOptionsChoiceWidgetEnum[keyof typeof ElementOptionsChoiceWidgetEnum];
-
 /**
  * 
  * @export
@@ -377,53 +574,59 @@ export interface ElementOptionsMarker {
  */
 export interface ElementOptionsNumber {
     /**
-     * 
+     * Minimum value
      * @type {number}
      * @memberof ElementOptionsNumber
      */
-    'min'?: number | null;
+    'min': number;
     /**
-     * 
+     * Maximum value
      * @type {number}
      * @memberof ElementOptionsNumber
      */
-    'max'?: number | null;
+    'max': number;
     /**
-     * 
+     * Allow Decimal
      * @type {boolean}
      * @memberof ElementOptionsNumber
      */
-    'decimal'?: boolean | null;
+    'decimal'?: boolean;
     /**
-     * 
+     * Unique values across all responses
      * @type {boolean}
      * @memberof ElementOptionsNumber
      */
-    'hidden'?: boolean | null;
+    'unique'?: boolean;
     /**
-     * 
+     * Hidden question
+     * @type {boolean}
+     * @memberof ElementOptionsNumber
+     */
+    'hidden'?: boolean;
+    /**
+     * Question condition
      * @type {string}
      * @memberof ElementOptionsNumber
      */
-    'condition'?: string | null;
+    'condition': string;
     /**
-     * 
+     * Required question
      * @type {boolean}
      * @memberof ElementOptionsNumber
      */
-    'required'?: boolean | null;
+    'required'?: boolean;
     /**
-     * 
-     * @type {boolean}
+     * Randomize rows
+     * @type {string}
      * @memberof ElementOptionsNumber
      */
-    'randomizeRows'?: boolean | null;
+    'randomizeRows': string;
     /**
-     * 
-     * @type {boolean}
+     * Randomize columns
+     * @type {string}
      * @memberof ElementOptionsNumber
      */
-    'randomizeColumns'?: boolean | null;
+    'randomizeColumns': string;
 }
 /**
  * 
@@ -441,6 +644,79 @@ export interface ElementOptionsQuota {
 /**
  * 
  * @export
+ * @interface ElementOptionsSelect
+ */
+export interface ElementOptionsSelect {
+    /**
+     * Multiple choice
+     * @type {boolean}
+     * @memberof ElementOptionsSelect
+     */
+    'multiple'?: boolean;
+    /**
+     * Randomize choices
+     * @type {boolean}
+     * @memberof ElementOptionsSelect
+     */
+    'randomizeChoices': boolean;
+    /**
+     * Minimum choices. Applicable only when multiple is true
+     * @type {number}
+     * @memberof ElementOptionsSelect
+     */
+    'minChoices'?: number;
+    /**
+     * Maximum choices. Applicable only when multiple is true
+     * @type {number}
+     * @memberof ElementOptionsSelect
+     */
+    'maxChoices': number;
+    /**
+     * Fixed number of choices. Applicable only when multiple is true. If set, minChoices and maxChoices are ignored
+     * @type {number}
+     * @memberof ElementOptionsSelect
+     */
+    'fixedChoices': number;
+    /**
+     * Unique choices
+     * @type {boolean}
+     * @memberof ElementOptionsSelect
+     */
+    'unique'?: boolean;
+    /**
+     * Hidden question
+     * @type {boolean}
+     * @memberof ElementOptionsSelect
+     */
+    'hidden'?: boolean;
+    /**
+     * Question condition
+     * @type {string}
+     * @memberof ElementOptionsSelect
+     */
+    'condition': string;
+    /**
+     * Required question
+     * @type {boolean}
+     * @memberof ElementOptionsSelect
+     */
+    'required'?: boolean;
+    /**
+     * Randomize rows
+     * @type {string}
+     * @memberof ElementOptionsSelect
+     */
+    'randomizeRows': string;
+    /**
+     * Randomize columns
+     * @type {string}
+     * @memberof ElementOptionsSelect
+     */
+    'randomizeColumns': string;
+}
+/**
+ * 
+ * @export
  * @interface ElementOptionsString
  */
 export interface ElementOptionsString {
@@ -451,59 +727,65 @@ export interface ElementOptionsString {
      */
     'multiline'?: boolean | null;
     /**
-     * 
+     * Placeholder text
      * @type {string}
      * @memberof ElementOptionsString
      */
     'placeholder'?: string | null;
     /**
-     * 
+     * Regular expression
      * @type {string}
      * @memberof ElementOptionsString
      */
     'regex'?: string | null;
     /**
-     * 
+     * Regular expression error message
+     * @type {string}
+     * @memberof ElementOptionsString
+     */
+    'regexErrorMessage'?: string | null;
+    /**
+     * Minimum length
      * @type {number}
      * @memberof ElementOptionsString
      */
     'minLength'?: number | null;
     /**
-     * 
+     * Maximum length
      * @type {number}
      * @memberof ElementOptionsString
      */
     'maxLength'?: number | null;
     /**
-     * 
+     * Hidden question
      * @type {boolean}
      * @memberof ElementOptionsString
      */
-    'hidden'?: boolean | null;
+    'hidden'?: boolean;
     /**
-     * 
+     * Question condition
      * @type {string}
      * @memberof ElementOptionsString
      */
-    'condition'?: string | null;
+    'condition': string;
     /**
-     * 
+     * Required question
      * @type {boolean}
      * @memberof ElementOptionsString
      */
-    'required'?: boolean | null;
+    'required'?: boolean;
     /**
-     * 
-     * @type {boolean}
+     * Randomize rows
+     * @type {string}
      * @memberof ElementOptionsString
      */
-    'randomizeRows'?: boolean | null;
+    'randomizeRows': string;
     /**
-     * 
-     * @type {boolean}
+     * Randomize columns
+     * @type {string}
      * @memberof ElementOptionsString
      */
-    'randomizeColumns'?: boolean | null;
+    'randomizeColumns': string;
 }
 /**
  * 
@@ -524,12 +806,6 @@ export interface ElementOptionsTermination {
  * @interface ElementOptionsText
  */
 export interface ElementOptionsText {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ElementOptionsText
-     */
-    'hidden'?: boolean | null;
     /**
      * 
      * @type {string}
@@ -613,6 +889,160 @@ export interface ElementRow {
 /**
  * 
  * @export
+ * @interface FormSchema
+ */
+export interface FormSchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof FormSchema
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {{ [key: string]: FormSchemaPropertiesValue; }}
+     * @memberof FormSchema
+     */
+    'properties'?: { [key: string]: FormSchemaPropertiesValue; };
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof FormSchema
+     */
+    'required'?: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface FormSchemaArray
+ */
+export interface FormSchemaArray {
+    /**
+     * 
+     * @type {string}
+     * @memberof FormSchemaArray
+     */
+    'type'?: FormSchemaArrayTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof FormSchemaArray
+     */
+    'title'?: string;
+    /**
+     * 
+     * @type {FormSchemaArrayItems}
+     * @memberof FormSchemaArray
+     */
+    'items'?: FormSchemaArrayItems;
+    /**
+     * 
+     * @type {number}
+     * @memberof FormSchemaArray
+     */
+    'propertyOrder'?: number;
+}
+
+export const FormSchemaArrayTypeEnum = {
+    Array: 'array'
+} as const;
+
+export type FormSchemaArrayTypeEnum = typeof FormSchemaArrayTypeEnum[keyof typeof FormSchemaArrayTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface FormSchemaArrayItems
+ */
+export interface FormSchemaArrayItems {
+    /**
+     * 
+     * @type {string}
+     * @memberof FormSchemaArrayItems
+     */
+    'title'?: string;
+    /**
+     * 
+     * @type {{ [key: string]: FormSchemaField; }}
+     * @memberof FormSchemaArrayItems
+     */
+    'properties'?: { [key: string]: FormSchemaField; };
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof FormSchemaArrayItems
+     */
+    'required'?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof FormSchemaArrayItems
+     */
+    'type'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface FormSchemaField
+ */
+export interface FormSchemaField {
+    /**
+     * 
+     * @type {string}
+     * @memberof FormSchemaField
+     */
+    'type'?: FormSchemaFieldTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof FormSchemaField
+     */
+    'title'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof FormSchemaField
+     */
+    'propertyOrder'?: number;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof FormSchemaField
+     */
+    'attr'?: { [key: string]: any; };
+    /**
+     * 
+     * @type {string}
+     * @memberof FormSchemaField
+     */
+    'default'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FormSchemaField
+     */
+    'description'?: string;
+}
+
+export const FormSchemaFieldTypeEnum = {
+    String: 'string',
+    Number: 'number',
+    Integer: 'integer',
+    Boolean: 'boolean',
+    Object: 'object'
+} as const;
+
+export type FormSchemaFieldTypeEnum = typeof FormSchemaFieldTypeEnum[keyof typeof FormSchemaFieldTypeEnum];
+
+/**
+ * @type FormSchemaPropertiesValue
+ * @export
+ */
+export type FormSchemaPropertiesValue = FormSchemaArray | FormSchemaField;
+
+/**
+ * 
+ * @export
  * @interface GenericError
  */
 export interface GenericError {
@@ -640,31 +1070,31 @@ export interface Loop {
      * @type {string}
      * @memberof Loop
      */
-    'code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Loop
-     */
     'type': string;
     /**
      * 
-     * @type {ElementOptionsLoop}
+     * @type {LoopOptions}
      * @memberof Loop
      */
-    'options': ElementOptionsLoop;
+    'options'?: LoopOptions | null;
     /**
      * 
      * @type {Array<LoopChildrenInner>}
      * @memberof Loop
      */
-    'children': Array<LoopChildrenInner>;
+    'children'?: Array<LoopChildrenInner> | null;
     /**
      * 
      * @type {Array<LoopConcept>}
      * @memberof Loop
      */
     'loopConcepts'?: Array<LoopConcept> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Loop
+     */
+    'code': string;
     /**
      * 
      * @type {string}
@@ -731,25 +1161,25 @@ export interface LoopChildrenInner {
      * @type {string}
      * @memberof LoopChildrenInner
      */
-    'code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LoopChildrenInner
-     */
     'type': string;
     /**
      * 
-     * @type {ElementOptionsString}
+     * @type {QuestionStringOptions}
      * @memberof LoopChildrenInner
      */
-    'options': ElementOptionsString;
+    'options'?: QuestionStringOptions | null;
     /**
      * 
      * @type {Array<LoopChildrenInner>}
      * @memberof LoopChildrenInner
      */
-    'children': Array<LoopChildrenInner>;
+    'children'?: Array<LoopChildrenInner> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoopChildrenInner
+     */
+    'code': string;
     /**
      * 
      * @type {string}
@@ -908,6 +1338,12 @@ export interface LoopConcept {
      */
     'parentUniqueId'?: string | null;
 }
+/**
+ * @type LoopOptions
+ * @export
+ */
+export type LoopOptions = ElementOptionsLoop;
+
 /**
  * 
  * @export
@@ -1359,10 +1795,10 @@ export interface OrganizationPlaceCreate {
 export interface OrganizationPlaceList {
     /**
      * 
-     * @type {Array<OrganizationPlaceResource>}
+     * @type {Array<OrganizationPlace>}
      * @memberof OrganizationPlaceList
      */
-    'results': Array<OrganizationPlaceResource>;
+    'results': Array<OrganizationPlace>;
     /**
      * 
      * @type {number}
@@ -2174,13 +2610,13 @@ export interface PatchApiOrganizationPlaceSurveysToggleActivationRequest {
 /**
  * 
  * @export
- * @interface PostApiResetPasswordRequest200Response
+ * @interface PostApiSendUserInvitation200Response
  */
-export interface PostApiResetPasswordRequest200Response {
+export interface PostApiSendUserInvitation200Response {
     /**
      * 
      * @type {string}
-     * @memberof PostApiResetPasswordRequest200Response
+     * @memberof PostApiSendUserInvitation200Response
      */
     'message'?: string;
 }
@@ -2227,12 +2663,6 @@ export interface QuestionChoice {
      * @type {string}
      * @memberof QuestionChoice
      */
-    'code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionChoice
-     */
     'label': string;
     /**
      * 
@@ -2248,10 +2678,10 @@ export interface QuestionChoice {
     'type': string;
     /**
      * 
-     * @type {ElementOptionsChoice}
+     * @type {QuestionChoiceOptions}
      * @memberof QuestionChoice
      */
-    'options': ElementOptionsChoice;
+    'options'?: QuestionChoiceOptions | null;
     /**
      * 
      * @type {Array<ElementRow>}
@@ -2264,6 +2694,12 @@ export interface QuestionChoice {
      * @memberof QuestionChoice
      */
     'columns'?: Array<ElementColumn> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionChoice
+     */
+    'code': string;
     /**
      * 
      * @type {string}
@@ -2319,6 +2755,12 @@ export interface QuestionChoice {
      */
     'parentUniqueId'?: string | null;
 }
+/**
+ * @type QuestionChoiceOptions
+ * @export
+ */
+export type QuestionChoiceOptions = ElementOptionsChoice;
+
 /**
  * 
  * @export
@@ -2330,12 +2772,6 @@ export interface QuestionNumber {
      * @type {string}
      * @memberof QuestionNumber
      */
-    'code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionNumber
-     */
     'label': string;
     /**
      * 
@@ -2351,10 +2787,10 @@ export interface QuestionNumber {
     'type': string;
     /**
      * 
-     * @type {ElementOptionsNumber}
+     * @type {QuestionNumberOptions}
      * @memberof QuestionNumber
      */
-    'options': ElementOptionsNumber;
+    'options'?: QuestionNumberOptions | null;
     /**
      * 
      * @type {Array<ElementRow>}
@@ -2367,6 +2803,12 @@ export interface QuestionNumber {
      * @memberof QuestionNumber
      */
     'columns'?: Array<ElementColumn> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionNumber
+     */
+    'code': string;
     /**
      * 
      * @type {string}
@@ -2423,17 +2865,132 @@ export interface QuestionNumber {
     'parentUniqueId'?: string | null;
 }
 /**
+ * @type QuestionNumberOptions
+ * @export
+ */
+export type QuestionNumberOptions = ElementOptionsNumber;
+
+/**
+ * 
+ * @export
+ * @interface QuestionSelect
+ */
+export interface QuestionSelect {
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionSelect
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionSelect
+     */
+    'help'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionSelect
+     */
+    'type': string;
+    /**
+     * 
+     * @type {QuestionSelectOptions}
+     * @memberof QuestionSelect
+     */
+    'options'?: QuestionSelectOptions | null;
+    /**
+     * 
+     * @type {Array<ElementRow>}
+     * @memberof QuestionSelect
+     */
+    'rows'?: Array<ElementRow> | null;
+    /**
+     * 
+     * @type {Array<ElementColumn>}
+     * @memberof QuestionSelect
+     */
+    'columns'?: Array<ElementColumn> | null;
+    /**
+     * 
+     * @type {Array<ElementChoice>}
+     * @memberof QuestionSelect
+     */
+    'choices'?: Array<ElementChoice> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionSelect
+     */
+    'code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionSelect
+     */
+    'uniqueId': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionSelect
+     */
+    'parentIndex'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionSelect
+     */
+    'index': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionSelect
+     */
+    'depth': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionSelect
+     */
+    'isLast': boolean;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof QuestionSelect
+     */
+    'parentIndexes'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof QuestionSelect
+     */
+    'parentCodes'?: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionSelect
+     */
+    'parentCode'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionSelect
+     */
+    'parentUniqueId'?: string | null;
+}
+/**
+ * @type QuestionSelectOptions
+ * @export
+ */
+export type QuestionSelectOptions = ElementOptionsSelect;
+
+/**
  * 
  * @export
  * @interface QuestionString
  */
 export interface QuestionString {
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionString
-     */
-    'code': string;
     /**
      * 
      * @type {string}
@@ -2454,10 +3011,10 @@ export interface QuestionString {
     'type': string;
     /**
      * 
-     * @type {ElementOptionsString}
+     * @type {QuestionStringOptions}
      * @memberof QuestionString
      */
-    'options': ElementOptionsString;
+    'options'?: QuestionStringOptions | null;
     /**
      * 
      * @type {Array<ElementRow>}
@@ -2470,6 +3027,12 @@ export interface QuestionString {
      * @memberof QuestionString
      */
     'columns'?: Array<ElementColumn> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof QuestionString
+     */
+    'code': string;
     /**
      * 
      * @type {string}
@@ -2525,6 +3088,12 @@ export interface QuestionString {
      */
     'parentUniqueId'?: string | null;
 }
+/**
+ * @type QuestionStringOptions
+ * @export
+ */
+export type QuestionStringOptions = ElementOptionsString;
+
 /**
  * 
  * @export
@@ -2723,7 +3292,7 @@ export interface SurveyModel {
      * @type {Array<SurveyRequestChildrenInner>}
      * @memberof SurveyModel
      */
-    'children': Array<SurveyRequestChildrenInner>;
+    'children'?: Array<SurveyRequestChildrenInner> | null;
 }
 /**
  * 
@@ -2748,7 +3317,7 @@ export interface SurveyRequest {
      * @type {Array<SurveyRequestChildrenInner>}
      * @memberof SurveyRequest
      */
-    'children': Array<SurveyRequestChildrenInner>;
+    'children'?: Array<SurveyRequestChildrenInner> | null;
 }
 /**
  * 
@@ -2761,25 +3330,25 @@ export interface SurveyRequestChildrenInner {
      * @type {string}
      * @memberof SurveyRequestChildrenInner
      */
-    'code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SurveyRequestChildrenInner
-     */
     'type': string;
     /**
      * 
-     * @type {ElementOptionsString}
+     * @type {QuestionSelectOptions}
      * @memberof SurveyRequestChildrenInner
      */
-    'options': ElementOptionsString;
+    'options'?: QuestionSelectOptions | null;
     /**
      * 
      * @type {Array<LoopChildrenInner>}
      * @memberof SurveyRequestChildrenInner
      */
-    'children': Array<LoopChildrenInner>;
+    'children'?: Array<LoopChildrenInner> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'code': string;
     /**
      * 
      * @type {string}
@@ -2864,6 +3433,12 @@ export interface SurveyRequestChildrenInner {
      * @memberof SurveyRequestChildrenInner
      */
     'columns'?: Array<ElementColumn> | null;
+    /**
+     * 
+     * @type {Array<ElementChoice>}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'choices'?: Array<ElementChoice> | null;
 }
 /**
  * 
@@ -3555,7 +4130,7 @@ export const OrganizationPlaceSurveysApiAxiosParamCreator = function (configurat
             assertParamExists('deleteApiOrganizationPlaceSurveysDelete', 'placeUuid', placeUuid)
             // verify required parameter 'surveyUuid' is not null or undefined
             assertParamExists('deleteApiOrganizationPlaceSurveysDelete', 'surveyUuid', surveyUuid)
-            const localVarPath = `/api/organization-place/{place_uuid}/surveys/{survey_uuid}`
+            const localVarPath = `/admin/api/organization-place/{place_uuid}/surveys/{survey_uuid}`
                 .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)))
                 .replace(`{${"survey_uuid"}}`, encodeURIComponent(String(surveyUuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3596,7 +4171,7 @@ export const OrganizationPlaceSurveysApiAxiosParamCreator = function (configurat
             assertParamExists('getApiOrganizationPlaceSurveysGet', 'placeUuid', placeUuid)
             // verify required parameter 'surveyUuid' is not null or undefined
             assertParamExists('getApiOrganizationPlaceSurveysGet', 'surveyUuid', surveyUuid)
-            const localVarPath = `/api/organization-place/{place_uuid}/surveys/{survey_uuid}`
+            const localVarPath = `/admin/api/organization-place/{place_uuid}/surveys/{survey_uuid}`
                 .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)))
                 .replace(`{${"survey_uuid"}}`, encodeURIComponent(String(surveyUuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3639,7 +4214,7 @@ export const OrganizationPlaceSurveysApiAxiosParamCreator = function (configurat
         getApiOrganizationPlaceSurveysList: async (placeUuid: string, page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlaceSurveysListOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'placeUuid' is not null or undefined
             assertParamExists('getApiOrganizationPlaceSurveysList', 'placeUuid', placeUuid)
-            const localVarPath = `/api/organization-place/{place_uuid}/surveys`
+            const localVarPath = `/admin/api/organization-place/{place_uuid}/surveys`
                 .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3702,7 +4277,7 @@ export const OrganizationPlaceSurveysApiAxiosParamCreator = function (configurat
             assertParamExists('patchApiOrganizationPlaceSurveysToggleActivation', 'surveyUuid', surveyUuid)
             // verify required parameter 'patchApiOrganizationPlaceSurveysToggleActivationRequest' is not null or undefined
             assertParamExists('patchApiOrganizationPlaceSurveysToggleActivation', 'patchApiOrganizationPlaceSurveysToggleActivationRequest', patchApiOrganizationPlaceSurveysToggleActivationRequest)
-            const localVarPath = `/api/organization-place/{place_uuid}/surveys/{survey_uuid}/toggle-activation`
+            const localVarPath = `/admin/api/organization-place/{place_uuid}/surveys/{survey_uuid}/toggle-activation`
                 .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)))
                 .replace(`{${"survey_uuid"}}`, encodeURIComponent(String(surveyUuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3746,7 +4321,7 @@ export const OrganizationPlaceSurveysApiAxiosParamCreator = function (configurat
             assertParamExists('postApiOrganizationPlaceSurveysCreate', 'placeUuid', placeUuid)
             // verify required parameter 'organizationPlaceSurveyCreate' is not null or undefined
             assertParamExists('postApiOrganizationPlaceSurveysCreate', 'organizationPlaceSurveyCreate', organizationPlaceSurveyCreate)
-            const localVarPath = `/api/organization-place/{place_uuid}/surveys`
+            const localVarPath = `/admin/api/organization-place/{place_uuid}/surveys`
                 .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3792,7 +4367,7 @@ export const OrganizationPlaceSurveysApiAxiosParamCreator = function (configurat
             assertParamExists('putApiOrganizationPlaceSurveysUpdate', 'surveyUuid', surveyUuid)
             // verify required parameter 'organizationPlaceSurveyUpdate' is not null or undefined
             assertParamExists('putApiOrganizationPlaceSurveysUpdate', 'organizationPlaceSurveyUpdate', organizationPlaceSurveyUpdate)
-            const localVarPath = `/api/organization-place/{place_uuid}/surveys/{survey_uuid}`
+            const localVarPath = `/admin/api/organization-place/{place_uuid}/surveys/{survey_uuid}`
                 .replace(`{${"place_uuid"}}`, encodeURIComponent(String(placeUuid)))
                 .replace(`{${"survey_uuid"}}`, encodeURIComponent(String(surveyUuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -4109,7 +4684,7 @@ export const OrganizationPlaceWorkingHoursApiAxiosParamCreator = function (confi
         getApiOrganizationPlaceWorkingHoursCheckDate: async (uuid: string, date?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('getApiOrganizationPlaceWorkingHoursCheckDate', 'uuid', uuid)
-            const localVarPath = `/api/organization-place/{uuid}/working-hours/check-date`
+            const localVarPath = `/admin/api/organization-place/{uuid}/working-hours/check-date`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4152,7 +4727,7 @@ export const OrganizationPlaceWorkingHoursApiAxiosParamCreator = function (confi
         getApiOrganizationPlaceWorkingHoursGet: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('getApiOrganizationPlaceWorkingHoursGet', 'uuid', uuid)
-            const localVarPath = `/api/organization-place/{uuid}/working-hours`
+            const localVarPath = `/admin/api/organization-place/{uuid}/working-hours`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4189,7 +4764,7 @@ export const OrganizationPlaceWorkingHoursApiAxiosParamCreator = function (confi
         postApiOrganizationPlaceWorkingHoursReset: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('postApiOrganizationPlaceWorkingHoursReset', 'uuid', uuid)
-            const localVarPath = `/api/organization-place/{uuid}/working-hours/reset`
+            const localVarPath = `/admin/api/organization-place/{uuid}/working-hours/reset`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4229,7 +4804,7 @@ export const OrganizationPlaceWorkingHoursApiAxiosParamCreator = function (confi
             assertParamExists('putApiOrganizationPlaceWorkingHoursUpdate', 'uuid', uuid)
             // verify required parameter 'body' is not null or undefined
             assertParamExists('putApiOrganizationPlaceWorkingHoursUpdate', 'body', body)
-            const localVarPath = `/api/organization-place/{uuid}/working-hours`
+            const localVarPath = `/admin/api/organization-place/{uuid}/working-hours`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4442,7 +5017,7 @@ export const OrganizationPlacesApiAxiosParamCreator = function (configuration?: 
         deleteApiOrganizationPlacesDelete: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('deleteApiOrganizationPlacesDelete', 'uuid', uuid)
-            const localVarPath = `/api/organization-place/{uuid}`
+            const localVarPath = `/admin/api/organization-place/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4479,7 +5054,7 @@ export const OrganizationPlacesApiAxiosParamCreator = function (configuration?: 
         getApiOrganizationPlacesGet: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('getApiOrganizationPlacesGet', 'uuid', uuid)
-            const localVarPath = `/api/organization-place/{uuid}`
+            const localVarPath = `/admin/api/organization-place/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4519,7 +5094,7 @@ export const OrganizationPlacesApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         getApiOrganizationPlacesList: async (page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationPlacesListOrderEnum, organization?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/organization-place`;
+            const localVarPath = `/admin/api/organization-place`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -4579,7 +5154,7 @@ export const OrganizationPlacesApiAxiosParamCreator = function (configuration?: 
         postApiOrganizationPlacesCreate: async (organizationPlaceCreate: OrganizationPlaceCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationPlaceCreate' is not null or undefined
             assertParamExists('postApiOrganizationPlacesCreate', 'organizationPlaceCreate', organizationPlaceCreate)
-            const localVarPath = `/api/organization-place`;
+            const localVarPath = `/admin/api/organization-place`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -4621,7 +5196,7 @@ export const OrganizationPlacesApiAxiosParamCreator = function (configuration?: 
             assertParamExists('putApiOrganizationPlacesUpdate', 'uuid', uuid)
             // verify required parameter 'organizationPlaceUpdate' is not null or undefined
             assertParamExists('putApiOrganizationPlacesUpdate', 'organizationPlaceUpdate', organizationPlaceUpdate)
-            const localVarPath = `/api/organization-place/{uuid}`
+            const localVarPath = `/admin/api/organization-place/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4886,7 +5461,7 @@ export const OrganizationUsersApiAxiosParamCreator = function (configuration?: C
         deleteApiOrganizationUsersDelete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('deleteApiOrganizationUsersDelete', 'id', id)
-            const localVarPath = `/api/organization-user/{id}`
+            const localVarPath = `/admin/api/organization-user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4927,7 +5502,7 @@ export const OrganizationUsersApiAxiosParamCreator = function (configuration?: C
         getApiOrganizationUsersByOrganization: async (uuid: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByOrganizationOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('getApiOrganizationUsersByOrganization', 'uuid', uuid)
-            const localVarPath = `/api/organization-user/organization/{uuid}`
+            const localVarPath = `/admin/api/organization-user/organization/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4984,7 +5559,7 @@ export const OrganizationUsersApiAxiosParamCreator = function (configuration?: C
         getApiOrganizationUsersByUser: async (id: string, page?: number, limit?: number, sort?: string, order?: GetApiOrganizationUsersByUserOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getApiOrganizationUsersByUser', 'id', id)
-            const localVarPath = `/api/organization-user/user/{id}`
+            const localVarPath = `/admin/api/organization-user/user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5037,7 +5612,7 @@ export const OrganizationUsersApiAxiosParamCreator = function (configuration?: C
         getApiOrganizationUsersGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getApiOrganizationUsersGet', 'id', id)
-            const localVarPath = `/api/organization-user/{id}`
+            const localVarPath = `/admin/api/organization-user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5077,7 +5652,7 @@ export const OrganizationUsersApiAxiosParamCreator = function (configuration?: C
          * @throws {RequiredError}
          */
         getApiOrganizationUsersList: async (page?: number, limit?: number, search?: string, organization?: string, sort?: string, order?: GetApiOrganizationUsersListOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/organization-user`;
+            const localVarPath = `/admin/api/organization-user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5137,7 +5712,7 @@ export const OrganizationUsersApiAxiosParamCreator = function (configuration?: C
         postApiOrganizationUsersCreate: async (organizationUserCreate: OrganizationUserCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationUserCreate' is not null or undefined
             assertParamExists('postApiOrganizationUsersCreate', 'organizationUserCreate', organizationUserCreate)
-            const localVarPath = `/api/organization-user`;
+            const localVarPath = `/admin/api/organization-user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5179,7 +5754,7 @@ export const OrganizationUsersApiAxiosParamCreator = function (configuration?: C
             assertParamExists('putApiOrganizationUsersUpdate', 'id', id)
             // verify required parameter 'organizationUserUpdate' is not null or undefined
             assertParamExists('putApiOrganizationUsersUpdate', 'organizationUserUpdate', organizationUserUpdate)
-            const localVarPath = `/api/organization-user/{id}`
+            const localVarPath = `/admin/api/organization-user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5548,7 +6123,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
         deleteApiOrganizationsDelete: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('deleteApiOrganizationsDelete', 'uuid', uuid)
-            const localVarPath = `/api/organization/{uuid}`
+            const localVarPath = `/admin/api/organization/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5585,7 +6160,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
         getApiOrganizationsGet: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('getApiOrganizationsGet', 'uuid', uuid)
-            const localVarPath = `/api/organization/{uuid}`
+            const localVarPath = `/admin/api/organization/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5624,7 +6199,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         getApiOrganizationsList: async (page?: number, limit?: number, search?: string, sort?: string, order?: GetApiOrganizationsListOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/organization`;
+            const localVarPath = `/admin/api/organization`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5680,7 +6255,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
         postApiOrganizationsCreate: async (organizationCreate: OrganizationCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationCreate' is not null or undefined
             assertParamExists('postApiOrganizationsCreate', 'organizationCreate', organizationCreate)
-            const localVarPath = `/api/organization`;
+            const localVarPath = `/admin/api/organization`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5722,7 +6297,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             assertParamExists('putApiOrganizationsUpdate', 'uuid', uuid)
             // verify required parameter 'organizationUpdate' is not null or undefined
             assertParamExists('putApiOrganizationsUpdate', 'organizationUpdate', organizationUpdate)
-            const localVarPath = `/api/organization/{uuid}`
+            const localVarPath = `/admin/api/organization/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6112,7 +6687,7 @@ export const PasswordResetApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postApiResetPassword(resetPassword: ResetPassword, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiResetPasswordRequest200Response>> {
+        async postApiResetPassword(resetPassword: ResetPassword, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiSendUserInvitation200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.postApiResetPassword(resetPassword, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['PasswordResetApi.postApiResetPassword']?.[localVarOperationServerIndex]?.url;
@@ -6125,7 +6700,7 @@ export const PasswordResetApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postApiResetPasswordRequest(resetPasswordRequest: ResetPasswordRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiResetPasswordRequest200Response>> {
+        async postApiResetPasswordRequest(resetPasswordRequest: ResetPasswordRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiSendUserInvitation200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.postApiResetPasswordRequest(resetPasswordRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['PasswordResetApi.postApiResetPasswordRequest']?.[localVarOperationServerIndex]?.url;
@@ -6161,7 +6736,7 @@ export const PasswordResetApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postApiResetPassword(resetPassword: ResetPassword, options?: RawAxiosRequestConfig): AxiosPromise<PostApiResetPasswordRequest200Response> {
+        postApiResetPassword(resetPassword: ResetPassword, options?: RawAxiosRequestConfig): AxiosPromise<PostApiSendUserInvitation200Response> {
             return localVarFp.postApiResetPassword(resetPassword, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6171,7 +6746,7 @@ export const PasswordResetApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postApiResetPasswordRequest(resetPasswordRequest: ResetPasswordRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostApiResetPasswordRequest200Response> {
+        postApiResetPasswordRequest(resetPasswordRequest: ResetPasswordRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostApiSendUserInvitation200Response> {
             return localVarFp.postApiResetPasswordRequest(resetPasswordRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6234,6 +6809,114 @@ export class PasswordResetApi extends BaseAPI {
 
 
 /**
+ * SurveyOperationsApi - axios parameter creator
+ * @export
+ */
+export const SurveyOperationsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Returns a survey
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSurveyForm: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('getSurveyForm', 'uuid', uuid)
+            const localVarPath = `/api/survey/form/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SurveyOperationsApi - functional programming interface
+ * @export
+ */
+export const SurveyOperationsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SurveyOperationsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Returns a survey
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSurveyForm(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FormSchema>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSurveyForm(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SurveyOperationsApi.getSurveyForm']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * SurveyOperationsApi - factory interface
+ * @export
+ */
+export const SurveyOperationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SurveyOperationsApiFp(configuration)
+    return {
+        /**
+         * Returns a survey
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSurveyForm(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<FormSchema> {
+            return localVarFp.getSurveyForm(uuid, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SurveyOperationsApi - object-oriented interface
+ * @export
+ * @class SurveyOperationsApi
+ * @extends {BaseAPI}
+ */
+export class SurveyOperationsApi extends BaseAPI {
+    /**
+     * Returns a survey
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SurveyOperationsApi
+     */
+    public getSurveyForm(uuid: string, options?: RawAxiosRequestConfig) {
+        return SurveyOperationsApiFp(this.configuration).getSurveyForm(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * SurveysApi - axios parameter creator
  * @export
  */
@@ -6248,7 +6931,7 @@ export const SurveysApiAxiosParamCreator = function (configuration?: Configurati
         createSurvey: async (surveyRequest: SurveyRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'surveyRequest' is not null or undefined
             assertParamExists('createSurvey', 'surveyRequest', surveyRequest)
-            const localVarPath = `/api/survey`;
+            const localVarPath = `/admin/api/survey`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6287,7 +6970,7 @@ export const SurveysApiAxiosParamCreator = function (configuration?: Configurati
         deleteSurvey: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('deleteSurvey', 'uuid', uuid)
-            const localVarPath = `/api/survey/{uuid}`
+            const localVarPath = `/admin/api/survey/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6324,7 +7007,7 @@ export const SurveysApiAxiosParamCreator = function (configuration?: Configurati
         getSurvey: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('getSurvey', 'uuid', uuid)
-            const localVarPath = `/api/survey/{uuid}`
+            const localVarPath = `/admin/api/survey/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6363,7 +7046,7 @@ export const SurveysApiAxiosParamCreator = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         listSurveys: async (page?: number, limit?: number, search?: string, sort?: string, order?: ListSurveysOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/survey`;
+            const localVarPath = `/admin/api/survey`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6422,7 +7105,7 @@ export const SurveysApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('updateSurvey', 'uuid', uuid)
             // verify required parameter 'surveyRequest' is not null or undefined
             assertParamExists('updateSurvey', 'surveyRequest', surveyRequest)
-            const localVarPath = `/api/survey/{uuid}`
+            const localVarPath = `/admin/api/survey/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6725,7 +7408,7 @@ export const UserInvitationsApiAxiosParamCreator = function (configuration?: Con
         postApiSendUserInvitation: async (userInvitationRequest: UserInvitationRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userInvitationRequest' is not null or undefined
             assertParamExists('postApiSendUserInvitation', 'userInvitationRequest', userInvitationRequest)
-            const localVarPath = `/api/invitation/send`;
+            const localVarPath = `/admin/api/invitation/send`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6812,7 +7495,7 @@ export const UserInvitationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postApiAcceptUserInvitation(userInvitationAccept: UserInvitationAccept, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiResetPasswordRequest200Response>> {
+        async postApiAcceptUserInvitation(userInvitationAccept: UserInvitationAccept, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiSendUserInvitation200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.postApiAcceptUserInvitation(userInvitationAccept, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserInvitationsApi.postApiAcceptUserInvitation']?.[localVarOperationServerIndex]?.url;
@@ -6825,7 +7508,7 @@ export const UserInvitationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postApiSendUserInvitation(userInvitationRequest: UserInvitationRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiResetPasswordRequest200Response>> {
+        async postApiSendUserInvitation(userInvitationRequest: UserInvitationRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostApiSendUserInvitation200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.postApiSendUserInvitation(userInvitationRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserInvitationsApi.postApiSendUserInvitation']?.[localVarOperationServerIndex]?.url;
@@ -6861,7 +7544,7 @@ export const UserInvitationsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postApiAcceptUserInvitation(userInvitationAccept: UserInvitationAccept, options?: RawAxiosRequestConfig): AxiosPromise<PostApiResetPasswordRequest200Response> {
+        postApiAcceptUserInvitation(userInvitationAccept: UserInvitationAccept, options?: RawAxiosRequestConfig): AxiosPromise<PostApiSendUserInvitation200Response> {
             return localVarFp.postApiAcceptUserInvitation(userInvitationAccept, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6871,7 +7554,7 @@ export const UserInvitationsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postApiSendUserInvitation(userInvitationRequest: UserInvitationRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostApiResetPasswordRequest200Response> {
+        postApiSendUserInvitation(userInvitationRequest: UserInvitationRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostApiSendUserInvitation200Response> {
             return localVarFp.postApiSendUserInvitation(userInvitationRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6948,7 +7631,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         deleteApiUsersDelete: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('deleteApiUsersDelete', 'uuid', uuid)
-            const localVarPath = `/api/user/{uuid}`
+            const localVarPath = `/admin/api/user/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6985,7 +7668,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         getApiUsersGet: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('getApiUsersGet', 'uuid', uuid)
-            const localVarPath = `/api/user/{uuid}`
+            const localVarPath = `/admin/api/user/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7024,7 +7707,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         getApiUsersList: async (page?: number, limit?: number, search?: string, sort?: string, order?: GetApiUsersListOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/user`;
+            const localVarPath = `/admin/api/user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7080,7 +7763,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         postApiUsersCreate: async (userCreate: UserCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userCreate' is not null or undefined
             assertParamExists('postApiUsersCreate', 'userCreate', userCreate)
-            const localVarPath = `/api/user`;
+            const localVarPath = `/admin/api/user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7122,7 +7805,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             assertParamExists('putApiUsersUpdate', 'uuid', uuid)
             // verify required parameter 'userUpdate' is not null or undefined
             assertParamExists('putApiUsersUpdate', 'userUpdate', userUpdate)
-            const localVarPath = `/api/user/{uuid}`
+            const localVarPath = `/admin/api/user/{uuid}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

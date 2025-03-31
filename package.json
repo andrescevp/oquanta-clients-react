@@ -59,7 +59,9 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "openapi": "node_modules/.bin/openapi-generator-cli generate -i http://localhost:8001/api/doc.json -g typescript-axios -o ./src/api-generated",
-    "lint": "prettier --config=.prettierrc src/ --write && eslint src/ --ext .ts,.tsx --fix"
+    "lint": "prettier --config=.prettierrc src/ --write && eslint src/ --ext .ts,.tsx --fix",
+    "build:sdk": "rollup -c rollup.config.js --bundleConfigAsCjs",
+    "prepublishOnly": "npm run build:sdk"
   },
   "eslintConfig": {
     "extends": [
@@ -86,9 +88,12 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@craco/craco": "^7.1.0",
     "@openapitools/openapi-generator-cli": "^2.15.3",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/leaflet": "^1.9.16",
     "@types/react-lazy-load-image-component": "^1.6.4",
-    "autoprefixer": "^10.4.20",
+    "autoprefixer": "^10.4.21",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.1.4",
     "image-minimizer-webpack-plugin": "^4.1.3",
@@ -103,6 +108,10 @@
     "prettier": "^3.4.2",
     "react-lazy-load-image-component": "^1.6.3",
     "resolve-url-loader": "5.0.0",
+    "rollup": "^4.38.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
     "serve": "^14.2.4",
     "sharp": "^0.33.5",
     "url-loader": "^4.1.1",

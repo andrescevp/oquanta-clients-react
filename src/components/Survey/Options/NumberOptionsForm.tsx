@@ -50,7 +50,7 @@ const NumberOptionsForm: React.FC<NumberOptionsFormProps> = ({
             label={t('Minimum Value')}
             inputProps={{
               type: "number",
-              value: options?.min ?? '',
+              value: options?.min ?? 1,
               onChange: (e) => onChange('min', e.target.value ? parseFloat(e.target.value) : null),
               placeholder: t('No minimum'),
               className: "backdrop-blur-sm"

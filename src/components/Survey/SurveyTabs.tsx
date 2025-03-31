@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Tab } from '@headlessui/react';
 
-import { cn } from '../../../lib/utils';
+import { cn } from '../../lib/utils';
 
 /**
  * TabItem interface representing a single tab with name and content

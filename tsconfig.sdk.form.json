@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist/sdk",
+    "declaration": true,
+    "declarationDir": "dist/sdk/survey-form"
+  },
+  "include": ["src/sdk/**/*", "src/components/Survey/Public/**/*", "src/components/UI/**/*", "src/lib/utils.ts"]
+}

@@ -52,7 +52,7 @@ const flattenTree = (items: QuestionItem[]): QuestionItem[] => {
       .forEach((item) => {
         result.push(item);
         if (item.children && item.children.length > 0) {
-          flatten(item.children, item.uniqueId);
+          flatten(item.children as QuestionItem[], item.uniqueId);
         }
       });
   };
@@ -78,12 +78,15 @@ const rebuildTree = (flatItems: QuestionItem[]): QuestionItem[] => {
     if (item.parentUniqueId && itemMap.has(item.parentUniqueId)) {
       const parent = itemMap.get(item.parentUniqueId);
       if (parent) {
-        if (!parent.children) parent.children = [];
+        if (!parent.children) {
+          parent.children = []
+        }
+
         parent.children.push(current);
 
         parent.children.forEach((child, idx) => {
           child.index = idx;
-          child.isLast = idx === parent.children.length - 1;
+          child.isLast = idx === (parent.children ? parent.children.length - 1 : 0);
         });
       }
     } else {
@@ -491,7 +494,6 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       type: "string",
       label: t("New Question"),
       index: items.length,
-      options: {},
       children: [],
       depth: 0,
       isLast: true,
@@ -520,7 +522,6 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       type: "block",
       label: t("New Block"),
       index: items.length,
-      options: {},
       children: [],
       depth: 0,
       isLast: true,
@@ -549,7 +550,6 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       type: "loop",
       label: t("New Loop"),
       index: items.length,
-      options: {},
       children: [],
       depth: 0,
       isLast: true,
@@ -588,7 +588,6 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       type: "string",
       label: t("New Question"),
       index: 0,
-      options: {},
       children: [],
       depth: (parent.depth || 0) + 1,
       isLast: true,
@@ -620,7 +619,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
         if (item.uniqueId === codeToRemove) return false;
 
         if (item.children && item.children.length > 0) {
-          item.children = filterItems(item.children, codeToRemove);
+          item.children = filterItems(item.children as QuestionItem[], codeToRemove);
         }
 
         return true;
@@ -670,7 +669,6 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
       type,
       label,
       index: parent.children?.length || 0,
-      options: {},
       children: [],
       depth: (parent.depth || 0) + 1,
       isLast: true,
@@ -706,7 +704,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
           return {
             ...item,
             children: updateParent(
-              item.children,
+              item.children as QuestionItem[],
               parentIdToUpdate,
               newChildToUpdate
             ),
@@ -736,7 +734,7 @@ const QuestionTree: React.FC<QuestionTreeProps> = ({
     } else {
       const parentItem = flatItems.find((item) => item.uniqueId === parentId);
       if (parentItem) {
-        itemsAtLevel = parentItem.children || [];
+        itemsAtLevel = (parentItem.children || []) as QuestionItem[];
       }
     }
 

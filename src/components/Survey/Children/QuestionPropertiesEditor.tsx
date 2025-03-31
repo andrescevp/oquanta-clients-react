@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldValue, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { ElementColumn, ElementRow, SurveyRequestChildrenInner } from '../../../api-generated';
@@ -34,16 +34,15 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
   columns
 }) => {
   const { t } = useTranslation();
-  const { setValue, formState, getFieldState } = useFormContext<ISurvey>();
-  const {errors} = formState;
-  const { error } = getFieldState(`${formPath}.code` as keyof FieldValue<ISurvey>, formState);
+  const { setValue, getFieldState, clearErrors } = useFormContext<ISurvey>();
+  const {error} = getFieldState(`${formPath}.code` as never as keyof ISurvey);
 
   // Handler for field changes
   const handleFieldChange = (field: keyof SurveyRequestChildrenInner, value: any) => {
     // Create the full path for the specific field
-    const fieldPath = `${formPath}.${field}` as any;
-    
+    const fieldPath = `${formPath}.${field}` as any;    
     // Update the field directly in the form
+    clearErrors(fieldPath);
     setValue(fieldPath, value, {
       shouldValidate: true,
       shouldDirty: true
