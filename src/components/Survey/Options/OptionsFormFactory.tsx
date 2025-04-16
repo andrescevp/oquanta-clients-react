@@ -1,14 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Block, Loop, QuestionChoice, QuestionNumber, QuestionString, SurveyRequestChildrenInner } from '../../../api-generated';
+import { Block, Loop, QuestionChoice,SurveyRequestChildrenInner } from '../../../api-generated';
 import { cn } from '../../../lib/utils';
 import { AlertCircleIcon } from '../../UI/Icons';
 import BlockOptionsForm from './BlockOptionsForm';
 import ChoiceOptionsForm from './ChoiceOptionsForm';
 import LoopOptionsForm from './LoopOptionsForm';
-import NumberOptionsForm from './NumberOptionsForm';
-import StringOptionsForm from './StringOptionsForm';
+import OpenEndOptionsForm from './OpenEndOptionsForm';
 
 interface OptionsFormFactoryProps {
   element: SurveyRequestChildrenInner;
@@ -29,14 +28,11 @@ const OptionsFormFactory: React.FC<OptionsFormFactoryProps> = ({
   // Select the appropriate options form based on question type
   const renderOptionsForm = () => {
     switch (element.type) {
-      case 'string':
-        return <StringOptionsForm element={element as QuestionString} onChange={onChange} />;
-        
-      case 'number':
-        return <NumberOptionsForm element={element as QuestionNumber} onChange={onChange} />;
-        
+      case 'open_end':
+        return <OpenEndOptionsForm element={element as never as QuestionChoice} onChange={onChange} />;
+
       case 'choice':
-        return <ChoiceOptionsForm element={element as QuestionChoice} onChange={onChange} />;
+        return <ChoiceOptionsForm element={element as never as QuestionChoice} onChange={onChange} />;
         
       case 'block':
         return <BlockOptionsForm element={element as Block} onChange={onChange} />;

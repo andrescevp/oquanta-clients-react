@@ -25,7 +25,9 @@ const QuestionConfig: React.FC<QuestionConfigProps> = ({
   onQuestionUpdate
 }) => {
   const { t } = useTranslation();
-  const { setValue, formState: { errors } } = useFormContext<ISurvey>();
+  const { setValue, watch } = useFormContext<ISurvey>();
+  const fields = watch();
+  console.log('Fields:', fields);
   
   // Helper function to update a specific field
   const handleFieldChange = (field: keyof SurveyRequestChildrenInner, value: any) => {
@@ -136,9 +138,8 @@ const QuestionConfig: React.FC<QuestionConfigProps> = ({
                 "transition-all duration-200"
               )}
             >
-              <option value="string">{t('Text')}</option>
               <option value="choice">{t('Choice')}</option>
-              <option value="number">{t('Numeric')}</option>
+              <option value="open_end">{t('Open End')}</option>
             </select>
           </div>
         )}
@@ -158,8 +159,7 @@ const QuestionConfig: React.FC<QuestionConfigProps> = ({
                 {t('About question types')}
               </h4>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                {selectedQuestion.type === 'string' && t('Text questions allow free-form text responses from survey participants.')}
-                {selectedQuestion.type === 'number' && t('Number questions collect numeric data with optional validation ranges.')}
+                {selectedQuestion.type === 'open_end' && t('Text questions allow free-form text responses from survey participants.')}
                 {selectedQuestion.type === 'choice' && t('Choice questions provide options for participants to select from.')}
                 {selectedQuestion.type === 'block' && t('Blocks are containers that group related questions together.')}
                 {selectedQuestion.type === 'loop' && t('Loops repeat a set of questions based on conditions or fixed iterations.')}

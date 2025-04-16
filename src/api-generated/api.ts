@@ -43,10 +43,16 @@ export interface Block {
     'options'?: BlockOptions | null;
     /**
      * 
-     * @type {Array<BlockChildrenInner>}
+     * @type {Array<SurveyRequestChildrenInner>}
      * @memberof Block
      */
-    'children'?: Array<BlockChildrenInner> | null;
+    'children'?: Array<SurveyRequestChildrenInner> | null;
+    /**
+     * 
+     * @type {BreakPageRuntimeData}
+     * @memberof Block
+     */
+    'runtimeData'?: BreakPageRuntimeData | null;
     /**
      * 
      * @type {string}
@@ -107,121 +113,6 @@ export interface Block {
      * @memberof Block
      */
     'parentUniqueId'?: string | null;
-}
-/**
- * 
- * @export
- * @interface BlockChildrenInner
- */
-export interface BlockChildrenInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof BlockChildrenInner
-     */
-    'type': string;
-    /**
-     * 
-     * @type {QuestionStringOptions}
-     * @memberof BlockChildrenInner
-     */
-    'options'?: QuestionStringOptions | null;
-    /**
-     * 
-     * @type {Array<LoopChildrenInner>}
-     * @memberof BlockChildrenInner
-     */
-    'children'?: Array<LoopChildrenInner> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlockChildrenInner
-     */
-    'code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlockChildrenInner
-     */
-    'uniqueId': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof BlockChildrenInner
-     */
-    'parentIndex'?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof BlockChildrenInner
-     */
-    'index': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof BlockChildrenInner
-     */
-    'depth': number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof BlockChildrenInner
-     */
-    'isLast': boolean;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof BlockChildrenInner
-     */
-    'parentIndexes'?: Array<number> | null;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof BlockChildrenInner
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlockChildrenInner
-     */
-    'parentCode'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlockChildrenInner
-     */
-    'parentUniqueId'?: string | null;
-    /**
-     * 
-     * @type {Array<LoopConcept>}
-     * @memberof BlockChildrenInner
-     */
-    'loopConcepts'?: Array<LoopConcept> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlockChildrenInner
-     */
-    'label': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlockChildrenInner
-     */
-    'help'?: string | null;
-    /**
-     * 
-     * @type {Array<ElementRow>}
-     * @memberof BlockChildrenInner
-     */
-    'rows'?: Array<ElementRow> | null;
-    /**
-     * 
-     * @type {Array<ElementColumn>}
-     * @memberof BlockChildrenInner
-     */
-    'columns'?: Array<ElementColumn> | null;
 }
 /**
  * @type BlockOptions
@@ -243,6 +134,12 @@ export interface BreakPage {
     'type': string;
     /**
      * 
+     * @type {BreakPageRuntimeData}
+     * @memberof BreakPage
+     */
+    'runtimeData'?: BreakPageRuntimeData | null;
+    /**
+     * 
      * @type {string}
      * @memberof BreakPage
      */
@@ -302,6 +199,12 @@ export interface BreakPage {
      */
     'parentUniqueId'?: string | null;
 }
+/**
+ * @type BreakPageRuntimeData
+ * @export
+ */
+export type BreakPageRuntimeData = RuntimeData;
+
 /**
  * 
  * @export
@@ -339,6 +242,12 @@ export interface ElementChoice {
      * @memberof ElementChoice
      */
     'code': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ElementChoice
+     */
+    'value'?: number | null;
     /**
      * 
      * @type {string}
@@ -511,6 +420,30 @@ export interface ElementOptionsChoice {
      */
     'fixedChoices': number;
     /**
+     * Use rows as choices
+     * @type {boolean}
+     * @memberof ElementOptionsChoice
+     */
+    'useRowsAsChoices'?: boolean;
+    /**
+     * Use columns as choices
+     * @type {boolean}
+     * @memberof ElementOptionsChoice
+     */
+    'useColumnsAsChoices'?: boolean;
+    /**
+     * Show choices as dropdown or a list to pick from
+     * @type {boolean}
+     * @memberof ElementOptionsChoice
+     */
+    'expandChoices'?: boolean;
+    /**
+     * Randomize choices
+     * @type {boolean}
+     * @memberof ElementOptionsChoice
+     */
+    'randomizeChoices'?: boolean;
+    /**
      * Hidden question
      * @type {boolean}
      * @memberof ElementOptionsChoice
@@ -557,249 +490,90 @@ export interface ElementOptionsLoop {
 /**
  * 
  * @export
- * @interface ElementOptionsMarker
+ * @interface ElementOptionsOpenEnd
  */
-export interface ElementOptionsMarker {
+export interface ElementOptionsOpenEnd {
     /**
-     * 
-     * @type {string}
-     * @memberof ElementOptionsMarker
-     */
-    'condition': string;
-}
-/**
- * 
- * @export
- * @interface ElementOptionsNumber
- */
-export interface ElementOptionsNumber {
-    /**
-     * Minimum value
-     * @type {number}
-     * @memberof ElementOptionsNumber
-     */
-    'min': number;
-    /**
-     * Maximum value
-     * @type {number}
-     * @memberof ElementOptionsNumber
-     */
-    'max': number;
-    /**
-     * Allow Decimal
+     * Multiline input
      * @type {boolean}
-     * @memberof ElementOptionsNumber
-     */
-    'decimal'?: boolean;
-    /**
-     * Unique values across all responses
-     * @type {boolean}
-     * @memberof ElementOptionsNumber
-     */
-    'unique'?: boolean;
-    /**
-     * Hidden question
-     * @type {boolean}
-     * @memberof ElementOptionsNumber
-     */
-    'hidden'?: boolean;
-    /**
-     * Question condition
-     * @type {string}
-     * @memberof ElementOptionsNumber
-     */
-    'condition': string;
-    /**
-     * Required question
-     * @type {boolean}
-     * @memberof ElementOptionsNumber
-     */
-    'required'?: boolean;
-    /**
-     * Randomize rows
-     * @type {string}
-     * @memberof ElementOptionsNumber
-     */
-    'randomizeRows': string;
-    /**
-     * Randomize columns
-     * @type {string}
-     * @memberof ElementOptionsNumber
-     */
-    'randomizeColumns': string;
-}
-/**
- * 
- * @export
- * @interface ElementOptionsQuota
- */
-export interface ElementOptionsQuota {
-    /**
-     * 
-     * @type {string}
-     * @memberof ElementOptionsQuota
-     */
-    'condition': string;
-}
-/**
- * 
- * @export
- * @interface ElementOptionsSelect
- */
-export interface ElementOptionsSelect {
-    /**
-     * Multiple choice
-     * @type {boolean}
-     * @memberof ElementOptionsSelect
-     */
-    'multiple'?: boolean;
-    /**
-     * Randomize choices
-     * @type {boolean}
-     * @memberof ElementOptionsSelect
-     */
-    'randomizeChoices': boolean;
-    /**
-     * Minimum choices. Applicable only when multiple is true
-     * @type {number}
-     * @memberof ElementOptionsSelect
-     */
-    'minChoices'?: number;
-    /**
-     * Maximum choices. Applicable only when multiple is true
-     * @type {number}
-     * @memberof ElementOptionsSelect
-     */
-    'maxChoices': number;
-    /**
-     * Fixed number of choices. Applicable only when multiple is true. If set, minChoices and maxChoices are ignored
-     * @type {number}
-     * @memberof ElementOptionsSelect
-     */
-    'fixedChoices': number;
-    /**
-     * Unique choices
-     * @type {boolean}
-     * @memberof ElementOptionsSelect
-     */
-    'unique'?: boolean;
-    /**
-     * Hidden question
-     * @type {boolean}
-     * @memberof ElementOptionsSelect
-     */
-    'hidden'?: boolean;
-    /**
-     * Question condition
-     * @type {string}
-     * @memberof ElementOptionsSelect
-     */
-    'condition': string;
-    /**
-     * Required question
-     * @type {boolean}
-     * @memberof ElementOptionsSelect
-     */
-    'required'?: boolean;
-    /**
-     * Randomize rows
-     * @type {string}
-     * @memberof ElementOptionsSelect
-     */
-    'randomizeRows': string;
-    /**
-     * Randomize columns
-     * @type {string}
-     * @memberof ElementOptionsSelect
-     */
-    'randomizeColumns': string;
-}
-/**
- * 
- * @export
- * @interface ElementOptionsString
- */
-export interface ElementOptionsString {
-    /**
-     * Multiline text
-     * @type {boolean}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'multiline'?: boolean | null;
     /**
+     * Input type
+     * @type {string}
+     * @memberof ElementOptionsOpenEnd
+     */
+    'type'?: ElementOptionsOpenEndTypeEnum | null;
+    /**
      * Placeholder text
      * @type {string}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'placeholder'?: string | null;
     /**
      * Regular expression
      * @type {string}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'regex'?: string | null;
     /**
      * Regular expression error message
      * @type {string}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'regexErrorMessage'?: string | null;
     /**
      * Minimum length
      * @type {number}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'minLength'?: number | null;
     /**
      * Maximum length
      * @type {number}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'maxLength'?: number | null;
     /**
      * Hidden question
      * @type {boolean}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'hidden'?: boolean;
     /**
      * Question condition
      * @type {string}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'condition': string;
     /**
      * Required question
      * @type {boolean}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'required'?: boolean;
     /**
      * Randomize rows
      * @type {string}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'randomizeRows': string;
     /**
      * Randomize columns
      * @type {string}
-     * @memberof ElementOptionsString
+     * @memberof ElementOptionsOpenEnd
      */
     'randomizeColumns': string;
 }
-/**
- * 
- * @export
- * @interface ElementOptionsTermination
- */
-export interface ElementOptionsTermination {
-    /**
-     * 
-     * @type {string}
-     * @memberof ElementOptionsTermination
-     */
-    'condition'?: string | null;
-}
+
+export const ElementOptionsOpenEndTypeEnum = {
+    String: 'string',
+    Number: 'number'
+} as const;
+
+export type ElementOptionsOpenEndTypeEnum = typeof ElementOptionsOpenEndTypeEnum[keyof typeof ElementOptionsOpenEndTypeEnum];
+
 /**
  * 
  * @export
@@ -885,6 +659,287 @@ export interface ElementRow {
      * @memberof ElementRow
      */
     'parentUniqueId'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface FormConstraint
+ */
+export interface FormConstraint {
+    /**
+     * Constraint type
+     * @type {string}
+     * @memberof FormConstraint
+     */
+    'type': string;
+    /**
+     * Constraint message
+     * @type {string}
+     * @memberof FormConstraint
+     */
+    'message'?: string | null;
+    /**
+     * Constraint options
+     * @type {{ [key: string]: any; }}
+     * @memberof FormConstraint
+     */
+    'options'?: { [key: string]: any; } | null;
+}
+/**
+ * 
+ * @export
+ * @interface FormDefinition
+ */
+export interface FormDefinition {
+    /**
+     * Form name
+     * @type {string}
+     * @memberof FormDefinition
+     */
+    'name'?: string | null;
+    /**
+     * Form identifier
+     * @type {string}
+     * @memberof FormDefinition
+     */
+    'id'?: string | null;
+    /**
+     * Form type
+     * @type {string}
+     * @memberof FormDefinition
+     */
+    'type'?: string | null;
+    /**
+     * Form attributes
+     * @type {{ [key: string]: any; }}
+     * @memberof FormDefinition
+     */
+    'attributes'?: { [key: string]: any; } | null;
+    /**
+     * Whether the form is required
+     * @type {boolean}
+     * @memberof FormDefinition
+     */
+    'required'?: boolean;
+    /**
+     * Whether the form is disabled
+     * @type {boolean}
+     * @memberof FormDefinition
+     */
+    'disabled'?: boolean;
+    /**
+     * Form label
+     * @type {string}
+     * @memberof FormDefinition
+     */
+    'label'?: string | null;
+    /**
+     * Form help text
+     * @type {string}
+     * @memberof FormDefinition
+     */
+    'help'?: string | null;
+    /**
+     * Form placeholder
+     * @type {string}
+     * @memberof FormDefinition
+     */
+    'placeholder'?: string | null;
+    /**
+     * Form path
+     * @type {string}
+     * @memberof FormDefinition
+     */
+    'form_path'?: string | null;
+    /**
+     * Form validation constraints
+     * @type {Array<FormConstraint>}
+     * @memberof FormDefinition
+     */
+    'constraints'?: Array<FormConstraint> | null;
+    /**
+     * Form options
+     * @type {{ [key: string]: any; }}
+     * @memberof FormDefinition
+     */
+    'options'?: { [key: string]: any; } | null;
+    /**
+     * Form fields
+     * @type {{ [key: string]: FormField; }}
+     * @memberof FormDefinition
+     */
+    'children'?: { [key: string]: FormField; } | null;
+}
+/**
+ * 
+ * @export
+ * @interface FormField
+ */
+export interface FormField {
+    /**
+     * Field name
+     * @type {string}
+     * @memberof FormField
+     */
+    'name'?: string | null;
+    /**
+     * Field identifier
+     * @type {string}
+     * @memberof FormField
+     */
+    'id'?: string | null;
+    /**
+     * Field type
+     * @type {string}
+     * @memberof FormField
+     */
+    'type'?: string | null;
+    /**
+     * Field attributes
+     * @type {{ [key: string]: any; }}
+     * @memberof FormField
+     */
+    'attributes'?: { [key: string]: any; } | null;
+    /**
+     * Whether the field is required
+     * @type {boolean}
+     * @memberof FormField
+     */
+    'required'?: boolean;
+    /**
+     * Whether the field is disabled
+     * @type {boolean}
+     * @memberof FormField
+     */
+    'disabled'?: boolean;
+    /**
+     * Field label
+     * @type {string}
+     * @memberof FormField
+     */
+    'label'?: string | null;
+    /**
+     * Field help text
+     * @type {string}
+     * @memberof FormField
+     */
+    'help'?: string | null;
+    /**
+     * Field placeholder
+     * @type {string}
+     * @memberof FormField
+     */
+    'placeholder'?: string | null;
+    /**
+     * Field validation constraints
+     * @type {Array<FormConstraint>}
+     * @memberof FormField
+     */
+    'constraints'?: Array<FormConstraint> | null;
+    /**
+     * Field options
+     * @type {{ [key: string]: any; }}
+     * @memberof FormField
+     */
+    'options'?: { [key: string]: any; } | null;
+    /**
+     * Child fields
+     * @type {{ [key: string]: any; }}
+     * @memberof FormField
+     */
+    'children'?: { [key: string]: any; } | null;
+}
+/**
+ * 
+ * @export
+ * @interface FormFieldChoice
+ */
+export interface FormFieldChoice {
+    /**
+     * Choice value
+     * @type {string}
+     * @memberof FormFieldChoice
+     */
+    'value': string;
+    /**
+     * Choice label
+     * @type {string}
+     * @memberof FormFieldChoice
+     */
+    'label': string;
+    /**
+     * Choice attributes
+     * @type {{ [key: string]: any; }}
+     * @memberof FormFieldChoice
+     */
+    'attr'?: { [key: string]: any; } | null;
+    /**
+     * Choice data
+     * @type {{ [key: string]: any; }}
+     * @memberof FormFieldChoice
+     */
+    'data'?: { [key: string]: any; } | null;
+}
+/**
+ * 
+ * @export
+ * @interface FormFieldOptions
+ */
+export interface FormFieldOptions {
+    /**
+     * Whether the field is compound (has children)
+     * @type {boolean}
+     * @memberof FormFieldOptions
+     */
+    'compound'?: boolean | null;
+    /**
+     * Whether multiple values can be selected
+     * @type {boolean}
+     * @memberof FormFieldOptions
+     */
+    'multiple'?: boolean | null;
+    /**
+     * Whether choices are expanded
+     * @type {boolean}
+     * @memberof FormFieldOptions
+     */
+    'expanded'?: boolean | null;
+    /**
+     * Field priority
+     * @type {number}
+     * @memberof FormFieldOptions
+     */
+    'priority'?: number;
+    /**
+     * Field choices
+     * @type {Array<FormFieldChoice>}
+     * @memberof FormFieldOptions
+     */
+    'choices': Array<FormFieldChoice>;
+    /**
+     * Choice data array
+     * @type {Array<FormFieldChoice>}
+     * @memberof FormFieldOptions
+     */
+    'choices_data': Array<FormFieldChoice>;
+    /**
+     * Data class
+     * @type {string}
+     * @memberof FormFieldOptions
+     */
+    'data_class'?: string | null;
+    /**
+     * Whether the field is mapped to a property
+     * @type {boolean}
+     * @memberof FormFieldOptions
+     */
+    'mapped'?: boolean | null;
+    /**
+     * Whether values should be trimmed
+     * @type {boolean}
+     * @memberof FormFieldOptions
+     */
+    'trim'?: boolean | null;
 }
 /**
  * 
@@ -1079,16 +1134,22 @@ export interface Loop {
     'options'?: LoopOptions | null;
     /**
      * 
-     * @type {Array<LoopChildrenInner>}
+     * @type {Array<SurveyRequestChildrenInner>}
      * @memberof Loop
      */
-    'children'?: Array<LoopChildrenInner> | null;
+    'children': Array<SurveyRequestChildrenInner>;
     /**
      * 
      * @type {Array<LoopConcept>}
      * @memberof Loop
      */
     'loopConcepts'?: Array<LoopConcept> | null;
+    /**
+     * 
+     * @type {BreakPageRuntimeData}
+     * @memberof Loop
+     */
+    'runtimeData'?: BreakPageRuntimeData | null;
     /**
      * 
      * @type {string}
@@ -1149,121 +1210,6 @@ export interface Loop {
      * @memberof Loop
      */
     'parentUniqueId'?: string | null;
-}
-/**
- * 
- * @export
- * @interface LoopChildrenInner
- */
-export interface LoopChildrenInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof LoopChildrenInner
-     */
-    'type': string;
-    /**
-     * 
-     * @type {QuestionStringOptions}
-     * @memberof LoopChildrenInner
-     */
-    'options'?: QuestionStringOptions | null;
-    /**
-     * 
-     * @type {Array<LoopChildrenInner>}
-     * @memberof LoopChildrenInner
-     */
-    'children'?: Array<LoopChildrenInner> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof LoopChildrenInner
-     */
-    'code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LoopChildrenInner
-     */
-    'uniqueId': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof LoopChildrenInner
-     */
-    'parentIndex'?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof LoopChildrenInner
-     */
-    'index': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LoopChildrenInner
-     */
-    'depth': number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof LoopChildrenInner
-     */
-    'isLast': boolean;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof LoopChildrenInner
-     */
-    'parentIndexes'?: Array<number> | null;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LoopChildrenInner
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof LoopChildrenInner
-     */
-    'parentCode'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof LoopChildrenInner
-     */
-    'parentUniqueId'?: string | null;
-    /**
-     * 
-     * @type {Array<LoopConcept>}
-     * @memberof LoopChildrenInner
-     */
-    'loopConcepts'?: Array<LoopConcept> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof LoopChildrenInner
-     */
-    'label': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LoopChildrenInner
-     */
-    'help'?: string | null;
-    /**
-     * 
-     * @type {Array<ElementRow>}
-     * @memberof LoopChildrenInner
-     */
-    'rows'?: Array<ElementRow> | null;
-    /**
-     * 
-     * @type {Array<ElementColumn>}
-     * @memberof LoopChildrenInner
-     */
-    'columns'?: Array<ElementColumn> | null;
 }
 /**
  * 
@@ -2696,6 +2642,18 @@ export interface QuestionChoice {
     'columns'?: Array<ElementColumn> | null;
     /**
      * 
+     * @type {Array<ElementChoice>}
+     * @memberof QuestionChoice
+     */
+    'choices'?: Array<ElementChoice> | null;
+    /**
+     * 
+     * @type {BreakPageRuntimeData}
+     * @memberof QuestionChoice
+     */
+    'runtimeData'?: BreakPageRuntimeData | null;
+    /**
+     * 
      * @type {string}
      * @memberof QuestionChoice
      */
@@ -2764,335 +2722,123 @@ export type QuestionChoiceOptions = ElementOptionsChoice;
 /**
  * 
  * @export
- * @interface QuestionNumber
+ * @interface QuestionOpenEnd
  */
-export interface QuestionNumber {
+export interface QuestionOpenEnd {
     /**
      * 
      * @type {string}
-     * @memberof QuestionNumber
+     * @memberof QuestionOpenEnd
      */
     'label': string;
     /**
      * 
      * @type {string}
-     * @memberof QuestionNumber
+     * @memberof QuestionOpenEnd
      */
     'help'?: string | null;
     /**
      * 
      * @type {string}
-     * @memberof QuestionNumber
+     * @memberof QuestionOpenEnd
      */
     'type': string;
     /**
      * 
-     * @type {QuestionNumberOptions}
-     * @memberof QuestionNumber
+     * @type {QuestionOpenEndOptions}
+     * @memberof QuestionOpenEnd
      */
-    'options'?: QuestionNumberOptions | null;
+    'options'?: QuestionOpenEndOptions | null;
     /**
      * 
      * @type {Array<ElementRow>}
-     * @memberof QuestionNumber
+     * @memberof QuestionOpenEnd
      */
     'rows'?: Array<ElementRow> | null;
     /**
      * 
      * @type {Array<ElementColumn>}
-     * @memberof QuestionNumber
-     */
-    'columns'?: Array<ElementColumn> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionNumber
-     */
-    'code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionNumber
-     */
-    'uniqueId': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof QuestionNumber
-     */
-    'parentIndex'?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof QuestionNumber
-     */
-    'index': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof QuestionNumber
-     */
-    'depth': number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof QuestionNumber
-     */
-    'isLast': boolean;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof QuestionNumber
-     */
-    'parentIndexes'?: Array<number> | null;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof QuestionNumber
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionNumber
-     */
-    'parentCode'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionNumber
-     */
-    'parentUniqueId'?: string | null;
-}
-/**
- * @type QuestionNumberOptions
- * @export
- */
-export type QuestionNumberOptions = ElementOptionsNumber;
-
-/**
- * 
- * @export
- * @interface QuestionSelect
- */
-export interface QuestionSelect {
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionSelect
-     */
-    'label': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionSelect
-     */
-    'help'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionSelect
-     */
-    'type': string;
-    /**
-     * 
-     * @type {QuestionSelectOptions}
-     * @memberof QuestionSelect
-     */
-    'options'?: QuestionSelectOptions | null;
-    /**
-     * 
-     * @type {Array<ElementRow>}
-     * @memberof QuestionSelect
-     */
-    'rows'?: Array<ElementRow> | null;
-    /**
-     * 
-     * @type {Array<ElementColumn>}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'columns'?: Array<ElementColumn> | null;
     /**
      * 
      * @type {Array<ElementChoice>}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'choices'?: Array<ElementChoice> | null;
     /**
      * 
+     * @type {BreakPageRuntimeData}
+     * @memberof QuestionOpenEnd
+     */
+    'runtimeData'?: BreakPageRuntimeData | null;
+    /**
+     * 
      * @type {string}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'code': string;
     /**
      * 
      * @type {string}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'uniqueId': string;
     /**
      * 
      * @type {number}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'parentIndex'?: number | null;
     /**
      * 
      * @type {number}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'index': number;
     /**
      * 
      * @type {number}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'depth': number;
     /**
      * 
      * @type {boolean}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'isLast': boolean;
     /**
      * 
      * @type {Array<number>}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'parentIndexes'?: Array<number> | null;
     /**
      * 
      * @type {Array<string>}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'parentCodes'?: Array<string> | null;
     /**
      * 
      * @type {string}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'parentCode'?: string | null;
     /**
      * 
      * @type {string}
-     * @memberof QuestionSelect
+     * @memberof QuestionOpenEnd
      */
     'parentUniqueId'?: string | null;
 }
 /**
- * @type QuestionSelectOptions
+ * @type QuestionOpenEndOptions
  * @export
  */
-export type QuestionSelectOptions = ElementOptionsSelect;
-
-/**
- * 
- * @export
- * @interface QuestionString
- */
-export interface QuestionString {
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionString
-     */
-    'label': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionString
-     */
-    'help'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionString
-     */
-    'type': string;
-    /**
-     * 
-     * @type {QuestionStringOptions}
-     * @memberof QuestionString
-     */
-    'options'?: QuestionStringOptions | null;
-    /**
-     * 
-     * @type {Array<ElementRow>}
-     * @memberof QuestionString
-     */
-    'rows'?: Array<ElementRow> | null;
-    /**
-     * 
-     * @type {Array<ElementColumn>}
-     * @memberof QuestionString
-     */
-    'columns'?: Array<ElementColumn> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionString
-     */
-    'code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionString
-     */
-    'uniqueId': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof QuestionString
-     */
-    'parentIndex'?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof QuestionString
-     */
-    'index': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof QuestionString
-     */
-    'depth': number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof QuestionString
-     */
-    'isLast': boolean;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof QuestionString
-     */
-    'parentIndexes'?: Array<number> | null;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof QuestionString
-     */
-    'parentCodes'?: Array<string> | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionString
-     */
-    'parentCode'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof QuestionString
-     */
-    'parentUniqueId'?: string | null;
-}
-/**
- * @type QuestionStringOptions
- * @export
- */
-export type QuestionStringOptions = ElementOptionsString;
+export type QuestionOpenEndOptions = ElementOptionsOpenEnd;
 
 /**
  * 
@@ -3161,6 +2907,38 @@ export interface ResetPasswordResource {
 /**
  * 
  * @export
+ * @interface RuntimeData
+ */
+export interface RuntimeData {
+    /**
+     * Position of the element in the survey
+     * @type {number}
+     * @memberof RuntimeData
+     */
+    'position'?: number;
+    /**
+     * Form path of the element in the survey
+     * @type {string}
+     * @memberof RuntimeData
+     */
+    'formPath': string;
+    /**
+     * 
+     * @type {RuntimeDataAnswer}
+     * @memberof RuntimeData
+     */
+    'answer'?: RuntimeDataAnswer | null;
+}
+/**
+ * Value of the element
+ * @export
+ * @interface RuntimeDataAnswer
+ */
+export interface RuntimeDataAnswer {
+}
+/**
+ * 
+ * @export
  * @interface SpecialSchedule
  */
 export interface SpecialSchedule {
@@ -3194,6 +2972,19 @@ export interface SpecialSchedule {
      * @memberof SpecialSchedule
      */
     'reason'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface SurveyFormDefinition
+ */
+export interface SurveyFormDefinition {
+    /**
+     * Root
+     * @type {{ [key: string]: FormDefinition; }}
+     * @memberof SurveyFormDefinition
+     */
+    'root': { [key: string]: FormDefinition; };
 }
 /**
  * 
@@ -3333,16 +3124,22 @@ export interface SurveyRequestChildrenInner {
     'type': string;
     /**
      * 
-     * @type {QuestionSelectOptions}
+     * @type {TextOptions}
      * @memberof SurveyRequestChildrenInner
      */
-    'options'?: QuestionSelectOptions | null;
+    'options'?: TextOptions | null;
     /**
      * 
-     * @type {Array<LoopChildrenInner>}
+     * @type {Array<SurveyRequestChildrenInner>}
      * @memberof SurveyRequestChildrenInner
      */
-    'children'?: Array<LoopChildrenInner> | null;
+    'children': Array<SurveyRequestChildrenInner>;
+    /**
+     * 
+     * @type {BreakPageRuntimeData}
+     * @memberof SurveyRequestChildrenInner
+     */
+    'runtimeData'?: BreakPageRuntimeData | null;
     /**
      * 
      * @type {string}
@@ -3466,10 +3263,16 @@ export interface Text {
     'type': string;
     /**
      * 
-     * @type {ElementOptionsText}
+     * @type {TextOptions}
      * @memberof Text
      */
-    'options': ElementOptionsText;
+    'options'?: TextOptions | null;
+    /**
+     * 
+     * @type {BreakPageRuntimeData}
+     * @memberof Text
+     */
+    'runtimeData'?: BreakPageRuntimeData | null;
     /**
      * 
      * @type {string}
@@ -3525,6 +3328,12 @@ export interface Text {
      */
     'parentUniqueId'?: string | null;
 }
+/**
+ * @type TextOptions
+ * @export
+ */
+export type TextOptions = ElementOptionsText;
+
 /**
  * 
  * @export
@@ -6815,6 +6624,47 @@ export class PasswordResetApi extends BaseAPI {
 export const SurveyOperationsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Returns survey references for a specific element, such as answer placeholders and piped variables
+         * @param {string} uuid 
+         * @param {string} elementCode 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSurveyElementReferences: async (uuid: string, elementCode: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('getSurveyElementReferences', 'uuid', uuid)
+            // verify required parameter 'elementCode' is not null or undefined
+            assertParamExists('getSurveyElementReferences', 'elementCode', elementCode)
+            const localVarPath = `/api/survey/form/{uuid}/references/{element_code}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)))
+                .replace(`{${"element_code"}}`, encodeURIComponent(String(elementCode)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns a survey
          * @param {string} uuid 
          * @param {*} [options] Override http request option.
@@ -6824,6 +6674,43 @@ export const SurveyOperationsApiAxiosParamCreator = function (configuration?: Co
             // verify required parameter 'uuid' is not null or undefined
             assertParamExists('getSurveyForm', 'uuid', uuid)
             const localVarPath = `/api/survey/form/{uuid}`
+                .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns survey references, such as answer placeholders and piped variables
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSurveyReferences: async (uuid: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uuid' is not null or undefined
+            assertParamExists('getSurveyReferences', 'uuid', uuid)
+            const localVarPath = `/api/survey/form/{uuid}/references`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6862,15 +6749,40 @@ export const SurveyOperationsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = SurveyOperationsApiAxiosParamCreator(configuration)
     return {
         /**
+         * Returns survey references for a specific element, such as answer placeholders and piped variables
+         * @param {string} uuid 
+         * @param {string} elementCode 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSurveyElementReferences(uuid: string, elementCode: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSurveyElementReferences(uuid, elementCode, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SurveyOperationsApi.getSurveyElementReferences']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Returns a survey
          * @param {string} uuid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSurveyForm(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FormSchema>> {
+        async getSurveyForm(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FormDefinition>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSurveyForm(uuid, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SurveyOperationsApi.getSurveyForm']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns survey references, such as answer placeholders and piped variables
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSurveyReferences(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSurveyReferences(uuid, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SurveyOperationsApi.getSurveyReferences']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -6884,13 +6796,32 @@ export const SurveyOperationsApiFactory = function (configuration?: Configuratio
     const localVarFp = SurveyOperationsApiFp(configuration)
     return {
         /**
+         * Returns survey references for a specific element, such as answer placeholders and piped variables
+         * @param {string} uuid 
+         * @param {string} elementCode 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSurveyElementReferences(uuid: string, elementCode: string, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.getSurveyElementReferences(uuid, elementCode, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns a survey
          * @param {string} uuid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSurveyForm(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<FormSchema> {
+        getSurveyForm(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<FormDefinition> {
             return localVarFp.getSurveyForm(uuid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns survey references, such as answer placeholders and piped variables
+         * @param {string} uuid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSurveyReferences(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.getSurveyReferences(uuid, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -6903,6 +6834,18 @@ export const SurveyOperationsApiFactory = function (configuration?: Configuratio
  */
 export class SurveyOperationsApi extends BaseAPI {
     /**
+     * Returns survey references for a specific element, such as answer placeholders and piped variables
+     * @param {string} uuid 
+     * @param {string} elementCode 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SurveyOperationsApi
+     */
+    public getSurveyElementReferences(uuid: string, elementCode: string, options?: RawAxiosRequestConfig) {
+        return SurveyOperationsApiFp(this.configuration).getSurveyElementReferences(uuid, elementCode, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Returns a survey
      * @param {string} uuid 
      * @param {*} [options] Override http request option.
@@ -6911,6 +6854,17 @@ export class SurveyOperationsApi extends BaseAPI {
      */
     public getSurveyForm(uuid: string, options?: RawAxiosRequestConfig) {
         return SurveyOperationsApiFp(this.configuration).getSurveyForm(uuid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns survey references, such as answer placeholders and piped variables
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SurveyOperationsApi
+     */
+    public getSurveyReferences(uuid: string, options?: RawAxiosRequestConfig) {
+        return SurveyOperationsApiFp(this.configuration).getSurveyReferences(uuid, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -31,6 +31,7 @@ const DefaultSurvey: ISurvey = {
             index: 0,
             depth: 0,
             isLast: false,
+            children: []
         },
         {
             uniqueId: String(Math.floor(Math.random() * Date.now())),
@@ -39,7 +40,8 @@ const DefaultSurvey: ISurvey = {
             label: 'How did you hear about us?',
             index: 1,
             depth: 0,
-            isLast: true
+            isLast: true,
+            children: []
         }
     ]
 }
