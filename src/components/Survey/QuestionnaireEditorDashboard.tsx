@@ -4,6 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { SurveyRequestChildrenInner } from '../../api-generated';
 import { QuestionItem } from '../../hooks/useSurveyTreeManager';
 import { ISurvey } from '../../types/surveys';
+import ResizableRow from '../UI/molecules/ResizableRow';
 import QuestionConfig from './Children/ChildrenConfig/QuestionConfig';
 import QuestionEditor from './Children/QuestionEditor';
 import QuestionTree from './QuestionTree';
@@ -56,46 +57,52 @@ const QuestionnaireEditorDashboard: React.FC<QuestionnaireEditorDashboardProps> 
     return (
         <div
             className="flex h-full w-full bg-white dark:bg-dark-900 border rounded-lg shadow-sm dark:border-dark-700 overflow-hidden">
-            <div className="w-1/4 border-r border-gray-200 dark:border-gray-700">
-                <QuestionTree
-                    items={questions}
-                    onItemsChange={handleQuestionsChange}
-                    onItemSelect={handleQuestionSelect}
-                    selectedItemId={selectedQuestion?.uniqueId}
-                />
-            </div>
-            <div className="w-1/2 border-r border-gray-200 dark:border-gray-700">
-                <QuestionEditor
-                    surveyUuid={surveyUuid}
-                    selectedQuestion={selectedQuestion}
-                    selectedQuestionFormKey={selectedQuestionFormKey}
-                />
-            </div>
-            <div className="w-1/4">
-                <QuestionConfig
-                    selectedQuestion={selectedQuestion}
-                    selectedQuestionFormKey={selectedQuestionFormKey}
-                    onQuestionUpdate={(updatedQuestion) => {
-                        // Update the form with the updated question
-                        if (selectedQuestionFormKey !== 'children') {
-                            setValue(selectedQuestionFormKey as any, updatedQuestion, {
-                                shouldValidate: true,
-                                shouldDirty: true,
-                            });
-                        } else {
-                            // Handle top-level updates if needed
-                            const newQuestions = [...questions];
-                            const index = newQuestions.findIndex(q => q.uniqueId === updatedQuestion.uniqueId);
-                            if (index !== -1) {
-                                newQuestions[index] = updatedQuestion;
-                                handleQuestionsChange(newQuestions);
-                            }
-                        }
+        <ResizableRow
+            className="h-full border-b border-gray-200 dark:border-gray-700"
+            cellClassName="bg-gradient-to-br from-white/60 to-white/30 dark:from-gray-800/60 dark:to-gray-800/30"
+            equalInitialWidth={true}
+          >
+          <div className="w-full border-r border-gray-200 dark:border-gray-700">
+              <QuestionTree
+                  items={questions}
+                  onItemsChange={handleQuestionsChange}
+                  onItemSelect={handleQuestionSelect}
+                  selectedItemId={selectedQuestion?.uniqueId}
+              />
+          </div>
+          <div className="w-full border-r border-gray-200 dark:border-gray-700">
+              <QuestionEditor
+                  surveyUuid={surveyUuid}
+                  selectedQuestion={selectedQuestion}
+                  selectedQuestionFormKey={selectedQuestionFormKey}
+              />
+          </div>
+          <div className="w-full">
+              <QuestionConfig
+                  selectedQuestion={selectedQuestion}
+                  selectedQuestionFormKey={selectedQuestionFormKey}
+                  onQuestionUpdate={(updatedQuestion) => {
+                      // Update the form with the updated question
+                      if (selectedQuestionFormKey !== 'children') {
+                          setValue(selectedQuestionFormKey as any, updatedQuestion, {
+                              shouldValidate: true,
+                              shouldDirty: true,
+                          });
+                      } else {
+                          // Handle top-level updates if needed
+                          const newQuestions = [...questions];
+                          const index = newQuestions.findIndex(q => q.uniqueId === updatedQuestion.uniqueId);
+                          if (index !== -1) {
+                              newQuestions[index] = updatedQuestion;
+                              handleQuestionsChange(newQuestions);
+                          }
+                      }
 
-                        setSelectedQuestion(updatedQuestion);
-                    }}
-                />
-            </div>
+                      setSelectedQuestion(updatedQuestion);
+                  }}
+              />
+          </div>
+          </ResizableRow>
         </div>
     );
 };
