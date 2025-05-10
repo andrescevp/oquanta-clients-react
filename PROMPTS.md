@@ -29,6 +29,9 @@ Selects are created using `react-select`
 Strings displayed to the user are translated with `useTranslation` and always use literals.
 Components must have interfaces and related types in the same file as the Component. 
 All components documentation and comments must be in English.
+# Development best practices to follow
+- Always type properly all properties
+- Never use the same constant or variable name in component
 # Forms
 To manage Forms we use `react-hook-form`, Submit Button must be build with `src/components/UI/molecules/ButtonLoder.tsx` so it shows a spinner while sending requests.
 Use  `src/components/UI/molecules/InputWithLabel.tsx` and `src/components/UI/molecules/TexareaWithLabel.tsx`

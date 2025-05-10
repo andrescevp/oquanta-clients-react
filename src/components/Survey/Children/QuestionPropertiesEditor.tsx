@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { ElementChoice, ElementColumn, ElementRow, SurveyRequestChildrenInner } from '../../../api-generated';
+import {
+    ElementChoice,
+    ElementColumn,
+    ElementRow,
+    SurveyModel,
+    SurveyOperationsApi,
+    SurveyReferences,
+    SurveyRequestChildrenInner,
+} from '../../../api-generated';
+import { useApi } from '../../../hooks/useApi';
 import { ISurvey } from '../../../types/surveys';
+import Label from '../../UI/atoms/Label';
+import { FileTextIcon } from '../../UI/Icons';
 import InputWithLabel from '../../UI/molecules/InputWithLabel';
-import TextareaWithLabel from '../../UI/molecules/TextareaWithLabel';
+import MDEditorWithAutocomplete from '../Editor/MDEditorWithAutocomplete';
+import type { PlaceholderInitializer } from '../Editor/PlaceholdersDropdown';
 import { QuestionItem } from '../QuestionTree';
 import QuestionLoopConceptsEditor from './QuestionLoopConceptsEditor';
 import QuestionRowsColumnsEditor from './QuestionRowsColumnsEditor';
 
 interface QuestionPropertiesEditorProps {
-    question: QuestionItem | null;
+    surveyUuid: string;
+    question: QuestionItem;
     formPath: string;
 }
 
@@ -20,20 +33,89 @@ interface QuestionPropertiesEditorProps {
  * Responsible for editing common properties of survey questions
  * Extracted to promote reusability and composition
  */
+// eslint-disable-next-line complexity
 const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
+                                                                               surveyUuid,
                                                                                question,
                                                                                formPath,
                                                                            }) => {
     const { t } = useTranslation();
+    const { call } = useApi<SurveyOperationsApi>(SurveyOperationsApi);
+    const [formReferences, setFormReferences] = React.useState<SurveyReferences>();
+    const [initializers, setInitializers] = useState<PlaceholderInitializer[]>([]);
+
     const { setValue, getFieldState, clearErrors } = useFormContext<ISurvey>();
     const { error } = getFieldState(`${formPath}.code` as never as keyof ISurvey);
-    const questionType = question?.type as string;
-    const questionCode = question?.code as string;
-    const label = question?.label as string;
-    const help = question?.help as string;
-    const rows = question?.rows as ElementRow[] | null;
-    const columns = question?.columns as ElementColumn[] | null;
-    const choices = question?.choices as ElementChoice[] | null;
+    const questionType = question.type;
+    const questionCode = question.code;
+    const label = question.label;
+    const help = question.help;
+    const rows = question.rows as ElementRow[] || null;
+    const columns = question.columns as ElementColumn[] || null;
+    const choices = question.choices as ElementChoice[] || null;
+
+    const getChildrenLabels = useCallback((schema: SurveyModel | SurveyModel['children']) => {
+        const labels: string[] = [];
+        if (schema && 'children' in schema && schema.children) {
+            Object.keys(schema.children).forEach(key => {
+                if (!schema.children) {
+                    return;
+                }
+                const childrenElement = schema.children[key as never];
+                labels.push(`${key}.label`);
+                if (childrenElement.children && childrenElement.children.length > 0) {
+                    labels.push(...getChildrenLabels(childrenElement as never));
+                }
+            });
+        }
+        return labels;
+    }, []);
+
+    const fetchFormReferences = async () => {
+        try {
+            let response;
+            if (!question.code) {
+                response = await call('getSurveyReferences', surveyUuid);
+            } else {
+                response = await call('getSurveyElementReferences', surveyUuid, question.code);
+            }
+            setFormReferences(response.data);
+            console.log('Form references:', response.data);
+            const { surveySchema } = response.data;
+            const labelsPlaceholders: string[] = [];
+            if (surveySchema) {
+                labelsPlaceholders.push(...getChildrenLabels(surveySchema));
+            }
+
+            console.log('Form schema:', surveySchema, labelsPlaceholders);
+
+            const constLabelsInitializers = {
+                start: '[[',
+                stop: ']]',
+                placeholders: labelsPlaceholders,
+            };
+
+            setInitializers(prev => {
+                const existing = prev.find(init => init.start === constLabelsInitializers.start && init.stop === constLabelsInitializers.stop);
+                if (existing) {
+                    // merge existing placeholders with new ones
+                    existing.placeholders = Array.from(new Set(constLabelsInitializers.placeholders));
+                    return prev;
+                }
+                return [...prev, constLabelsInitializers];
+            });
+        } catch (e) {
+            console.error('Error fetching form schema:', e);
+        }
+    };
+
+    useEffect(() => {
+        if (!question.code) {
+            return;
+        }
+        fetchFormReferences();
+    }, [question]);
+
     // Handler for field changes
     const handleFieldChange = (field: keyof SurveyRequestChildrenInner, value: any) => {
         // Create the full path for the specific field
@@ -90,32 +172,36 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
                 />
             ) : (
                 <>
-                    {/* Question text for regular questions */}
-                    <TextareaWithLabel
-                        id={`${questionCode}-label`}
-                        label={labelText}
-                        textareaProps={{
-                            value: label,
-                            onChange: (e) => handleFieldChange('label', e.target.value),
-                            placeholder: t('Enter your question'),
-                            className: 'backdrop-blur-sm',
-                            rows: 3,
-                        }}
-                    />
-
-                    {/* Help Text */}
-                    <TextareaWithLabel
-                        id={`${questionCode}-help`}
-                        label={t('Help Text')}
-                        textareaProps={{
-                            value: help || '',
-                            onChange: (e) => handleFieldChange('help', e.target.value),
-                            placeholder: t('Additional help text for respondents'),
-                            className: 'backdrop-blur-sm',
-                            rows: 2,
-                        }}
-                        helperText={t('Provide additional context or instructions for this question')}
-                    />
+                    <div className="flex flex-col space-y-2">
+                        <Label htmlFor="survey-description"
+                               className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                            <FileTextIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                            {t('Element label')}
+                        </Label>
+                        <MDEditorWithAutocomplete
+                            value={label || ''}
+                            onChange={function(value?: string): void {
+                                handleFieldChange('label', value || '');
+                            }}
+                            initializers={initializers}
+                            formReferences={formReferences}
+                        />
+                    </div>
+                    <div className="flex flex-col space-y-2">
+                        <Label htmlFor="survey-description"
+                               className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                            <FileTextIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                            {t('Element Help')}
+                        </Label>
+                        <MDEditorWithAutocomplete
+                            value={help || ''}
+                            onChange={function(value?: string): void {
+                                handleFieldChange('help', value || '');
+                            }}
+                            initializers={initializers}
+                            formReferences={formReferences}
+                        />
+                    </div>
                 </>
             )}
 

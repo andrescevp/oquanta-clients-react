@@ -6,11 +6,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { toast } from 'sonner';
 
-import { SurveysApi, ValidationError } from '../../api-generated';
+import { SurveyModel, SurveysApi, ValidationError } from '../../api-generated';
 import { useApi } from '../../hooks/useApi';
 import { cn } from '../../lib/utils';
 import { ISurvey } from '../../types/surveys';
-import { AlertCircleIcon,IconSave as SaveIcon } from '../UI/Icons';
+import { AlertCircleIcon, IconSave as SaveIcon } from '../UI/Icons';
 import ButtonLoader from '../UI/molecules/ButtonLoder';
 import { GeneralSurveyForm } from './GeneralSurveyForm';
 import QuestionnaireEditorDashboard from './QuestionnaireEditorDashboard';
@@ -31,7 +31,7 @@ const DefaultSurvey: ISurvey = {
             index: 0,
             depth: 0,
             isLast: false,
-            children: []
+            children: [],
         },
         {
             uniqueId: String(Math.floor(Math.random() * Date.now())),
@@ -41,16 +41,17 @@ const DefaultSurvey: ISurvey = {
             index: 1,
             depth: 0,
             isLast: true,
-            children: []
-        }
-    ]
-}
+            children: [],
+        },
+    ],
+};
 
 export const SurveyBuilder: React.FC = () => {
     // use path param uuid to load survey
     const { t } = useTranslation();
     const { uuid } = useParams<{ uuid: string }>();
     const [loaded, setLoaded] = useState<boolean>(false);
+    const [survey, setSurvey] = useState<SurveyModel>();
     const [currentUuid, setCurrentUuid] = useState<string>();
     const [isSaving, setIsSaving] = useState<boolean>(false);
     const [validationFailed, setValidationFailed] = useState<boolean>(false);
@@ -63,31 +64,32 @@ export const SurveyBuilder: React.FC = () => {
     const formMethods = useForm<ISurvey>({
         defaultValues: DefaultSurvey,
         mode: 'onChange', // Ensure we validate on submit, not onChange
-        criteriaMode: "all",
+        criteriaMode: 'all',
     });
 
-    const { 
-        setValue, 
-        handleSubmit, 
-        formState: { isSubmitting }, 
+    const {
+        setValue,
+        handleSubmit,
+        formState: { isSubmitting },
         setError,
-        clearErrors 
+        clearErrors,
     } = formMethods;
 
     useEffect(() => {
         if (loaded || isLoading || !uuid) {
             return;
-        }     
+        }
         // Aquí se cargarían las preguntas desde la API si es una encuesta existente
         if (uuid) {
-            setCurrentUuid(uuid);   
+            setCurrentUuid(uuid);
             // Simular carga desde API
             call('getSurvey', uuid)
                 .then(response => {
-                    const survey = response.data;
-                    setValue('title', survey.title);
-                    setValue('description', survey.description);
-                    setValue('children', survey.children);
+                    const surveyData = response.data;
+                    setValue('title', surveyData.title);
+                    setValue('description', surveyData.description);
+                    setValue('children', surveyData.children);
+                    setSurvey(surveyData);
                 })
                 .catch(error => {
                     console.error('Error loading survey:', error);
@@ -113,10 +115,10 @@ export const SurveyBuilder: React.FC = () => {
         // Clear previous validation state
         setValidationFailed(false);
         setIsSaving(true);
-        
+
         try {
             let response;
-            
+
             if (currentUuid && currentUuid !== 'new') {
                 // Update existing survey
                 response = await call('updateSurvey', currentUuid, data);
@@ -132,28 +134,28 @@ export const SurveyBuilder: React.FC = () => {
             }
         } catch (error) {
             console.error('Error saving survey:', error);
-            
+
             if (error instanceof AxiosError) {
                 const axiosError = error as AxiosError<ValidationError>;
-                
+
                 if (axiosError.response && [400, 422].includes(axiosError.response?.status || 0)) {
                     const validationData = axiosError.response.data;
-                    
+
                     if (validationData?.violations && validationData.violations.length > 0) {
                         // Set validation failed flag
                         setValidationFailed(true);
-                        
+
                         // Clear all previous errors first
                         clearErrors();
-                        
+
                         // Set individual field errors
                         validationData.violations.forEach(violation => {
                             setError(violation.propertyPath as keyof ISurvey, {
                                 type: 'custom',
-                                message: violation.title 
+                                message: violation.title,
                             });
                         });
-                        
+
                         // Show a more specific error message
                         showError(t('Please correct the highlighted fields and try again.'));
                     } else {
@@ -175,8 +177,10 @@ export const SurveyBuilder: React.FC = () => {
 
     if (isLoading && !isSubmitting) {
         return (
-            <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-                <div className="backdrop-blur-sm bg-white/60 dark:bg-gray-800/50 p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700">
+            <div
+                className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+                <div
+                    className="backdrop-blur-sm bg-white/60 dark:bg-gray-800/50 p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700">
                     <div className="animate-pulse flex flex-col items-center">
                         <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-full mb-4"></div>
                         <div className="h-5 w-40 bg-gray-200 dark:bg-gray-700 rounded-xl mb-3"></div>
@@ -191,21 +195,22 @@ export const SurveyBuilder: React.FC = () => {
         {
             name: t('General'),
             component: (
-                <GeneralSurveyForm/>
-            )
+                <GeneralSurveyForm />
+            ),
         },
         {
             name: t('Questionnaire'),
-            component: (
+            component: (uuid &&
                 <QuestionnaireEditorDashboard
+                    surveyUuid={uuid}
                     onChange={handleQuestionsChange}
                 />
-            )
+            ),
         },
         {
             name: t('Preview'),
-            component: <div>{uuid && <SurveyFormSchemaPreview surveyUuid={uuid} />}</div>
-        }
+            component: <div>{uuid && <SurveyFormSchemaPreview surveyUuid={uuid} />}</div>,
+        },
     ];
 
     return (
@@ -215,7 +220,7 @@ export const SurveyBuilder: React.FC = () => {
                     <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
                         {currentUuid === 'new' ? t('New survey') : t('Edit survey')}
                     </h1>
-                    
+
                     {validationFailed && (
                         <div className="flex items-center mt-2 text-red-600 dark:text-red-400 text-sm">
                             <AlertCircleIcon className="h-4 w-4 mr-1.5 flex-shrink-0" />
@@ -223,24 +228,24 @@ export const SurveyBuilder: React.FC = () => {
                         </div>
                     )}
                 </div>
-                
+
                 <ButtonLoader
                     onClick={handleSubmit(onSubmit)}
                     loading={isSaving}
                     disabled={isSaving}
                     className={cn(
-                        "bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80",
-                        "text-white py-3 px-4 rounded-xl",
-                        "shadow-lg shadow-pumpkin-orange/20",
-                        "hover:translate-y-[-2px] transition-all duration-200 ease-in-out",
-                        "flex items-center justify-center"
+                        'bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80',
+                        'text-white py-3 px-4 rounded-xl',
+                        'shadow-lg shadow-pumpkin-orange/20',
+                        'hover:translate-y-[-2px] transition-all duration-200 ease-in-out',
+                        'flex items-center justify-center',
                     )}
                 >
                     <SaveIcon className="h-5 w-5 mr-2" />
                     {t('Save survey')}
                 </ButtonLoader>
             </div>
-            
+
             <FormProvider {...formMethods}>
                 <SurveyTabs tabs={tabs} />
             </FormProvider>

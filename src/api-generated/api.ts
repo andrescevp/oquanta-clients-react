@@ -3088,6 +3088,25 @@ export interface SurveyModel {
 /**
  * 
  * @export
+ * @interface SurveyReferences
+ */
+export interface SurveyReferences {
+    /**
+     * 
+     * @type {FormDefinition}
+     * @memberof SurveyReferences
+     */
+    'form'?: FormDefinition;
+    /**
+     * 
+     * @type {SurveyModel}
+     * @memberof SurveyReferences
+     */
+    'surveySchema'?: SurveyModel;
+}
+/**
+ * 
+ * @export
  * @interface SurveyRequest
  */
 export interface SurveyRequest {
@@ -6635,9 +6654,9 @@ export const SurveyOperationsApiAxiosParamCreator = function (configuration?: Co
             assertParamExists('getSurveyElementReferences', 'uuid', uuid)
             // verify required parameter 'elementCode' is not null or undefined
             assertParamExists('getSurveyElementReferences', 'elementCode', elementCode)
-            const localVarPath = `/api/survey/form/{uuid}/references/{element_code}`
+            const localVarPath = `/api/survey/form/{uuid}/references/{elementCode}`
                 .replace(`{${"uuid"}}`, encodeURIComponent(String(uuid)))
-                .replace(`{${"element_code"}}`, encodeURIComponent(String(elementCode)));
+                .replace(`{${"elementCode"}}`, encodeURIComponent(String(elementCode)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6755,7 +6774,7 @@ export const SurveyOperationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSurveyElementReferences(uuid: string, elementCode: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async getSurveyElementReferences(uuid: string, elementCode: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyReferences>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSurveyElementReferences(uuid, elementCode, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SurveyOperationsApi.getSurveyElementReferences']?.[localVarOperationServerIndex]?.url;
@@ -6779,7 +6798,7 @@ export const SurveyOperationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSurveyReferences(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async getSurveyReferences(uuid: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyReferences>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSurveyReferences(uuid, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SurveyOperationsApi.getSurveyReferences']?.[localVarOperationServerIndex]?.url;
@@ -6802,7 +6821,7 @@ export const SurveyOperationsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSurveyElementReferences(uuid: string, elementCode: string, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+        getSurveyElementReferences(uuid: string, elementCode: string, options?: RawAxiosRequestConfig): AxiosPromise<SurveyReferences> {
             return localVarFp.getSurveyElementReferences(uuid, elementCode, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6820,7 +6839,7 @@ export const SurveyOperationsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSurveyReferences(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+        getSurveyReferences(uuid: string, options?: RawAxiosRequestConfig): AxiosPromise<SurveyReferences> {
             return localVarFp.getSurveyReferences(uuid, options).then((request) => request(axios, basePath));
         },
     };

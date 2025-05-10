@@ -1,15 +1,14 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { cn } from '../../../lib/utils';
-import { ISurvey } from '../../../types/surveys';
 import { AlertCircleIcon, HelpCircleIcon } from '../../UI/Icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../UI/molecules/Tabs';
 import { QuestionItem } from '../QuestionTree';
 import QuestionPropertiesEditor from './QuestionPropertiesEditor';
 
 interface QuestionEditorProps {
+    surveyUuid: string;
     selectedQuestion: QuestionItem | null;
     selectedQuestionFormKey: string;
 }
@@ -19,11 +18,11 @@ interface QuestionEditorProps {
  * Uses atomic UI components for consistent styling and behavior
  */
 const QuestionEditor: React.FC<QuestionEditorProps> = ({
+                                                           surveyUuid,
                                                            selectedQuestion,
                                                            selectedQuestionFormKey,
                                                        }) => {
     const { t } = useTranslation();
-    const { setValue } = useFormContext<ISurvey>();
 
     // Check if we have a valid selected question
     if (!selectedQuestion) {
@@ -51,6 +50,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
                     <div className="space-y-6">
                         {/* Common properties for all question types */}
                         <QuestionPropertiesEditor
+                            surveyUuid={surveyUuid}
                             question={selectedQuestion}
                             formPath={selectedQuestionFormKey}
                         />
@@ -62,6 +62,7 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
                     <div className="space-y-6">
                         {/* Common properties for block types */}
                         <QuestionPropertiesEditor
+                            surveyUuid={surveyUuid}
                             question={selectedQuestion}
                             formPath={selectedQuestionFormKey}
                         />
