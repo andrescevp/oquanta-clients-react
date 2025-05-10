@@ -4,8 +4,8 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import clsx from 'clsx';
 
+import { QuestionItem } from '../../hooks/useSurveyTreeManager';
 import { IconGripVertical, IconLayoutList, IconPlus, IconRefresh, IconTrash } from '../UI/Icons';
-import { QuestionItem } from './QuestionTree';
 
 interface SortableItemProps {
   id: string;

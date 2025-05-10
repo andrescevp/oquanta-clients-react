@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { QuestionItem } from '../../../hooks/useSurveyTreeManager';
 import { cn } from '../../../lib/utils';
 import { AlertCircleIcon, HelpCircleIcon } from '../../UI/Icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../UI/molecules/Tabs';
-import { QuestionItem } from '../QuestionTree';
 import QuestionPropertiesEditor from './QuestionPropertiesEditor';
 
 interface QuestionEditorProps {

@@ -8,13 +8,13 @@ import { toast } from 'sonner';
 
 import { SurveyModel, SurveysApi, ValidationError } from '../../api-generated';
 import { useApi } from '../../hooks/useApi';
+import { QuestionItem } from '../../hooks/useSurveyTreeManager';
 import { cn } from '../../lib/utils';
 import { ISurvey } from '../../types/surveys';
 import { AlertCircleIcon, IconSave as SaveIcon } from '../UI/Icons';
 import ButtonLoader from '../UI/molecules/ButtonLoder';
 import { GeneralSurveyForm } from './GeneralSurveyForm';
 import QuestionnaireEditorDashboard from './QuestionnaireEditorDashboard';
-import { QuestionItem } from './QuestionTree';
 import SurveyFormSchemaPreview from './SurveyFormSchemaPreview';
 import { SurveyTabs } from './SurveyTabs';
 

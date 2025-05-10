@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 
 import { SurveyRequestChildrenInner } from '../../../../api-generated';
 import { InfoIcon,SettingsIcon } from '../../../../components/UI/Icons';
+import { QuestionItem } from '../../../../hooks/useSurveyTreeManager';
 import { cn } from '../../../../lib/utils';
 import { ISurvey } from '../../../../types/surveys';
 import OptionsFormFactory from '../../../Survey/Options/OptionsFormFactory';
-import { QuestionItem } from '../../QuestionTree';
 
 interface QuestionConfigProps {
   selectedQuestion: QuestionItem | null;

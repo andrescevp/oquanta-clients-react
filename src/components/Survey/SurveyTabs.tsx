@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Tab } from '@headlessui/react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 
 import { cn } from '../../lib/utils';
 
@@ -32,8 +32,8 @@ export const SurveyTabs: React.FC<SurveyTabsProps> = ({ tabs, className }) => {
 
     return (
         <div className={cn("w-full", className)}>
-            <Tab.Group>
-                <Tab.List className="flex space-x-1 overflow-hidden scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 border-b border-gray-200 dark:border-gray-700 bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-t-xl px-1 h-full">
+            <TabGroup>
+                <TabList className="flex space-x-1 overflow-hidden scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 border-b border-gray-200 dark:border-gray-700 bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-t-xl px-1 h-full">
                     {tabs.map((tab) => (
                         <Tab
                             key={tab.name}
@@ -51,10 +51,10 @@ export const SurveyTabs: React.FC<SurveyTabsProps> = ({ tabs, className }) => {
                             {t(tab.name)}
                         </Tab>
                     ))}
-                </Tab.List>
-                <Tab.Panels className="mt-4">
+                </TabList>
+                <TabPanels className="mt-4">
                     {tabs.map((tab) => (
-                        <Tab.Panel
+                        <TabPanel
                             key={tab.name}
                             className={cn(
                                 'focus:outline-none rounded-xl',
@@ -63,10 +63,10 @@ export const SurveyTabs: React.FC<SurveyTabsProps> = ({ tabs, className }) => {
                             )}
                         >
                             {tab.component}
-                        </Tab.Panel>
+                        </TabPanel>
                     ))}
-                </Tab.Panels>
-            </Tab.Group>
+                </TabPanels>
+            </TabGroup>
         </div>
     );
 };

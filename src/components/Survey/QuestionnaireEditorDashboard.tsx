@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { SurveyRequestChildrenInner } from '../../api-generated';
+import { QuestionItem } from '../../hooks/useSurveyTreeManager';
 import { ISurvey } from '../../types/surveys';
 import QuestionConfig from './Children/ChildrenConfig/QuestionConfig';
 import QuestionEditor from './Children/QuestionEditor';
-import QuestionTree, { QuestionItem } from './QuestionTree';
+import QuestionTree from './QuestionTree';
 
 interface QuestionnaireEditorDashboardProps {
     surveyUuid: string;

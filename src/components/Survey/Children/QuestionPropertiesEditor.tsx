@@ -12,13 +12,13 @@ import {
     SurveyRequestChildrenInner,
 } from '../../../api-generated';
 import { useApi } from '../../../hooks/useApi';
+import { QuestionItem } from '../../../hooks/useSurveyTreeManager';
 import { ISurvey } from '../../../types/surveys';
 import Label from '../../UI/atoms/Label';
 import { FileTextIcon } from '../../UI/Icons';
 import InputWithLabel from '../../UI/molecules/InputWithLabel';
 import MDEditorWithAutocomplete from '../Editor/MDEditorWithAutocomplete';
 import type { PlaceholderInitializer } from '../Editor/PlaceholdersDropdown';
-import { QuestionItem } from '../QuestionTree';
 import QuestionLoopConceptsEditor from './QuestionLoopConceptsEditor';
 import QuestionRowsColumnsEditor from './QuestionRowsColumnsEditor';
 
