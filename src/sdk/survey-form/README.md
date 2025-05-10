@@ -19,6 +19,7 @@ yarn add -D rollup @rollup/plugin-node-resolve @rollup/plugin-commonjs @rollup/p
 ```
 
 Build the SDK:
+
 ```bash
 # in project root
 yarn build:sdk

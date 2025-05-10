@@ -3,50 +3,50 @@
 @tailwind utilities;
 
 @layer components {
-  // Base button styles shared by all variants
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 
+    // Base button styles shared by all variants
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 
       rounded-xl font-medium transition-all duration-200 ease-in-out
       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800
       disabled:opacity-60 disabled:pointer-events-none disabled:shadow-none;
-  }
+    }
 
-  // Size variants
-  .btn-sm {
-    @apply py-1.5 px-3 text-xs;
-  }
+    // Size variants
+    .btn-sm {
+        @apply py-1.5 px-3 text-xs;
+    }
 
-  .btn-md {
-    @apply py-2.5 px-4 text-sm;
-  }
+    .btn-md {
+        @apply py-2.5 px-4 text-sm;
+    }
 
-  .btn-lg {
-    @apply py-3 px-5 text-base;
-  }
+    .btn-lg {
+        @apply py-3 px-5 text-base;
+    }
 
-  // Primary button - pumpkin orange
-  .btn-primary {
-    @apply btn btn-md bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80 
+    // Primary button - pumpkin orange
+    .btn-primary {
+        @apply btn btn-md bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80 
       text-white shadow-lg shadow-pumpkin-orange/20
       hover:translate-y-[-2px] hover:shadow-xl
       focus:ring-pumpkin-orange/50
       active:translate-y-[1px] active:shadow-md;
-      foo: bar;
-  }
+        foo: bar;
+    }
 
-  // Secondary button - iris purple
-  .btn-secondary {
-    @apply btn btn-md bg-gradient-to-r from-iris-purple to-iris-purple/80
+    // Secondary button - iris purple
+    .btn-secondary {
+        @apply btn btn-md bg-gradient-to-r from-iris-purple to-iris-purple/80
       text-white shadow-lg shadow-iris-purple/20
       hover:translate-y-[-2px] hover:shadow-xl
       focus:ring-iris-purple/50
       active:translate-y-[1px] active:shadow-md;
-      foo: bar;
-  }
+        foo: bar;
+    }
 
-  // Tertiary/Outline button
-  .btn-outline {
-    @apply btn btn-md bg-white dark:bg-gray-800 
+    // Tertiary/Outline button
+    .btn-outline {
+        @apply btn btn-md bg-white dark:bg-gray-800 
       border border-gray-200 dark:border-gray-700
       text-gray-800 dark:text-gray-200
       shadow-sm hover:border-pumpkin-orange hover:text-pumpkin-orange
@@ -54,62 +54,62 @@
       hover:translate-y-[-2px] hover:shadow-md
       focus:ring-pumpkin-orange/40
       active:translate-y-[1px];
-      foo: bar;
-  }
+        foo: bar;
+    }
 
-  // Success button
-  .btn-success {
-    @apply btn btn-md bg-gradient-to-r from-lime-green to-lime-green/80
+    // Success button
+    .btn-success {
+        @apply btn btn-md bg-gradient-to-r from-lime-green to-lime-green/80
       text-gray-900 shadow-lg shadow-lime-green/20
       hover:translate-y-[-2px] hover:shadow-xl
       focus:ring-lime-green/50
       active:translate-y-[1px] active:shadow-md;
-      foo: bar;
-  }
+        foo: bar;
+    }
 
-  // Danger button
-  .btn-danger {
-    @apply btn btn-md bg-gradient-to-r from-red-500 to-red-500/80
+    // Danger button
+    .btn-danger {
+        @apply btn btn-md bg-gradient-to-r from-red-500 to-red-500/80
       text-white shadow-lg shadow-red-500/20
       hover:translate-y-[-2px] hover:shadow-xl
       focus:ring-red-500/50
       active:translate-y-[1px] active:shadow-md;
-      foo: bar;
-  }
+        foo: bar;
+    }
 
-  // Ghost button
-  .btn-ghost {
-    @apply btn btn-md text-gray-700 dark:text-gray-300
+    // Ghost button
+    .btn-ghost {
+        @apply btn btn-md text-gray-700 dark:text-gray-300
       hover:bg-gray-100 dark:hover:bg-gray-700/50
       hover:text-pumpkin-orange dark:hover:text-pumpkin-orange
       focus:ring-gray-300/50 dark:focus:ring-gray-500/50;
-  }
+    }
 
-  // Icon button variants
-  .btn-icon {
-    @apply p-2 rounded-xl flex items-center justify-center;
-  }
+    // Icon button variants
+    .btn-icon {
+        @apply p-2 rounded-xl flex items-center justify-center;
+    }
 
-  .btn-icon-primary {
-    @apply btn-icon bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80
+    .btn-icon-primary {
+        @apply btn-icon bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80
       text-white shadow-lg shadow-pumpkin-orange/20
       hover:translate-y-[-2px] hover:shadow-xl
       focus:ring-2 focus:ring-pumpkin-orange/50
       active:translate-y-[1px] active:shadow-md;
-      foo: bar;
-  }
+        foo: bar;
+    }
 
-  .btn-icon-secondary {
-    @apply btn-icon bg-gradient-to-r from-iris-purple to-iris-purple/80
+    .btn-icon-secondary {
+        @apply btn-icon bg-gradient-to-r from-iris-purple to-iris-purple/80
       text-white shadow-lg shadow-iris-purple/20
       hover:translate-y-[-2px] hover:shadow-xl
       focus:ring-2 focus:ring-iris-purple/50
       active:translate-y-[1px] active:shadow-md;
-      foo: bar;
-  }
+        foo: bar;
+    }
 
-  .btn-icon-outline {
-    @apply btn-icon bg-white dark:bg-gray-800
+    .btn-icon-outline {
+        @apply btn-icon bg-white dark:bg-gray-800
       border border-gray-200 dark:border-gray-700
       text-gray-700 dark:text-gray-300
       shadow-sm hover:border-pumpkin-orange hover:text-pumpkin-orange
@@ -117,42 +117,42 @@
       hover:translate-y-[-2px] hover:shadow-md
       focus:ring-2 focus:ring-pumpkin-orange/40
       active:translate-y-[1px];
-      foo: bar;
-  }
+        foo: bar;
+    }
 
-  .btn-icon-ghost {
-    @apply btn-icon text-gray-700 dark:text-gray-300
+    .btn-icon-ghost {
+        @apply btn-icon text-gray-700 dark:text-gray-300
       hover:bg-gray-100 dark:hover:bg-gray-700/50
       hover:text-pumpkin-orange dark:hover:text-pumpkin-orange
       focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-gray-500/50;
-  }
-
-  // Full width modifier
-  .btn-full {
-    @apply w-full;
-  }
-
-  // Loading state - to be used with ButtonLoader component
-  .btn-loading {
-    @apply relative text-transparent transition-none hover:text-transparent;
-  }
-
-  .btn-loading::after {
-    @apply absolute inset-0 flex items-center justify-center text-current;
-    content: "";
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 3a9 9 0 1 0 9 9'%3E%3C/path%3E%3C/svg%3E");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 1.5rem;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
     }
-    to {
-      transform: rotate(360deg);
+
+    // Full width modifier
+    .btn-full {
+        @apply w-full;
     }
-  }
+
+    // Loading state - to be used with ButtonLoader component
+    .btn-loading {
+        @apply relative text-transparent transition-none hover:text-transparent;
+    }
+
+    .btn-loading::after {
+        @apply absolute inset-0 flex items-center justify-center text-current;
+        content: '';
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 3a9 9 0 1 0 9 9'%3E%3C/path%3E%3C/svg%3E");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 1.5rem;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
 }

@@ -17,7 +17,22 @@ interface ButtonLoderProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
 
 const ButtonLoader = React.forwardRef<HTMLButtonElement, ButtonLoderProps>(
     // eslint-disable-next-line complexity
-    ({ className, type, title, id, tooltipPlace, showTooltip, icon, loading, children, iconLoaderClassName, ...props }, ref) => {
+    (
+        {
+            className,
+            type,
+            title,
+            id,
+            tooltipPlace,
+            showTooltip,
+            icon,
+            loading,
+            children,
+            iconLoaderClassName,
+            ...props
+        },
+        ref,
+    ) => {
         const randId = useId();
         const btnId = id || `btn-${randId}`;
         return (
@@ -29,10 +44,9 @@ const ButtonLoader = React.forwardRef<HTMLButtonElement, ButtonLoderProps>(
                     type={type || 'button'}
                     data-tooltip-id={`${btnId}-tooltip`}
                     data-tooltip-place={tooltipPlace || 'top'}
-                    {...props}
-                >
+                    {...props}>
                     {loading ? (
-                        <IconLoaderCircle className={cn(iconLoaderClassName || "animate-spin w-5 h-5")} />
+                        <IconLoaderCircle className={cn(iconLoaderClassName || 'animate-spin w-5 h-5')} />
                     ) : (
                         <span className={cn('flex items-center', icon ? 'space-x-2' : '')}>
                             {icon && <span>{icon}</span>}

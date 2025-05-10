@@ -12,7 +12,7 @@ export type MDCommandChildrenHandle = {
     getState?: TextAreaCommandOrchestrator['getState'];
     textApi?: TextAreaTextApi;
     dispatch?: React.Dispatch<ContextStore>;
-}
+};
 
 interface UsePlaceholdersCommandOptions {
     initializers: PlaceholderInitializer[];
@@ -62,10 +62,7 @@ export const usePlaceholdersCommand = (options: UsePlaceholdersCommandOptions): 
 
         // Only insert if we have both selected initializer and placeholder
         if (selectedInitializer && selectedPlaceholder) {
-            const newText =
-                selectedInitializer.start +
-                selectedPlaceholder +
-                selectedInitializer.stop;
+            const newText = selectedInitializer.start + selectedPlaceholder + selectedInitializer.stop;
 
             if (newText) {
                 // Check if we have a valid state to determine cursor position
@@ -99,18 +96,21 @@ export const usePlaceholdersCommand = (options: UsePlaceholdersCommandOptions): 
     }, []);
 
     // Render function for the dropdown
-    const renderChildren = useCallback((handle: MDCommandChildrenHandle) => {
-        return (
-            <PlaceholdersDropdown
-                key={`placeholders-dropdown-${dropdownKey}`}
-                handle={handle}
-                initializers={initializers}
-                placeholderColors={placeholderColors}
-                onSelectPlaceholder={handleSelectPlaceholder}
-                onUnmount={handleUnmount}
-            />
-        );
-    }, [initializers, placeholderColors, dropdownKey, handleSelectPlaceholder, handleUnmount]);
+    const renderChildren = useCallback(
+        (handle: MDCommandChildrenHandle) => {
+            return (
+                <PlaceholdersDropdown
+                    key={`placeholders-dropdown-${dropdownKey}`}
+                    handle={handle}
+                    initializers={initializers}
+                    placeholderColors={placeholderColors}
+                    onSelectPlaceholder={handleSelectPlaceholder}
+                    onUnmount={handleUnmount}
+                />
+            );
+        },
+        [initializers, placeholderColors, dropdownKey, handleSelectPlaceholder, handleUnmount],
+    );
 
     // Create the command object
     return useMemo(() => {
@@ -122,16 +122,35 @@ export const usePlaceholdersCommand = (options: UsePlaceholdersCommandOptions): 
             name: 'placeholders',
             groupName: 'placeholders',
             icon: (
-                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2" fill="none"
-                     strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                    viewBox='0 0 24 24'
+                    width='12'
+                    height='12'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                    fill='none'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'>
                     <path
-                        d="M17.5 2H9.5C8.12 2 7 3.12 7 4.5V6H8.5V4.5C8.5 3.95 8.95 3.5 9.5 3.5H17.5C18.05 3.5 18.5 3.95 18.5 4.5V19.5C18.5 20.05 18.05 20.5 17.5 20.5H9.5C8.95 20.5 8.5 20.05 8.5 19.5V18H7V19.5C7 20.88 8.12 22 9.5 22H17.5C18.88 22 20 20.88 20 19.5V4.5C20 3.12 18.88 2 17.5 2Z"
-                        fill="currentColor" />
-                    <path d="M9.5 7.5L4 12L9.5 16.5" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10"
-                          strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M14.5 12H4" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10"
-                          strokeLinecap="round"
-                          strokeLinejoin="round" />
+                        d='M17.5 2H9.5C8.12 2 7 3.12 7 4.5V6H8.5V4.5C8.5 3.95 8.95 3.5 9.5 3.5H17.5C18.05 3.5 18.5 3.95 18.5 4.5V19.5C18.5 20.05 18.05 20.5 17.5 20.5H9.5C8.95 20.5 8.5 20.05 8.5 19.5V18H7V19.5C7 20.88 8.12 22 9.5 22H17.5C18.88 22 20 20.88 20 19.5V4.5C20 3.12 18.88 2 17.5 2Z'
+                        fill='currentColor'
+                    />
+                    <path
+                        d='M9.5 7.5L4 12L9.5 16.5'
+                        stroke='currentColor'
+                        strokeWidth='1.5'
+                        strokeMiterlimit='10'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                    />
+                    <path
+                        d='M14.5 12H4'
+                        stroke='currentColor'
+                        strokeWidth='1.5'
+                        strokeMiterlimit='10'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                    />
                 </svg>
             ),
             buttonProps: { 'aria-label': 'Insert placeholder' },

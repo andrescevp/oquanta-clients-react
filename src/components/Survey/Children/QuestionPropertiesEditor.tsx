@@ -34,11 +34,7 @@ interface QuestionPropertiesEditorProps {
  * Extracted to promote reusability and composition
  */
 // eslint-disable-next-line complexity
-const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
-                                                                               surveyUuid,
-                                                                               question,
-                                                                               formPath,
-                                                                           }) => {
+const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({ surveyUuid, question, formPath }) => {
     const { t } = useTranslation();
     const { call } = useApi<SurveyOperationsApi>(SurveyOperationsApi);
     const [formReferences, setFormReferences] = React.useState<SurveyReferences>();
@@ -50,9 +46,9 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
     const questionCode = question.code;
     const label = question.label;
     const help = question.help;
-    const rows = question.rows as ElementRow[] || null;
-    const columns = question.columns as ElementColumn[] || null;
-    const choices = question.choices as ElementChoice[] || null;
+    const rows = (question.rows as ElementRow[]) || null;
+    const columns = (question.columns as ElementColumn[]) || null;
+    const choices = (question.choices as ElementChoice[]) || null;
 
     const getChildrenLabels = useCallback((schema: SurveyModel | SurveyModel['children']) => {
         const labels: string[] = [];
@@ -96,7 +92,9 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
             };
 
             setInitializers(prev => {
-                const existing = prev.find(init => init.start === constLabelsInitializers.start && init.stop === constLabelsInitializers.stop);
+                const existing = prev.find(
+                    init => init.start === constLabelsInitializers.start && init.stop === constLabelsInitializers.stop,
+                );
                 if (existing) {
                     // merge existing placeholders with new ones
                     existing.placeholders = Array.from(new Set(constLabelsInitializers.placeholders));
@@ -129,16 +127,14 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
     };
 
     // Determine what label to use based on question type
-    const labelText = ['block', 'loop'].includes(questionType)
-        ? t('Block Title')
-        : t('Question Text');
+    const labelText = ['block', 'loop'].includes(questionType) ? t('Block Title') : t('Question Text');
 
     // Check if the question type supports rows and columns
     const supportsRowsColumns = ['choice', 'open_end'].includes(questionType);
     const isLoop = questionType === 'loop';
 
     return (
-        <div className="space-y-6">
+        <div className='space-y-6'>
             {/* Block/Loop Title or Question Code */}
             <InputWithLabel
                 id={`${questionCode}-code`}
@@ -147,7 +143,7 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
                 inputProps={{
                     type: 'text',
                     value: questionCode,
-                    onChange: (e) => {
+                    onChange: e => {
                         handleFieldChange('code', e.target.value);
                     },
                     placeholder: t('Enter unique identifier'),
@@ -164,38 +160,42 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
                     inputProps={{
                         type: 'text',
                         value: label,
-                        onChange: (e) => handleFieldChange('label', e.target.value),
+                        onChange: e => handleFieldChange('label', e.target.value),
                         placeholder: t('Enter title'),
                         className: 'backdrop-blur-sm',
                     }}
-                    helperText={isLoop ? t('Descriptive name for this loop section') : t('Title for this group of questions')}
+                    helperText={
+                        isLoop ? t('Descriptive name for this loop section') : t('Title for this group of questions')
+                    }
                 />
             ) : (
                 <>
-                    <div className="flex flex-col space-y-2">
-                        <Label htmlFor="survey-description"
-                               className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-                            <FileTextIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                    <div className='flex flex-col space-y-2'>
+                        <Label
+                            htmlFor='survey-description'
+                            className='flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-200'>
+                            <FileTextIcon className='h-5 w-5 text-gray-500 dark:text-gray-400' />
                             {t('Element label')}
                         </Label>
                         <MDEditorWithAutocomplete
                             value={label || ''}
-                            onChange={function(value?: string): void {
+                            onChange={function (value?: string): void {
                                 handleFieldChange('label', value || '');
                             }}
                             initializers={initializers}
                             formReferences={formReferences}
                         />
                     </div>
-                    <div className="flex flex-col space-y-2">
-                        <Label htmlFor="survey-description"
-                               className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-                            <FileTextIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                    <div className='flex flex-col space-y-2'>
+                        <Label
+                            htmlFor='survey-description'
+                            className='flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-200'>
+                            <FileTextIcon className='h-5 w-5 text-gray-500 dark:text-gray-400' />
                             {t('Element Help')}
                         </Label>
                         <MDEditorWithAutocomplete
                             value={help || ''}
-                            onChange={function(value?: string): void {
+                            onChange={function (value?: string): void {
                                 handleFieldChange('help', value || '');
                             }}
                             initializers={initializers}
@@ -206,19 +206,14 @@ const QuestionPropertiesEditor: React.FC<QuestionPropertiesEditorProps> = ({
             )}
 
             {/* Loop Concepts Editor for loop type */}
-            {isLoop && (
-                <QuestionLoopConceptsEditor
-                    questionCode={questionCode}
-                    formPath={formPath}
-                />
-            )}
+            {isLoop && <QuestionLoopConceptsEditor questionCode={questionCode} formPath={formPath} />}
 
             {/* Rows and Columns Editor for supported question types */}
             {supportsRowsColumns && (
-                <div className="mt-6">
-                    <div className="mb-4">
-                        <h3 className="font-medium text-gray-800 dark:text-gray-200">{t('Matrix Configuration')}</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                <div className='mt-6'>
+                    <div className='mb-4'>
+                        <h3 className='font-medium text-gray-800 dark:text-gray-200'>{t('Matrix Configuration')}</h3>
+                        <p className='text-sm text-gray-500 dark:text-gray-400'>
                             {t('Configure rows and columns for this matrix question')}
                         </p>
                     </div>

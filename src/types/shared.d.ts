@@ -10,14 +10,14 @@ export interface UseAnyCacheInterfaceReturn<T> {
     expireValue: () => void;
     key: string;
     initialValue: T;
-  }
+}
 
 export interface UseAnyCacheInterfaceProps<T> {
-    key: string, 
-    initialValue: T
+    key: string;
+    initialValue: T;
 }
 
 export interface StorageItem<T> {
     value: T;
     expiry?: number | null; // timestamp de expiración o null si no expira
-  }
+}

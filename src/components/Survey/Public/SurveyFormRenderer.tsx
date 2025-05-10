@@ -32,12 +32,7 @@ export interface SurveyCollectionAnswer {
  * Component that dynamically renders a form based on a JSON schema
  * This can be exported as part of the SDK for public-facing applications
  */
-const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
-                                                                   schema,
-                                                                   onSubmit,
-                                                                   loading = false,
-                                                                   className,
-                                                               }) => {
+const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({ schema, onSubmit, loading = false, className }) => {
     const { t } = useTranslation();
     // const [formSchema, setFormSchema] = React.useState<SurveyCollectionAnswer>();
 
@@ -63,10 +58,10 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
 
         let elementType = 'text';
         if (type === 'text') {
-            elementType = ('multiline' in elementOptions && elementOptions['multiline'] === true) ? 'textarea' : 'text';
-            elementType = ('type' in elementOptions && elementOptions['type'] === 'string') ? elementType : 'number';
+            elementType = 'multiline' in elementOptions && elementOptions['multiline'] === true ? 'textarea' : 'text';
+            elementType = 'type' in elementOptions && elementOptions['type'] === 'string' ? elementType : 'number';
         } else if (type === 'choice') {
-            elementType = ('multiple' in formOptions && formOptions.multiple === true) ? 'checkbox' : 'radio';
+            elementType = 'multiple' in formOptions && formOptions.multiple === true ? 'checkbox' : 'radio';
         }
         const choiceOptions = 'choices' in formOptions ? formOptions.choices : [];
         console.log('choiceOptions', elementType, choiceOptions);
@@ -75,18 +70,16 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
             case 'text':
                 return (
                     <div>
-                        <label
-                            htmlFor={key}
-                            className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label htmlFor={key} className='text-sm font-medium text-gray-700 dark:text-gray-300'>
                             {label}
-                            {isRequired && <span className="ml-1 text-red-500">*</span>}
+                            {isRequired && <span className='ml-1 text-red-500'>*</span>}
                         </label>
                         <input
                             id={key}
-                            type="text"
+                            type='text'
                             placeholder={placeholder || ''}
                             {...methods.register(key, { required: isRequired })}
-                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-pumpkin-orange/50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-pumpkin-orange/50 dark:bg-gray-700 dark:border-gray-600 dark:text-white'
                             data-form-path={prop.form_path}
                         />
                     </div>
@@ -94,21 +87,19 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
             case 'number':
                 return (
                     <div>
-                        <label
-                            htmlFor={key}
-                            className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label htmlFor={key} className='text-sm font-medium text-gray-700 dark:text-gray-300'>
                             {label}
-                            {isRequired && <span className="ml-1 text-red-500">*</span>}
+                            {isRequired && <span className='ml-1 text-red-500'>*</span>}
                         </label>
                         <input
                             id={key}
-                            type="number"
+                            type='number'
                             placeholder={placeholder || ''}
                             {...methods.register(key, {
                                 required: isRequired,
                                 valueAsNumber: true,
                             })}
-                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-pumpkin-orange/50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-pumpkin-orange/50 dark:bg-gray-700 dark:border-gray-600 dark:text-white'
                             data-form-path={prop.form_path}
                         />
                     </div>
@@ -116,17 +107,15 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
             case 'textarea':
                 return (
                     <div>
-                        <label
-                            htmlFor={key}
-                            className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label htmlFor={key} className='text-sm font-medium text-gray-700 dark:text-gray-300'>
                             {label}
-                            {isRequired && <span className="ml-1 text-red-500">*</span>}
+                            {isRequired && <span className='ml-1 text-red-500'>*</span>}
                         </label>
                         <textarea
                             id={key}
                             placeholder={placeholder || ''}
                             {...methods.register(key, { required: isRequired })}
-                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-pumpkin-orange/50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-pumpkin-orange/50 dark:bg-gray-700 dark:border-gray-600 dark:text-white'
                             rows={3}
                             data-form-path={prop.form_path}
                         />
@@ -135,21 +124,19 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
             case 'checkbox':
                 return (
                     <div>
-                        <div>
-                            {label}
-                        </div>
+                        <div>{label}</div>
                         <div>
                             {choiceOptions.map((option: ChoiceOption, index: number) => (
-                                <div key={option.value} className="flex items-center">
+                                <div key={option.value} className='flex items-center'>
                                     <input
-                                        type="checkbox"
+                                        type='checkbox'
                                         id={`${key}-${option.value}`}
                                         value={option.value}
                                         {...methods.register(key)}
-                                        className="mr-2"
+                                        className='mr-2'
                                         data-form-path={`${prop.form_path}[${index}][${option.value}]`}
                                     />
-                                    <label htmlFor={`${key}-${option.value}`} className="text-sm">
+                                    <label htmlFor={`${key}-${option.value}`} className='text-sm'>
                                         {option.label}
                                     </label>
                                 </div>
@@ -160,20 +147,18 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
             case 'radio':
                 return (
                     <div>
-                        <div>
-                            {label}
-                        </div>
+                        <div>{label}</div>
                         <div>
                             {choiceOptions.map((option: ChoiceOption) => (
-                                <div key={option.value} className="flex items-center">
+                                <div key={option.value} className='flex items-center'>
                                     <input
-                                        type="radio"
+                                        type='radio'
                                         id={`${key}-${option.value}`}
                                         value={option.value}
                                         {...methods.register(key)}
-                                        className="mr-2"
+                                        className='mr-2'
                                     />
-                                    <label htmlFor={`${key}-${option.value}`} className="text-sm">
+                                    <label htmlFor={`${key}-${option.value}`} className='text-sm'>
                                         {option.label}
                                     </label>
                                 </div>
@@ -204,21 +189,15 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
         const title = properties[0][1].attr?.['data-child-label'] || 'Question';
 
         return (
-            <div key={questionPath} className="mb-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-3">
-                    {title}
-                </h3>
-                <div
-                    className="space-y-3 bg-gray-50/60 dark:bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+            <div key={questionPath} className='mb-6'>
+                <h3 className='text-lg font-medium text-gray-900 dark:text-white mb-3'>{title}</h3>
+                <div className='space-y-3 bg-gray-50/60 dark:bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-gray-200 dark:border-gray-700'>
                     {properties.map(([key, prop]) => (
-                        <div key={key} className="flex items-start">
-                            <div
-                                className="min-w-[120px] mr-3 pt-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <div key={key} className='flex items-start'>
+                            <div className='min-w-[120px] mr-3 pt-2 text-sm font-medium text-gray-700 dark:text-gray-300'>
                                 {prop.attr?.['data-row-label'] || 'Row'}
                             </div>
-                            <div className="flex-grow">
-                                {renderField(key, prop)}
-                            </div>
+                            <div className='flex-grow'>{renderField(key, prop)}</div>
                         </div>
                     ))}
                 </div>
@@ -252,13 +231,11 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
             }
 
             return (
-                <div key={itemCode} className="mb-6">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                <div key={itemCode} className='mb-6'>
+                    <h3 className='text-lg font-medium text-gray-900 dark:text-white mb-3'>
                         {formDefinition.label || 'Question'}
                     </h3>
-                    <div className="space-y-3">
-                        {renderField(itemCode, formDefinition)}
-                    </div>
+                    <div className='space-y-3'>{renderField(itemCode, formDefinition)}</div>
                 </div>
             );
         });
@@ -272,7 +249,10 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
 
     return !loading && schema ? (
         <div
-            className={cn('bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm', className)}>
+            className={cn(
+                'bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm',
+                className,
+            )}>
             {/*{schema.title && (*/}
             {/*    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">*/}
             {/*        {schema.title}*/}
@@ -280,13 +260,11 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
             {/*)}*/}
 
             <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(onSubmit || defaultSubmit)} className="space-y-6">
-                    <div className="space-y-6">
-                        {formFields(schema)}
-                    </div>
+                <form onSubmit={methods.handleSubmit(onSubmit || defaultSubmit)} className='space-y-6'>
+                    <div className='space-y-6'>{formFields(schema)}</div>
 
                     <ButtonLoader
-                        type="submit"
+                        type='submit'
                         loading={loading}
                         className={cn(
                             'bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80',
@@ -294,8 +272,7 @@ const SurveyFormRenderer: React.FC<SurveyFormRendererProps> = ({
                             'shadow-lg shadow-pumpkin-orange/20',
                             'hover:translate-y-[-2px] transition-all duration-200 ease-in-out',
                             'mt-6 w-full',
-                        )}
-                    >
+                        )}>
                         {t('Submit')}
                     </ButtonLoader>
                 </form>

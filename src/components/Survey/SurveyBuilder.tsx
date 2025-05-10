@@ -177,14 +177,12 @@ export const SurveyBuilder: React.FC = () => {
 
     if (isLoading && !isSubmitting) {
         return (
-            <div
-                className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-                <div
-                    className="backdrop-blur-sm bg-white/60 dark:bg-gray-800/50 p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700">
-                    <div className="animate-pulse flex flex-col items-center">
-                        <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-full mb-4"></div>
-                        <div className="h-5 w-40 bg-gray-200 dark:bg-gray-700 rounded-xl mb-3"></div>
-                        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+            <div className='flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800'>
+                <div className='backdrop-blur-sm bg-white/60 dark:bg-gray-800/50 p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700'>
+                    <div className='animate-pulse flex flex-col items-center'>
+                        <div className='h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-full mb-4'></div>
+                        <div className='h-5 w-40 bg-gray-200 dark:bg-gray-700 rounded-xl mb-3'></div>
+                        <div className='h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded-xl'></div>
                     </div>
                 </div>
             </div>
@@ -194,18 +192,11 @@ export const SurveyBuilder: React.FC = () => {
     const tabs = [
         {
             name: t('General'),
-            component: (
-                <GeneralSurveyForm />
-            ),
+            component: <GeneralSurveyForm />,
         },
         {
             name: t('Questionnaire'),
-            component: (uuid &&
-                <QuestionnaireEditorDashboard
-                    surveyUuid={uuid}
-                    onChange={handleQuestionsChange}
-                />
-            ),
+            component: uuid && <QuestionnaireEditorDashboard surveyUuid={uuid} onChange={handleQuestionsChange} />,
         },
         {
             name: t('Preview'),
@@ -214,16 +205,16 @@ export const SurveyBuilder: React.FC = () => {
     ];
 
     return (
-        <div className="container mx-auto px-4 py-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div className='container mx-auto px-4 py-6'>
+            <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4'>
                 <div>
-                    <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                    <h1 className='text-2xl font-semibold text-gray-900 dark:text-white'>
                         {currentUuid === 'new' ? t('New survey') : t('Edit survey')}
                     </h1>
 
                     {validationFailed && (
-                        <div className="flex items-center mt-2 text-red-600 dark:text-red-400 text-sm">
-                            <AlertCircleIcon className="h-4 w-4 mr-1.5 flex-shrink-0" />
+                        <div className='flex items-center mt-2 text-red-600 dark:text-red-400 text-sm'>
+                            <AlertCircleIcon className='h-4 w-4 mr-1.5 flex-shrink-0' />
                             <span>{t('Please fix the validation errors before saving')}</span>
                         </div>
                     )}
@@ -239,9 +230,8 @@ export const SurveyBuilder: React.FC = () => {
                         'shadow-lg shadow-pumpkin-orange/20',
                         'hover:translate-y-[-2px] transition-all duration-200 ease-in-out',
                         'flex items-center justify-center',
-                    )}
-                >
-                    <SaveIcon className="h-5 w-5 mr-2" />
+                    )}>
+                    <SaveIcon className='h-5 w-5 mr-2' />
                     {t('Save survey')}
                 </ButtonLoader>
             </div>

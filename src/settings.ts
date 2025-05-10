@@ -5,4 +5,4 @@ export const settings = {
         basePath: api_url || '',
         isJsonMime: () => true,
     },
-}
+};

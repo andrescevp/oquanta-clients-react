@@ -56,6 +56,6 @@ export function useApi<T extends BaseAPI>(api: new (configuration?: Configuratio
         isLoading,
         error,
         reset,
-        client: apiClient
+        client: apiClient,
     };
 }

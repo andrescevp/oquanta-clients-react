@@ -1,5 +1,3 @@
-import {
-    SurveyModel,
-} from '../api-generated';
+import { SurveyModel } from '../api-generated';
 
 export type ISurvey = SurveyModel;

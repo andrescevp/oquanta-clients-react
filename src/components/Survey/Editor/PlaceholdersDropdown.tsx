@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useMemo, useRef,useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { PlusCircleIcon, SearchIcon } from '../../../components/UI/Icons';
 import { cn } from '../../../lib/utils';
@@ -35,12 +35,12 @@ export const PlaceholdersDropdown: React.FC<PlaceholdersDropdownProps> = ({
     const [filteredPlaceholders, setFilteredPlaceholders] = useState<string[]>([]);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
-    
+
     // Process initializers with useMemo to avoid recalculation on every render
     const validInitializers = useMemo(() => {
         return initializers.filter(init => init.placeholders && init.placeholders.length > 0) || [];
     }, [initializers]);
-    
+
     // Determine current initializer safely
     const currentInitializer = useMemo(() => {
         if (validInitializers.length === 0) return { start: '', stop: '', placeholders: [] };
@@ -52,7 +52,7 @@ export const PlaceholdersDropdown: React.FC<PlaceholdersDropdownProps> = ({
         // Reset search text when initializer changes
         setSearchText('');
     }, [activeInitializerIndex]);
-    
+
     useEffect(() => {
         return () => {
             if (onUnmount) {
@@ -61,15 +61,16 @@ export const PlaceholdersDropdown: React.FC<PlaceholdersDropdownProps> = ({
             }
         };
     }, [onUnmount]);
-    
+
     useEffect(() => {
         if (searchText === '') {
             setFilteredPlaceholders(currentInitializer.placeholders);
             return;
         }
-        
-        const placeholders = currentInitializer.placeholders
-            .filter(p => p.toLowerCase().includes(searchText.toLowerCase()));
+
+        const placeholders = currentInitializer.placeholders.filter(p =>
+            p.toLowerCase().includes(searchText.toLowerCase()),
+        );
         setFilteredPlaceholders(placeholders);
     }, [searchText, currentInitializer.placeholders]);
 
@@ -138,44 +139,50 @@ export const PlaceholdersDropdown: React.FC<PlaceholdersDropdownProps> = ({
     // }
 
     return (
-        <div 
+        <div
             ref={dropdownRef}
-            className="w-72 p-2 bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700"
-        >
-            <div className="border-b border-gray-200 dark:border-gray-700 pb-2 mb-2">
-                <div className="flex justify-between items-center px-2 mb-2">
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">Insert Placeholder</h3>
+            className='w-72 p-2 bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700'>
+            <div className='border-b border-gray-200 dark:border-gray-700 pb-2 mb-2'>
+                <div className='flex justify-between items-center px-2 mb-2'>
+                    <h3 className='text-sm font-medium text-gray-900 dark:text-gray-100'>Insert Placeholder</h3>
                     <button
-                        className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                        className='text-gray-400 hover:text-gray-500 dark:hover:text-gray-300'
                         onClick={() => handle.close()}
-                        aria-label="Close dropdown"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                  d="M6 18L18 6M6 6l12 12" />
+                        aria-label='Close dropdown'>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='h-4 w-4'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            stroke='currentColor'>
+                            <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                strokeWidth={2}
+                                d='M6 18L18 6M6 6l12 12'
+                            />
                         </svg>
                     </button>
                 </div>
 
                 {/* Search input */}
-                <div className="relative rounded-xl mb-2">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <SearchIcon className="h-4 w-4 text-gray-400" />
+                <div className='relative rounded-xl mb-2'>
+                    <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                        <SearchIcon className='h-4 w-4 text-gray-400' />
                     </div>
                     <input
                         ref={searchInputRef}
-                        type="text"
-                        className="w-full bg-gray-50 dark:bg-gray-700/50 focus:ring-2 focus:ring-pumpkin-orange/50 focus:border-pumpkin-orange block pl-10 pr-4 py-2.5 text-sm border border-gray-300 dark:border-gray-600 rounded-xl"
-                        placeholder="Search placeholders..."
+                        type='text'
+                        className='w-full bg-gray-50 dark:bg-gray-700/50 focus:ring-2 focus:ring-pumpkin-orange/50 focus:border-pumpkin-orange block pl-10 pr-4 py-2.5 text-sm border border-gray-300 dark:border-gray-600 rounded-xl'
+                        placeholder='Search placeholders...'
                         value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
+                        onChange={e => setSearchText(e.target.value)}
                     />
                 </div>
 
                 {/* Initializer tabs (if more than one) */}
                 {validInitializers.length > 1 && (
-                    <div className="flex space-x-2 overflow-x-auto pb-2">
+                    <div className='flex space-x-2 overflow-x-auto pb-2'>
                         {validInitializers.map((init, idx) => (
                             <button
                                 key={`${init.start}-${idx}`}
@@ -187,8 +194,7 @@ export const PlaceholdersDropdown: React.FC<PlaceholdersDropdownProps> = ({
                                 )}
                                 onClick={() => {
                                     setActiveInitializerIndex(idx);
-                                }}
-                            >
+                                }}>
                                 {init.start}...{init.stop}
                             </button>
                         ))}
@@ -197,23 +203,22 @@ export const PlaceholdersDropdown: React.FC<PlaceholdersDropdownProps> = ({
             </div>
 
             {/* Placeholder list */}
-            <div className="max-h-64 overflow-y-auto">
+            <div className='max-h-64 overflow-y-auto'>
                 {filteredPlaceholders.length > 0 ? (
-                    <div className="grid grid-cols-1 gap-1">
-                        {filteredPlaceholders.map((placeholder) => (
+                    <div className='grid grid-cols-1 gap-1'>
+                        {filteredPlaceholders.map(placeholder => (
                             <button
                                 key={placeholder}
-                                className="flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-left text-sm transition-all duration-200"
+                                className='flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-left text-sm transition-all duration-200'
                                 onClick={() => insertPlaceholder(placeholder)}
-                                style={{ color: getPlaceholderColor(placeholder) }}
-                            >
-                                <PlusCircleIcon className="h-4 w-4 mr-2 flex-shrink-0" />
-                                <span className="font-medium truncate">{placeholder}</span>
+                                style={{ color: getPlaceholderColor(placeholder) }}>
+                                <PlusCircleIcon className='h-4 w-4 mr-2 flex-shrink-0' />
+                                <span className='font-medium truncate'>{placeholder}</span>
                             </button>
                         ))}
                     </div>
                 ) : (
-                    <div className="py-3 px-4 text-sm text-center text-gray-500 dark:text-gray-400">
+                    <div className='py-3 px-4 text-sm text-center text-gray-500 dark:text-gray-400'>
                         No matching placeholders found
                     </div>
                 )}

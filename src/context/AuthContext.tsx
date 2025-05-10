@@ -21,8 +21,8 @@ interface JWTTokenDecoded {
 }
 
 // Componente AuthProvider que no utiliza directamente useNavigate
-export const AuthProvider: React.FC<{ 
-    children: React.ReactNode; 
+export const AuthProvider: React.FC<{
+    children: React.ReactNode;
     navigate: (path: string) => void;
 }> = ({ children, navigate }) => {
     const [state, setState] = useState<AuthState>(initialState);
@@ -74,9 +74,9 @@ export const AuthProvider: React.FC<{
                 if (!token) {
                     throw new Error('Token not found');
                 }
-                
+
                 const { exp, roles } = jwtDecode<JWTTokenDecoded>(token);
-                
+
                 if (!roles) {
                     throw new Error('Roles not found');
                 }
@@ -136,19 +136,18 @@ export const useAuth = () => {
 
     const configuration = context.token
         ? new Configuration({
-            basePath: process.env.REACT_APP_BACKEND_API_URL,
-            accessToken: context.token,
-            baseOptions: {
-                headers: {
-                    Accept: 'application/json, application/problem+json, application/ld+json',
-                },
-            },
-        })
+              basePath: process.env.REACT_APP_BACKEND_API_URL,
+              accessToken: context.token,
+              baseOptions: {
+                  headers: {
+                      Accept: 'application/json, application/problem+json, application/ld+json',
+                  },
+              },
+          })
         : undefined;
 
     return { ...context, configuration };
 };
-
 
 export const useUser = () => {
     const context = useContext(AuthContext);

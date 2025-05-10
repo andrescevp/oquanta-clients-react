@@ -1,14 +1,12 @@
-
 type Primitive = string | number | boolean | symbol | null | undefined;
 type DottedKeys<T, Prefix extends string = ''> = {
     [K in keyof T]: T[K] extends Primitive
         ? `${Prefix}${Extract<K, string>}`
         : T[K] extends Array<any>
-            ? `${Prefix}${Extract<K, string>}`
-            : T[K] extends object
-                ? | `${Prefix}${Extract<K, string>}`
-                | DottedKeys<T[K], `${Prefix}${Extract<K, string>}.`>
-                : never;
+          ? `${Prefix}${Extract<K, string>}`
+          : T[K] extends object
+            ? `${Prefix}${Extract<K, string>}` | DottedKeys<T[K], `${Prefix}${Extract<K, string>}.`>
+            : never;
 }[keyof T];
 
 type DottedAccess<T> = {

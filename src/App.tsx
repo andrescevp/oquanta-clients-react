@@ -28,67 +28,68 @@ import { LoginPage } from './pages/LoginPage';
 import './App.scss';
 
 const App = () => {
-  return (
-    <StrictMode>
-    <DebugBarProvider>
-      <Router>
-        <AuthProviderWithRouter>
-          <PermissionProvider>
-            <SidebarProvider>
-              <UserMenuProvider> {/* Añadir el UserMenuProvider aquí */}
-                <BreadcrumbProvider>
-                  <OffsetPanelProvider>
-                    <LocationProvider>
-                      <Toaster />
-                      <Routes>
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/forgot-password" element={<RequestPasswordReset />} />
-                        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-                        <Route path="/accept-invitation/:token" element={<AcceptInvitationPage />} />
+    return (
+        <StrictMode>
+            <DebugBarProvider>
+                <Router>
+                    <AuthProviderWithRouter>
+                        <PermissionProvider>
+                            <SidebarProvider>
+                                <UserMenuProvider>
+                                    {' '}
+                                    {/* Añadir el UserMenuProvider aquí */}
+                                    <BreadcrumbProvider>
+                                        <OffsetPanelProvider>
+                                            <LocationProvider>
+                                                <Toaster />
+                                                <Routes>
+                                                    <Route path='/login' element={<LoginPage />} />
+                                                    <Route path='/forgot-password' element={<RequestPasswordReset />} />
+                                                    <Route
+                                                        path='/reset-password/:token'
+                                                        element={<ResetPasswordPage />}
+                                                    />
+                                                    <Route
+                                                        path='/accept-invitation/:token'
+                                                        element={<AcceptInvitationPage />}
+                                                    />
 
-                        {/* Rutas Admin */}
-                        <Route
-                          path="/admin"
-                          element={
-                            <AdminLayout />
-                          }
-                        >
-                          <Route index element={<Navigate to="/admin/dashboard" />} />
-                          <Route path="users" element={<UsersPage />} />
-                          <Route path="organization" element={<OrganizationsPage />} />
-                          <Route path="local-place" element={<OrganizationPlacesPage />} />
-                          <Route path="surveys" element={<SurveysPage />} />
-                          <Route path="surveys/:uuid" element={<SurveyBuilderPage />} />
+                                                    {/* Rutas Admin */}
+                                                    <Route path='/admin' element={<AdminLayout />}>
+                                                        <Route index element={<Navigate to='/admin/dashboard' />} />
+                                                        <Route path='users' element={<UsersPage />} />
+                                                        <Route path='organization' element={<OrganizationsPage />} />
+                                                        <Route
+                                                            path='local-place'
+                                                            element={<OrganizationPlacesPage />}
+                                                        />
+                                                        <Route path='surveys' element={<SurveysPage />} />
+                                                        <Route path='surveys/:uuid' element={<SurveyBuilderPage />} />
 
-                          {/* Más rutas admin */}
-                        </Route>
+                                                        {/* Más rutas admin */}
+                                                    </Route>
 
-                        {/* Rutas Client */}
-                        <Route
-                          path="/client"
-                          element={
-                            <ClientLayout />
-                          }
-                        >
-                          <Route index element={<Navigate to="/client/dashboard" />} />
-                          <Route path="organization" element={<OrganizationPage />} />
-                          {/* Más rutas client */}
-                        </Route>
+                                                    {/* Rutas Client */}
+                                                    <Route path='/client' element={<ClientLayout />}>
+                                                        <Route index element={<Navigate to='/client/dashboard' />} />
+                                                        <Route path='organization' element={<OrganizationPage />} />
+                                                        {/* Más rutas client */}
+                                                    </Route>
 
-                        <Route path="/" element={<Navigate to="/client" />} />
-                      </Routes>
-                      <DebugBar />
-                    </LocationProvider>
-                  </OffsetPanelProvider>
-                </BreadcrumbProvider>
-              </UserMenuProvider>
-            </SidebarProvider>
-          </PermissionProvider>
-        </AuthProviderWithRouter>
-      </Router>
-      </DebugBarProvider>
-    </StrictMode>
-  );
+                                                    <Route path='/' element={<Navigate to='/client' />} />
+                                                </Routes>
+                                                <DebugBar />
+                                            </LocationProvider>
+                                        </OffsetPanelProvider>
+                                    </BreadcrumbProvider>
+                                </UserMenuProvider>
+                            </SidebarProvider>
+                        </PermissionProvider>
+                    </AuthProviderWithRouter>
+                </Router>
+            </DebugBarProvider>
+        </StrictMode>
+    );
 };
 
 export default App;
