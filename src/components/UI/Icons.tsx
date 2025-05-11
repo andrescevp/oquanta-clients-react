@@ -31,6 +31,7 @@ import {
     GripHorizontal,
     GripVertical as GripVerticalIcon,
     Home,
+    Key,
     LayoutDashboard,
     LayoutList,
     LoaderCircle,
@@ -87,6 +88,7 @@ export const IconGripHorizontal = GripHorizontal;
 export const IconTrash = FaTrash;
 export const IconFile = File;
 export const IconMailCheck = MailCheck;
+export const IconKey = Key;
 
 export const IconDrag = GrDrag;
 
