@@ -54,7 +54,7 @@ const UseraApiKeysForm: React.FC<UseraApiKeysFormProps> = ({ uuid, onSuccess, on
     // Load API keys when the component mounts or when uuid changes
     const loadApiKeys = () => {
         if (!uuid) return;
-        
+
         apiKeysApi.call('getAdminUserApikeysList', uuid)
             .then((response) => {
                 setApiKeys(response.data);
@@ -73,26 +73,26 @@ const UseraApiKeysForm: React.FC<UseraApiKeysFormProps> = ({ uuid, onSuccess, on
     const createApiKey = (data: ApiKeyFormValues) => {
         console.log('Creating API key with data:', data, uuid);
         if (!uuid) return;
-        
+
         setError(null);
 
         apiKeysApi.call('postAdminUserApikeysCreate', uuid, {
             name: data.name,
             expiresInDays: data.expiresInDays,
         }).then((response) => {
-            // Show the token (only visible once)
-            setNewKeyToken(response.data.token);
-            setSuccessMessage(t('Clave API creada exitosamente'));
-            
-            // Reset the form and reload the keys
-            reset();
-            loadApiKeys();
-            
-            // Clear success message after 3 seconds
-            setTimeout(() => {
-                setSuccessMessage(null);
-            }, 3000);
-        }
+                // Show the token (only visible once)
+                setNewKeyToken(response.data.token);
+                setSuccessMessage(t('Clave API creada exitosamente'));
+
+                // Reset the form and reload the keys
+                reset();
+                loadApiKeys();
+
+                // Clear success message after 3 seconds
+                setTimeout(() => {
+                    setSuccessMessage(null);
+                }, 3000);
+            },
         ).catch(() => {
             setError(t('Error al crear la clave API'));
         });
@@ -101,19 +101,19 @@ const UseraApiKeysForm: React.FC<UseraApiKeysFormProps> = ({ uuid, onSuccess, on
     // Revoke (delete) an API key
     const revokeApiKey = async (keyUuid: string) => {
         if (!uuid) return;
-        
+
         setError(null);
-        
+
         try {
             await apiKeysApi.call('deleteAdminUserApikeysRevoke', uuid, keyUuid);
             setSuccessMessage(t('Clave API revocada exitosamente'));
             loadApiKeys();
-            
+
             // Clear success message after 3 seconds
             setTimeout(() => {
                 setSuccessMessage(null);
             }, 3000);
-        } catch  {
+        } catch {
             setError(t('Error al revocar la clave API'));
         }
     };
@@ -137,23 +137,26 @@ const UseraApiKeysForm: React.FC<UseraApiKeysFormProps> = ({ uuid, onSuccess, on
     };
 
     return (
-        <div className="p-6 max-w-2xl">
+        <div className="max-w-2xl">
             {/* Error and success messages */}
             {error && (
-                <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 dark:bg-red-900/20 dark:text-red-400 dark:border-red-400">
+                <div
+                    className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 dark:bg-red-900/20 dark:text-red-400 dark:border-red-400">
                     {error}
                 </div>
             )}
-            
+
             {successMessage && (
-                <div className="mb-4 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 dark:bg-green-900/20 dark:text-green-400 dark:border-green-400">
+                <div
+                    className="mb-4 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 dark:bg-green-900/20 dark:text-green-400 dark:border-green-400">
                     {successMessage}
                 </div>
             )}
 
             {/* New key token display - only shown once after creation */}
             {newKeyToken && (
-                <div className="mb-4 p-4 bg-amber-50 border border-amber-300 rounded-xl text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
+                <div
+                    className="mb-4 p-4 bg-amber-50 border border-amber-300 rounded-xl text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
                     <h3 className="font-medium mb-2">{t('Nueva clave API generada')}</h3>
                     <p className="mb-2 text-sm">{t('Guarde esta clave ahora. No se mostrará nuevamente:')}</p>
                     <div className="flex">
@@ -189,21 +192,22 @@ const UseraApiKeysForm: React.FC<UseraApiKeysFormProps> = ({ uuid, onSuccess, on
                     <button
                         onClick={() => setShowCreateForm(true)}
                         className={cn(
-                            "bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80",
-                            "text-white shadow-lg shadow-pumpkin-orange/20",
-                            "hover:translate-y-[-2px] hover:shadow-xl",
-                            "focus:ring-pumpkin-orange/50",
-                            "active:translate-y-[1px] active:shadow-md",
-                            "rounded-xl py-2.5 px-4 font-medium",
-                            "transition-all duration-200 ease-in-out",
-                            "flex items-center"
+                            'bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80',
+                            'text-white shadow-lg shadow-pumpkin-orange/20',
+                            'hover:translate-y-[-2px] hover:shadow-xl',
+                            'focus:ring-pumpkin-orange/50',
+                            'active:translate-y-[1px] active:shadow-md',
+                            'rounded-xl py-2.5 px-4 font-medium',
+                            'transition-all duration-200 ease-in-out',
+                            'flex items-center',
                         )}
                     >
                         <IconAdd className="w-5 h-5 mr-2" />
                         {t('Nueva Clave API')}
                     </button>
                 ) : (
-                    <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm shadow-md">
+                    <div
+                        className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm shadow-md">
                         <h3 className="text-lg font-medium mb-3">{t('Crear Nueva Clave API')}</h3>
                         <form className="space-y-4">
                             <InputWithLabel
@@ -212,38 +216,38 @@ const UseraApiKeysForm: React.FC<UseraApiKeysFormProps> = ({ uuid, onSuccess, on
                                 // helpText={t('Un nombre descriptivo para identificar el propósito de esta clave')}
                                 error={errors.name?.message}
                                 inputProps={{
-                                    ...register('name', { 
+                                    ...register('name', {
                                         required: t('El nombre es requerido'),
-                                        minLength: { 
-                                            value: 3, 
-                                            message: t('El nombre debe tener al menos 3 caracteres')
-                                        }
+                                        minLength: {
+                                            value: 3,
+                                            message: t('El nombre debe tener al menos 3 caracteres'),
+                                        },
                                     }),
-                                    placeholder: t('Ej: Integración con CRM')
+                                    placeholder: t('Ej: Integración con CRM'),
                                 }}
                             />
-                            
+
                             <InputWithLabel
                                 id="apikey-expires"
                                 label={t('Días de validez')}
                                 // helpText={t('Número de días antes de que expire la clave')}
                                 error={errors.expiresInDays?.message}
                                 inputProps={{
-                                    ...register('expiresInDays', { 
+                                    ...register('expiresInDays', {
                                         required: t('Los días de validez son requeridos'),
-                                        min: { 
-                                            value: 1, 
-                                            message: t('La validez mínima es de 1 día')
+                                        min: {
+                                            value: 1,
+                                            message: t('La validez mínima es de 1 día'),
                                         },
-                                        max: { 
-                                            value: 365, 
-                                            message: t('La validez máxima es de 365 días')
+                                        max: {
+                                            value: 365,
+                                            message: t('La validez máxima es de 365 días'),
                                         },
                                     }),
                                     type: 'number',
                                 }}
                             />
-                            
+
                             <div className="flex justify-end pt-2 space-x-3">
                                 <button
                                     type="button"
@@ -252,19 +256,19 @@ const UseraApiKeysForm: React.FC<UseraApiKeysFormProps> = ({ uuid, onSuccess, on
                                 >
                                     {t('Cancelar')}
                                 </button>
-                                
+
                                 <Button
                                     type="button"
                                     disabled={apiKeysApi.isLoading}
                                     className={cn(
-                                        "bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80",
-                                        "text-white shadow-lg shadow-pumpkin-orange/20",
-                                        "hover:translate-y-[-2px] hover:shadow-xl",
-                                        "focus:ring-pumpkin-orange/50",
-                                        "active:translate-y-[1px] active:shadow-md",
-                                        "rounded-xl py-2.5 px-4 font-medium",
-                                        "transition-all duration-200 ease-in-out",
-                                        "flex items-center"
+                                        'bg-gradient-to-r from-pumpkin-orange to-pumpkin-orange/80',
+                                        'text-white shadow-lg shadow-pumpkin-orange/20',
+                                        'hover:translate-y-[-2px] hover:shadow-xl',
+                                        'focus:ring-pumpkin-orange/50',
+                                        'active:translate-y-[1px] active:shadow-md',
+                                        'rounded-xl py-2.5 px-4 font-medium',
+                                        'transition-all duration-200 ease-in-out',
+                                        'flex items-center',
                                     )}
                                     onClick={handleSubmit(createApiKey)}
                                 >
@@ -306,7 +310,7 @@ const UseraApiKeysForm: React.FC<UseraApiKeysFormProps> = ({ uuid, onSuccess, on
                             cell: (row) => (
                                 <ConfirmationTooltip
                                     confirmationMessage={t(
-                                        '¿Está seguro que desea revocar esta clave API? Esta acción no se puede deshacer.'
+                                        '¿Está seguro que desea revocar esta clave API? Esta acción no se puede deshacer.',
                                     )}
                                     onConfirm={() => revokeApiKey(row.uuid)}
                                     confirmText={t('Revocar')}
@@ -329,7 +333,8 @@ const UseraApiKeysForm: React.FC<UseraApiKeysFormProps> = ({ uuid, onSuccess, on
                     paginationPerPage={5}
                     paginationDefaultPage={1}
                     noDataComponent={
-                        <div className="p-4 text-center text-gray-500">{t('No hay claves API disponibles para este usuario')}</div>
+                        <div
+                            className="p-4 text-center text-gray-500">{t('No hay claves API disponibles para este usuario')}</div>
                     }
                 />
             </div>
