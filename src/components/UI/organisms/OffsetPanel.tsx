@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useRef, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
-import { useQueryParams } from '../../../hooks/useQueryParams';
+import { useOffsetPanel } from '../../../context/OffsetPanelContext';
 import { cn } from '../../../lib/utils';
 import { IconChevronLeft, IconClose, IconMenu } from '../Icons';
 
@@ -64,50 +64,45 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
     onClose,
     lazy = true,
 }) => {
-    // Use useQueryParams to manage state in URL
-    const { value: panelStateParam, setValue: setPanelState } = useQueryParams<string>(`${panelId}_open`);
-
-    // Determine initial state based on URL or defaultOpen
-    const initialIsOpen = persistState
-        ? panelStateParam === 'true' || (panelStateParam === null && defaultOpen)
-        : defaultOpen;
-
-    const [isOpen, setIsOpen] = useState(initialIsOpen);
-    const [width, setWidth] = useState<number | undefined>(undefined);
+    // Use context to manage panel state
+    const { 
+        registerPanel, 
+        unregisterPanel, 
+        openPanel, 
+        closePanel,
+        setPanelWidth,
+        getPanelState,
+        isTopMostPanel
+    } = useOffsetPanel();
+    
     const [isDragging, setIsDragging] = useState(false);
     const panelRef = useRef<HTMLDivElement>(null);
     const startPosRef = useRef<number>(0);
     const startWidthRef = useRef<number>(0);
-    const previousIsOpenRef = useRef(initialIsOpen);
 
-    // Sync state changes with URL
+    // Register panel with context on mount
     useEffect(() => {
-        if (persistState) {
-            setPanelState(isOpen ? 'true' : 'false', true); // true for replaceState
-        }
-
-        // Execute callbacks when state changes
-        if (isOpen !== previousIsOpenRef.current) {
-            if (isOpen && onOpen) {
-                onOpen();
-            } else if (!isOpen && onClose) {
-                onClose();
-            }
-            previousIsOpenRef.current = isOpen;
-        }
-    }, [isOpen, persistState, setPanelState, onOpen, onClose]);
-
-    const openPanel = () => setIsOpen(true);
-    const closePanel = () => setIsOpen(false);
-
+        registerPanel(panelId, position, persistState, defaultOpen, onOpen, onClose);
+        
+        return () => {
+            unregisterPanel(panelId);
+        };
+    }, [panelId, position, persistState, defaultOpen]);
+    
+    // Get current panel state from context
+    const panelState = getPanelState(panelId);
+    const isOpen = panelState?.isOpen || false;
+    const zIndex = panelState?.zIndex || 40;
+    const width = panelState?.width;
+    
     // Calculate initial width (50% on large screens, 80% on small)
     useEffect(() => {
         if (isOpen && !width) {
             const windowWidth = window.innerWidth;
             const initialWidth = windowWidth >= 1024 ? windowWidth * 0.5 : windowWidth * 0.8;
-            setWidth(initialWidth);
+            setPanelWidth(panelId, initialWidth);
         }
-    }, [isOpen, width]);
+    }, [isOpen, width, panelId, setPanelWidth]);
 
     // Drag handling
     const handleMouseDown = (e: React.MouseEvent) => {
@@ -128,7 +123,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
                     ? Math.max(300, Math.min(window.innerWidth * 0.9, startWidthRef.current + delta))
                     : Math.max(300, Math.min(window.innerWidth * 0.9, startWidthRef.current - delta));
 
-            setWidth(newWidth);
+            setPanelWidth(panelId, newWidth);
         };
 
         const handleMouseUp = () => {
@@ -144,21 +139,20 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [isDragging, position]);
+    }, [isDragging, position, panelId, setPanelWidth]);
 
-    // Handle changes to defaultOpen prop
-    useEffect(() => {
-        if (defaultOpen !== isOpen) {
-            setIsOpen(defaultOpen);
-        }
-    }, [defaultOpen]);
+    const handleOpenPanel = () => openPanel(panelId);
+    const handleClosePanel = () => closePanel(panelId);
+    
+    // Is this panel the topmost?
+    const isTopmostPanel = isTopMostPanel(panelId);
 
     return (
         <>
             {/* Button to open panel */}
             <button
                 type='button'
-                onClick={openPanel}
+                onClick={handleOpenPanel}
                 className={cn(
                     'btn btn-outline inline-flex items-center justify-center gap-2',
                     'text-sm font-medium transition-all duration-200 ease-in-out',
@@ -177,7 +171,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
 
             {/* Sliding panel */}
             <Transition.Root show={isOpen} as={React.Fragment}>
-                <Dialog as='div' className='relative z-40' onClose={closePanel}>
+                <Dialog as='div' className='relative' style={{ zIndex }} onClose={handleClosePanel}>
                     <Transition.Child
                         as={React.Fragment}
                         enter='ease-out duration-300'
@@ -186,7 +180,10 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
                         leave='ease-in duration-200'
                         leaveFrom='opacity-100'
                         leaveTo='opacity-0'>
-                        <div className='fixed inset-0 bg-gray-500/75 dark:bg-black/80 backdrop-blur-sm transition-opacity' />
+                        <div className={cn(
+                            'fixed inset-0 bg-gray-500/75 dark:bg-black/80 backdrop-blur-sm transition-opacity',
+                            !isTopmostPanel && 'pointer-events-none'
+                        )} />
                     </Transition.Child>
 
                     <div className='fixed inset-0 overflow-hidden'>
@@ -256,7 +253,7 @@ export const OffsetPanel: React.FC<OffsetPanelProps> = ({
                                                         'transition-all duration-200 ease-in-out',
                                                         'hover:translate-y-[-1px]',
                                                     )}
-                                                    onClick={closePanel}
+                                                    onClick={handleClosePanel}
                                                     aria-label='Close panel'>
                                                     <IconClose className='h-5 w-5' />
                                                 </button>
