@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import { GetApiUsersListOrderEnum, User, UserBasic, UserList, UsersApi } from '../../api-generated/api';
 import { Restricted } from '../../components/UI/atoms/Restricted';
-import { IconAdd, IconEdit, IconRefresh } from '../../components/UI/Icons';
+import { IconAdd, IconRefresh } from '../../components/UI/Icons';
 import { SearchButton } from '../../components/UI/molecules/SearchButton';
-import { OffsetPanel } from '../../components/UI/organisms/OffsetPanel';
 import { usePermission } from '../../context/PermissionContext';
 import UserForm from '../../domain/admin/Users/components/UserForm';
 import { useApi } from '../../hooks/useApi';
+import useOffsetPanelCreator from '../../hooks/useOffsetPanelCreator';
 import { useTheme } from '../../hooks/useTheme';
 
 // Componente principal de la página de usuarios
@@ -48,6 +48,29 @@ const UsersPage: React.FC = () => {
             setLoading(false);
         }
     };
+    
+    
+    const newUserPanel = useOffsetPanelCreator({
+        title: 'New User',
+        position: 'right',
+        buttonIcon: IconAdd,
+        buttonClassName: 'btn btn-outline',
+        panelId: 'new-user-panel',
+        persistState: false,
+        defaultOpen: false,
+        children: <UserForm onSuccess={() => {
+            loadUsers();
+            newUserPanel.closePanel();
+        }} />
+    });
+    
+    
+    const editUserPanel = useOffsetPanelCreator({
+        title: 'Edit User',
+        position: 'right',
+        defaultOpen: false,
+        persistState: false,
+    });
 
     // Combinar los dos efectos en uno solo
     useEffect(() => {
@@ -103,35 +126,23 @@ const UsersPage: React.FC = () => {
                 if (!row.roles || row.roles.length === 0) return '-';
                 return row.roles.join(', ');
             },
+            cell: (row: User) => {
+                if (!row.roles || row.roles.length === 0) return '-';
+                return row.roles.map((role) => (
+                    <span key={role} className='badge badge-primary mr-1 p-1 bg-blue-400 rounded dark:text-dark-800 truncate' title={role}>
+                        {role}
+                    </span>
+                ));
+            }
         },
-        ...[
-            hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')
-                ? {
-                      name: t('Actions'),
-                      cell: (row: User) => (
-                          <OffsetPanel
-                              buttonPosition='inline'
-                              buttonClassName='p-2 text-gray-500 hover:text-blue-600 transition-colors !bg-transparent border rounded shadow'
-                              buttonText={''}
-                              title={t('Editar usuario')}
-                              buttonIcon={IconEdit}
-                              buttonIconClassName='w-5 h-5'
-                              panelId={`user_${row.uuid}`}>
-                              <UserForm userData={row} onSuccess={loadUsers} />
-                          </OffsetPanel>
-                      ),
-                      selector: (row: User) => row.uuid || '',
-                  }
-                : {},
-        ],
     ];
 
     return (
         <div className='container mx-auto px-4 py-8'>
+            {editUserPanel.renderPanel()}
             <div className='mb-6 flex justify-between items-center'>
                 <h1 className='text-2xl font-bold'>Gestión de Usuarios</h1>
             </div>
-
             <div className='mb-4 flex justify-end items-center space-x-1'>
                 <div className='relative w-full max-w-md'>
                     <SearchButton
@@ -143,16 +154,7 @@ const UsersPage: React.FC = () => {
                     />
                 </div>
                 <Restricted roles={['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']}>
-                    <OffsetPanel
-                        buttonPosition='inline'
-                        buttonClassName='btn btn-outline'
-                        buttonText={''}
-                        title={t('Crear usuario')}
-                        buttonIcon={IconAdd}
-                        buttonIconClassName='w-5 h-5'
-                        panelId='new_user'>
-                        <UserForm onSuccess={loadUsers} />
-                    </OffsetPanel>
+                    {newUserPanel.renderPanelButton()}
                 </Restricted>
                 <button className='btn btn-outline' onClick={loadUsers} title='Actualizar'>
                     <IconRefresh size={20} />
@@ -178,6 +180,23 @@ const UsersPage: React.FC = () => {
                     noDataComponent={
                         <div className='p-4 text-center text-gray-500'>{t('No hay usuarios disponibles')}</div>
                     }
+                    highlightOnHover
+                    pointerOnHover
+                    striped
+                    dense
+                    onRowClicked={(row) => {
+                        if (!hasRole('ROLE_ADMIN') || !hasRole('ROLE_SUPER_ADMIN')) {
+                            return;
+                        }
+                        if (editUserPanel.isOpen) {
+                            editUserPanel.closePanel();
+                        } else {
+                            editUserPanel.openPanel();
+                        }
+                        editUserPanel.setContent(
+                            <UserForm userData={row} onSuccess={loadUsers} />,
+                        );
+                    }}
                 />
             </div>
         </div>

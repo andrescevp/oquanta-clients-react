@@ -5,7 +5,7 @@ import { ImPageBreak } from 'react-icons/im';
 import { IoRadioButtonOn, IoText } from 'react-icons/io5';
 import { RiInputMethodLine } from 'react-icons/ri';
 import { TbLoader3, TbSection } from 'react-icons/tb';
-import { VscAdd, VscClose, VscSymbolNumeric } from 'react-icons/vsc';
+import { VscClose, VscSymbolNumeric } from 'react-icons/vsc';
 
 import {
     AlertCircle,
@@ -94,7 +94,7 @@ export const IconDrag = GrDrag;
 
 export const IconClose = VscClose;
 
-export const IconAdd = VscAdd;
+export const IconAdd = PlusIcon;
 
 export const IconEdit = FilePenLine;
 

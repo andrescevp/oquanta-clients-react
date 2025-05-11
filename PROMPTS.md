@@ -33,7 +33,7 @@ Strings displayed to the user are translated with `useTranslation` and always us
 Components must have interfaces and related types in the same file as the Component. 
 All components documentation and comments must be in English.
 # Development best practices to follow
-- Always type properly all properties
+- Always type properly all properties, use minimal key line comments
 - Never use the same constant or variable name in component
 - Use best practices and performant code
 # Forms

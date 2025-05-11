@@ -40,7 +40,8 @@ type OffsetPanelAction =
     | { type: 'UNREGISTER_PANEL'; payload: { id: string } }
     | { type: 'OPEN_PANEL'; payload: { id: string } }
     | { type: 'CLOSE_PANEL'; payload: { id: string } }
-    | { type: 'SET_PANEL_WIDTH'; payload: { id: string; width: number } };
+    | { type: 'SET_PANEL_WIDTH'; payload: { id: string; width: number } }
+    | { type: 'UPDATE_PANEL_CONFIG'; payload: { id: string; updates: Partial<Omit<RegisteredPanel, 'id' | 'isOpen' | 'zIndex'>> } };
 
 /**
  * Public context interface
@@ -58,6 +59,7 @@ interface OffsetPanelContextValue {
     openPanel: (id: string) => void;
     closePanel: (id: string) => void;
     setPanelWidth: (id: string, width: number) => void;
+    updatePanelConfig: (id: string, updates: Partial<Omit<RegisteredPanel, 'id' | 'isOpen' | 'zIndex'>>) => void;
     getPanelState: (id: string) => {
         isOpen: boolean;
         zIndex: number;
@@ -66,6 +68,8 @@ interface OffsetPanelContextValue {
     } | undefined;
     isTopMostPanel: (id: string) => boolean;
     getOpenPanelsCount: () => number;
+    getPanels: () => RegisteredPanel[];
+    togglePanel: (id: string) => void;
 }
 
 // Initial state
@@ -194,6 +198,16 @@ function offsetPanelReducer(state: OffsetPanelContextState, action: OffsetPanelA
                 ...state,
                 panels: state.panels.map(panel => 
                     panel.id === id ? { ...panel, width } : panel
+                ),
+            };
+        }
+
+        case 'UPDATE_PANEL_CONFIG': {
+            const { id, updates } = action.payload;
+            return {
+                ...state,
+                panels: state.panels.map(panel => 
+                    panel.id === id ? { ...panel, ...updates } : panel
                 ),
             };
         }
@@ -400,12 +414,39 @@ export const OffsetPanelProvider: React.FC<{ children: React.ReactNode }> = ({ c
             }
         }
     }, [state.panels]);
+    
+    /**
+     * Toggle panel open/close state
+     */
+    const togglePanel = useCallback((id: string) => {
+        const panel = state.panels.find(p => p.id === id);
+        if (panel) {
+            if (panel.isOpen) {
+                closePanel(id);
+            } else {
+                openPanel(id);
+            }
+        }
+    }, [state.panels, closePanel, openPanel]);
 
     /**
      * Set panel width
      */
     const setPanelWidth = useCallback((id: string, width: number) => {
         dispatch({ type: 'SET_PANEL_WIDTH', payload: { id, width } });
+    }, []);
+    
+    /**
+     * Update panel configuration
+     */
+    const updatePanelConfig = useCallback((
+        id: string, 
+        updates: Partial<Omit<RegisteredPanel, 'id' | 'isOpen' | 'zIndex'>>
+    ) => {
+        dispatch({
+            type: 'UPDATE_PANEL_CONFIG',
+            payload: { id, updates }
+        });
     }, []);
 
     /**
@@ -425,6 +466,13 @@ export const OffsetPanelProvider: React.FC<{ children: React.ReactNode }> = ({ c
         },
         [state.panels]
     );
+    
+    /**
+     * Get all registered panels
+     */
+    const getPanels = useCallback(() => {
+        return state.panels;
+    }, [state.panels]);
 
     /**
      * Check if panel is the topmost one
@@ -456,9 +504,12 @@ export const OffsetPanelProvider: React.FC<{ children: React.ReactNode }> = ({ c
         openPanel,
         closePanel,
         setPanelWidth,
+        updatePanelConfig,
         getPanelState,
         isTopMostPanel,
         getOpenPanelsCount,
+        getPanels,
+        togglePanel,
     };
 
     return <OffsetPanelContext.Provider value={value}>{children}</OffsetPanelContext.Provider>;

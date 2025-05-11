@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { KeyIcon } from 'lucide-react';
+
 import { User, UserCreate, UserInvitationsApi, UsersApi, UserUpdate } from '../../../../api-generated/api';
 import { IconMailCheck, IconSave } from '../../../../components/UI/Icons';
 import ButtonLoader from '../../../../components/UI/molecules/ButtonLoder';
@@ -9,6 +11,7 @@ import { ConfirmationTooltip } from '../../../../components/UI/molecules/Confirm
 import InputWithLabel from '../../../../components/UI/molecules/InputWithLabel';
 import { usePermission } from '../../../../context/PermissionContext';
 import { useApi } from '../../../../hooks/useApi';
+import useOffsetPanelCreator from '../../../../hooks/useOffsetPanelCreator';
 import { cn } from '../../../../lib/utils';
 import UseraApiKeysForm from './UseraApiKeysForm';
 
@@ -45,6 +48,7 @@ const UserForm: React.FC<UserFormProps> = ({ uuid, userData, onSuccess, onCancel
         setValue,
         watch,
         formState: { errors },
+        reset
     } = useForm<FormValues>({
         defaultValues: userData
             ? {
@@ -62,7 +66,18 @@ const UserForm: React.FC<UserFormProps> = ({ uuid, userData, onSuccess, onCancel
     });
 
     const watchedRoles = watch('roles');
-    const email = watch('email');
+    const email = watch('email');       
+        
+    const apiKeysPanel = useOffsetPanelCreator({
+        title: 'Api Keys',
+        position: 'right',
+        buttonIcon: KeyIcon,
+        buttonClassName: 'btn btn-outline',
+        buttonText: t('API Keys'),
+        panelId: 'api-keys-panel',
+        defaultOpen: false,
+        children: userData?.uuid && <UseraApiKeysForm uuid={userData?.uuid} />
+    });
 
     // Manejar cambios en los roles seleccionados
     const handleRoleToggle = (roleId: string) => {
@@ -119,6 +134,7 @@ const UserForm: React.FC<UserFormProps> = ({ uuid, userData, onSuccess, onCancel
                     roles: data.roles,
                 };
                 await usersApi.call('putApiUsersUpdate', userData.uuid, updateData);
+                reset(updateData);
             } else {
                 // Crear nuevo usuario
                 const createData: UserCreate = {
@@ -128,6 +144,7 @@ const UserForm: React.FC<UserFormProps> = ({ uuid, userData, onSuccess, onCancel
                     roles: data.roles,
                 };
                 await usersApi.call('postApiUsersCreate', createData);
+                reset();
             }
 
             if (onSuccess) {
@@ -257,11 +274,9 @@ const UserForm: React.FC<UserFormProps> = ({ uuid, userData, onSuccess, onCancel
                     )}
                 </div>
 
-                {userData?.uuid && <UseraApiKeysForm uuid={userData?.uuid} />}
-
                 {/* Botones de acción */}
-                <div className="flex flex-wrap justify-between items-center gap-3">
-                    <div className="flex gap-2">
+                <div className="flex items-center space-x-2">
+                    <div className="flex space-x-2">
                         {userData?.uuid && (
                             <>
                                 <ConfirmationTooltip
@@ -310,7 +325,8 @@ const UserForm: React.FC<UserFormProps> = ({ uuid, userData, onSuccess, onCancel
                         )}
                     </div>
 
-                    <div className="ml-auto">
+                    <div className="flex space-x-2">
+                        {apiKeysPanel.renderPanelButton()}
                         <ButtonLoader
                             type="submit"
                             disabled={loading}
